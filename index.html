@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>iDreams Apps — Official app-ads.txt & Developer Portfolio</title>
+  <title>iDreams Game Studio — Mobile FPS & Simulation Games</title>
 
-  <meta name="description" content="Official app-ads.txt hosting and portfolio for iDreams mobile games. View our apps, verify authorized ad partners, and contact our team for business inquiries." />
+  <meta name="description" content="iDreams is a mobile game studio focused on high-quality FPS and simulation games. Discover our titles, tech stack, and contact us for publishing and partnerships." />
 
   <!-- Open Graph / Social -->
-  <meta property="og:title" content="iDreams Apps — Official app-ads.txt" />
-  <meta property="og:description" content="Official app-ads.txt host and portfolio for iDreams mobile games on Google Play." />
+  <meta property="og:title" content="iDreams Game Studio — Official Site" />
+  <meta property="og:description" content="Discover iDreams mobile games, portfolio, and partnership opportunities." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://interactivedreams.store/" />
-  <!-- Set your real preview image here -->
-  <meta property="og:image" content="https://interactivedreams.store/og-image.png" />
+  <meta property="og:url" content="https://your-domain.com/" />
+  <!-- Optional: replace with your own image -->
+  <meta property="og:image" content="https://your-domain.com/og-image.png" />
 
   <meta name="theme-color" content="#0f172a" />
 
@@ -270,16 +270,14 @@
       color: var(--text-muted);
     }
 
-    /* CODE CARD */
-    .code-card {
+    /* SHOWCASE CARD */
+    .showcase-card {
       background: radial-gradient(circle at top left, #0b1120, #020617);
       border-radius: var(--radius-lg);
       border: 1px solid rgba(55, 65, 81, 0.95);
       box-shadow: var(--shadow-soft);
-      padding: 14px 16px 16px;
-      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-        "Courier New", monospace;
-      font-size: 11px;
+      padding: 16px 18px 18px;
+      font-size: 12px;
       color: #e5e7eb;
       position: relative;
       overflow: hidden;
@@ -287,72 +285,65 @@
       will-change: transform;
     }
 
-    .code-header {
+    .showcase-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
-    }
-
-    .code-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      opacity: 0.9;
-    }
-
-    .dot.red {
-      background: #f97373;
-    }
-    .dot.yellow {
-      background: #facc6b;
-    }
-    .dot.green {
-      background: #6ee7b7;
-    }
-
-    .code-filename {
       font-size: 11px;
       color: var(--text-muted);
     }
 
-    .code-body {
+    .tag-pill {
+      font-size: 10px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .showcase-body {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 10px;
+    }
+
+    .showcase-title {
+      font-size: 13px;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .showcase-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .showcase-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .timeline {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+      font-size: 11px;
       background: #020617;
       border-radius: 10px;
       border: 1px solid rgba(31, 41, 55, 0.9);
       padding: 10px 12px;
-      overflow-x: auto;
-      max-height: 220px;
     }
 
-    .token-comment {
-      color: #6b7280;
+    .timeline-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
     }
-    .token-key {
+
+    .timeline-row span:first-child {
       color: #38bdf8;
-    }
-    .token-value {
-      color: #facc6b;
-    }
-    .token-type {
-      color: #a78bfa;
-    }
-
-    .code-tag {
-      position: absolute;
-      bottom: 10px;
-      right: 14px;
-      font-size: 10px;
-      color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.85);
-      border-radius: 999px;
-      padding: 3px 8px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
     }
 
     /* SCROLL REVEAL BASE */
@@ -385,7 +376,7 @@
       max-width: 620px;
     }
 
-    /* APPS GRID */
+    /* GAMES GRID */
     .apps-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -444,7 +435,7 @@
       background: rgba(15, 23, 42, 0.9);
     }
 
-    /* TRANSPARENCY / FEATURES */
+    /* STACK / WHAT WE DO */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -642,6 +633,10 @@
       .hero-grid {
         grid-template-columns: minmax(0, 1fr);
       }
+
+      .showcase-body {
+        grid-template-columns: minmax(0,1fr);
+      }
     }
   </style>
 </head>
@@ -651,21 +646,22 @@
       <div class="logo">
         <div class="logo-mark">iD</div>
         <div>
-          <div class="logo-text-main">iDreams Apps</div>
-          <div class="logo-text-sub">Games • Monetization • Transparency</div>
+          <div class="logo-text-main">iDreams Game Studio</div>
+          <div class="logo-text-sub">Mobile FPS • Simulation • LiveOps</div>
         </div>
       </div>
 
       <div class="nav-links">
-        <a href="#apps">Apps</a>
-        <a href="#ads">Monetization</a>
+        <a href="#games">Games</a>
+        <a href="#studio">Studio</a>
+        <a href="#tech">Tech</a>
         <a href="#contact">Contact</a>
         <a
           href="https://play.google.com/store/apps/dev?id=5216659181727146131"
           target="_blank"
           class="btn-ghost"
         >
-          Google Play Profile
+          Google Play
         </a>
       </div>
     </div>
@@ -679,120 +675,128 @@
           <div class="pill">
             <span class="pill-dot"></span>
             <span>
-              Verified
-              <strong>Google Play developer</strong> with authorized ad partners
+              Independent <strong>mobile game studio</strong> crafting
+              high-retention shooter &amp; simulation titles.
             </span>
           </div>
 
           <h1 class="hero-title">
-            Official <span class="gradient animate-gradient">app-ads.txt</span> host for
-            premium mobile games.
+            We build <span class="gradient animate-gradient">tight, satisfying</span> mobile games players keep installed.
           </h1>
 
           <p class="hero-subtitle">
-            iDreams builds high-quality shooter and simulation games for
-            millions of players worldwide. This page publishes our official
-            <strong>app-ads.txt</strong> to keep ad monetization
-            <strong>transparent and fraud-resistant</strong>.
+            iDreams focuses on fast, responsive FPS gunplay and accessible
+            simulation experiences. From prototype to live-ops, we ship
+            games that perform on real devices and real markets.
           </p>
 
           <div class="hero-actions">
-            <a href="/app-ads.txt" class="btn-primary" target="_blank">
-              View app-ads.txt
-            </a>
             <a
               href="https://play.google.com/store/apps/dev?id=5216659181727146131"
-              class="btn-ghost"
+              class="btn-primary"
               target="_blank"
             >
-              Open developer page
+              View all games on Google Play
+            </a>
+            <a href="#contact" class="btn-ghost">
+              Talk about publishing &amp; UA
             </a>
           </div>
 
           <div class="hero-note">
-            app-ads.txt is hosted at:
-            <code>https://your-domain.com/app-ads.txt</code><br />
-            Update this domain in your app stores to ensure your ads are
-            properly authorized.
+            Genres we love: <strong>FPS • Tactical Shooter • Parking / Traffic Jam • Casual Action</strong><br />
+            Platforms: Android (Google Play, alternative stores on request)
           </div>
         </div>
 
-        <!-- Code / Preview Card -->
-        <aside class="code-card reveal" data-delay="0.15s">
-          <div class="code-header">
-            <div class="code-dots">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
+        <!-- Showcase Card -->
+        <aside class="showcase-card reveal" data-delay="0.15s">
+          <div class="showcase-header">
+            <span class="tag-pill">Recent Production Snapshot</span>
+            <span>Fun — Offline Gun Shooting Games 3D</span>
+          </div>
+
+          <div class="showcase-body">
+            <div>
+              <div class="showcase-title">Live game, actively updated.</div>
+              <div class="showcase-text">
+                Offline-first FPS with rich gun feel, responsive controls and
+                level-based progression tuned for emerging markets and mid-range
+                devices.
+              </div>
+              <div class="showcase-meta">
+                Highlights: Aim-assist tuning, lightweight VFX, size-optimized
+                asset pipeline, rewarded entry points that respect session flow.
+              </div>
             </div>
-            <span class="code-filename">app-ads.txt</span>
+            <div class="timeline">
+              <div class="timeline-row">
+                <span>Prototype</span><span>4 weeks</span>
+              </div>
+              <div class="timeline-row">
+                <span>Soft launch</span><span>3 markets</span>
+              </div>
+              <div class="timeline-row">
+                <span>Core engine</span><span>Unity + custom FPS controller</span>
+              </div>
+              <div class="timeline-row">
+                <span>Live-ops</span><span>Content drops, difficulty tuning</span>
+              </div>
+            </div>
           </div>
-
-          <div class="code-body">
-            <pre><span class="token-comment"># Official authorized digital sellers for iDreams apps</span>
-<span class="token-key">google.com</span>, <span class="token-value">pub-0000000000000000</span>, <span class="token-type">DIRECT</span>, <span class="token-value">f08c47fec0942fa0</span>
-<span class="token-key">appnexus.com</span>, <span class="token-value">0000</span>, <span class="token-type">RESELLER</span>
-<span class="token-key">inmobi.com</span>, <span class="token-value">0000</span>, <span class="token-type">DIRECT</span>
-
-<span class="token-comment"># Full file is served at /app-ads.txt</span></pre>
-          </div>
-
-          <div class="code-tag">Sample preview — not actual IDs</div>
         </aside>
       </div>
     </section>
 
-    <!-- APPS -->
-    <section id="apps" class="reveal" data-delay="0.05s">
-      <h2 class="section-title">Featured mobile games</h2>
+    <!-- GAMES -->
+    <section id="games" class="reveal" data-delay="0.05s">
+      <h2 class="section-title">Selected games</h2>
       <p class="section-subtitle">
-        A selection of titles published under our Google Play developer
-        account. All of these games rely on the same central app-ads.txt for
-        ad verification.
+        A snapshot of titles published under our Google Play developer account.
+        We handle UX, performance, content cadence and growth in-house.
       </p>
 
       <div class="apps-grid">
         <article class="app-card reveal" data-delay="0.05s">
-          <div class="app-pill">Shooter • Offline</div>
+          <div class="app-pill">FPS • Offline</div>
           <div class="app-title">Fun — Offline Gun Shooting Games 3D</div>
           <div class="app-meta">
             Package: <code>com.id.fps.gun.shooting.games</code><br />
-            Platform: Android • Store: Google Play
+            Focus: low-latency controls, auto-fire modes, quick sessions.
           </div>
           <div class="app-footer">
-            <span class="app-badge">Action / FPS</span>
-            <span>Ad-supported with rewarded &amp; interstitial formats</span>
+            <span class="app-badge">Mid-core</span>
+            <span>Built for low &amp; mid devices</span>
           </div>
         </article>
 
         <article class="app-card reveal" data-delay="0.1s">
-          <div class="app-pill">Shooter • Campaign</div>
+          <div class="app-pill">FPS • Campaign</div>
           <div class="app-title">Main — FPS Shooting Game 3D Gun Games</div>
           <div class="app-meta">
             Package:
-            <code>com.idreams.fps.counter.attack.terrorist.shooting.games</code
-            ><br />
-            Platform: Android • Store: Google Play
+            <code>com.idreams.fps.counter.attack.terrorist.shooting.games</code><br />
+            Focus: story-driven missions, weapon unlocks, boss encounters.
           </div>
           <div class="app-footer">
             <span class="app-badge">Story / Campaign</span>
-            <span>Balanced monetization with IAP + ads</span>
+            <span>Content-based retention</span>
           </div>
         </article>
 
         <article class="app-card reveal" data-delay="0.15s">
-          <div class="app-pill">Shooter • Commando</div>
+          <div class="app-pill">FPS • Commando</div>
           <div class="app-title">Commando — FPS Gun Shooting Games Offline</div>
           <div class="app-meta">
             Package:
             <code
               >com.id.gungames.offline.strike.fps.shooting.counter.attack.terrorist.mission.fpscommando</code
             ><br />
-            Platform: Android • Store: Google Play
+            Focus: wave-based combat, enemy variety, difficulty curves.
           </div>
           <div class="app-footer">
             <span class="app-badge">Hardcore FPS</span>
-            <span>Optimized for low-end devices</span>
+            <span>For players who want a challenge</span>
           </div>
         </article>
 
@@ -802,53 +806,94 @@
           <div class="app-meta">
             Package: <code>com.parkinggames.drivinggame.pradocar.simulation</code
             ><br />
-            Platform: Android • Store: Google Play
+            Focus: smart level design, traffic logic, one-hand controls.
           </div>
           <div class="app-footer">
             <span class="app-badge">Casual / Puzzle</span>
-            <span>Session-based gameplay with light ads</span>
+            <span>Short levels, high replay</span>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- MONETIZATION / TRANSPARENCY -->
-    <section id="ads" class="reveal" data-delay="0.05s">
-      <h2 class="section-title">Monetization &amp; transparency</h2>
+    <!-- STUDIO -->
+    <section id="studio" class="reveal" data-delay="0.05s">
+      <h2 class="section-title">Studio focus</h2>
       <p class="section-subtitle">
-        We take ad quality, user experience, and brand-safety seriously.
-        app-ads.txt ensures that only <strong>authorized sellers</strong> can
-        monetize our inventory, reducing spoofing and invalid traffic.
+        We design around <strong>feel</strong>: input latency, shooting feedback,
+        collision clarity and camera work come first. Everything else supports
+        that core experience.
       </p>
 
       <div class="features">
         <article class="feature-card reveal" data-delay="0.05s">
-          <div class="feature-icon">✓</div>
-          <div class="feature-title">Authorized sellers only</div>
+          <div class="feature-icon">🎮</div>
+          <div class="feature-title">Gameplay-first design</div>
           <p class="feature-text">
-            Networks and exchanges listed in our app-ads.txt are the only
-            platforms allowed to sell ad inventory for our apps. This protects
-            advertisers from spoofed traffic.
+            Every project starts with core loops. We iterate on movement,
+            aiming, recoil, hit feedback and level pacing before adding skins,
+            meta and UI polish.
           </p>
         </article>
 
         <article class="feature-card reveal" data-delay="0.12s">
-          <div class="feature-icon">⚡</div>
-          <div class="feature-title">Optimized ad experiences</div>
+          <div class="feature-icon">📈</div>
+          <div class="feature-title">Built to be iterated</div>
           <p class="feature-text">
-            We balance rewarded, interstitial, and banner placements to keep
-            gameplay smooth while still funding ongoing development and live
-            ops.
+            Analytics hooks, A/B-friendly configs and modular content systems
+            so we can quickly react to market data, reviews and device
+            performance.
           </p>
         </article>
 
         <article class="feature-card reveal" data-delay="0.18s">
-          <div class="feature-icon">🔐</div>
-          <div class="feature-title">Brand-safe integrations</div>
+          <div class="feature-icon">🌍</div>
+          <div class="feature-title">Global, but tuned for real devices</div>
           <p class="feature-text">
-            We work with established monetization partners and follow
-            industry standards (app-ads.txt, OpenRTB signals, etc.) to make
-            our inventory safer and more predictable for demand partners.
+            Texture budgets, draw calls and asset sizes are planned knowing
+            many of our players are not on flagship phones. Smooth play is a
+            core requirement.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TECH / PIPELINE -->
+    <section id="tech" class="reveal" data-delay="0.05s">
+      <h2 class="section-title">Technology &amp; pipeline</h2>
+      <p class="section-subtitle">
+        Our stack is optimized around <strong>fast iteration</strong> and
+        <strong>small team efficiency</strong>, from editor tooling to release
+        automation.
+      </p>
+
+      <div class="features">
+        <article class="feature-card reveal" data-delay="0.05s">
+          <div class="feature-icon">🧩</div>
+          <div class="feature-title">Engine &amp; tools</div>
+          <p class="feature-text">
+            Unity-based pipeline with custom FPS controller, input handling,
+            pooled VFX and internal tools for wave design, level sequencing and
+            difficulty curves.
+          </p>
+        </article>
+
+        <article class="feature-card reveal" data-delay="0.12s">
+          <div class="feature-icon">⚙️</div>
+          <div class="feature-title">Build &amp; release automation</div>
+          <p class="feature-text">
+            Project structure ready for CI, consistent versioning and release
+            notes, multi-track publishing and staged rollouts on Google Play.
+          </p>
+        </article>
+
+        <article class="feature-card reveal" data-delay="0.18s">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Analytics &amp; LiveOps ready</div>
+          <p class="feature-text">
+            Event hooks for funnels (onboarding, level completion, weapon
+            unlocks), along with configurations that can be tuned without
+            shipping heavy updates.
           </p>
         </article>
       </div>
@@ -856,24 +901,22 @@
 
     <!-- CONTACT -->
     <section id="contact" class="reveal" data-delay="0.05s">
-      <h2 class="section-title">Business &amp; ad partnership inquiries</h2>
+      <h2 class="section-title">Let’s work together</h2>
       <p class="section-subtitle">
-        For direct deals, user acquisition campaigns, or technical questions
-        about app-ads.txt and authorized sellers, you can reach our team
-        using the details below.
+        Open to discussions around <strong>publishing, UA partnerships,
+        co-development and porting</strong> existing titles to new markets.
       </p>
 
       <div class="contact-card">
         <div class="contact-main">
-          <strong>iDreams Apps</strong><br />
-          Mobile game developer &amp; publisher on Google Play.<br /><br />
-          We are open to performance-based UA, cross-promotion, and network
-          optimization tests across our portfolio of FPS and simulation
-          titles.
+          <strong>iDreams Game Studio</strong><br />
+          Mobile shooter &amp; simulation specialists.<br /><br />
+          If you are a publisher, network, UA team or platform interested in
+          high-retention FPS or simulation games, we’d love to connect.
         </div>
 
         <div class="contact-links">
-          <!-- TODO: replace the email with your real business inbox -->
+          <!-- Replace with your real email -->
           <a href="mailto:business@your-domain.com">
             <span class="icon">@</span>
             <span>business@your-domain.com</span>
@@ -892,20 +935,19 @@
     <!-- FOOTER -->
     <footer class="reveal" data-delay="0.05s">
       <span>
-        <span>&copy; <span id="year"></span> iDreams Apps.</span>
+        <span>&copy; <span id="year"></span> iDreams Game Studio.</span>
         <span>All rights reserved.</span>
       </span>
       <span>
         <span class="dot-status"></span>
-        <span>app-ads.txt status: live</span>
+        <span>Currently active on Google Play</span>
       </span>
     </footer>
   </main>
 
   <script>
-    // Set current year in footer
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    // Set current year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
     // Scroll reveal with IntersectionObserver
     const observer = new IntersectionObserver(
