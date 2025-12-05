@@ -1,5 +1,7 @@
 ##Admob
 google.com, pub-9199513813375602, DIRECT, f08c47fec0942fa0
+##Meta
+facebook.com, 957011001464275, Direct, c3e20eee3f780d68
 ##Applovin
 applovin.com, 23b528be3bf3d2e0ac7c84f1f80c7459, DIRECT
 adyoulike.com, 2d578cf695c89ec2ba707280319d2020, RESELLER
