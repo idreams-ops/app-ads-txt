@@ -1,5 +1,4 @@
-# Interactive Dreams Inc – Authorized Digital Sellers
-# Last Updated: 2025-12-05 14:00 PKT
+# Last Updated:
 ##Admob
 google.com, pub-9199513813375602, DIRECT, f08c47fec0942fa0
 ##Applovin
