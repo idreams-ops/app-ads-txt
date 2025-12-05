@@ -1,9 +1,7 @@
 # Interactive Dreams Inc – Authorized Digital Sellers
 # Last Updated: 2025-12-05 14:00 PKT
-
 ##Admob
 google.com, pub-9199513813375602, DIRECT, f08c47fec0942fa0
-
 ##Applovin
 applovin.com, 23b528be3bf3d2e0ac7c84f1f80c7459, DIRECT
 adyoulike.com, 2d578cf695c89ec2ba707280319d2020, RESELLER
@@ -43,7 +41,6 @@ xandr.com, 13799, RESELLER
 xandr.com, 14082, RESELLER
 yieldmo.com, 3591550211052216798, RESELLER, 6a92c77cfc3d2258
 zmaticoo.com, 5135655, RESELLER
-
 ## Mintegral
 mintegral.com, 33086, DIRECT, 0aeed750c80d6423
 pokkt.com, 7139, RESELLER, c45702d9311e25fd
@@ -838,7 +835,6 @@ rubiconproject.com, 25692, RESELLER, 0bfd66d529a55807
 adagio.io, 1280, RESELLER
 improvedigital.com, 2625, RESELLER
 adagio.io, 1581, RESELLER
-
 ## Liftoff
 vungle.com,641986d32c8bd90014f05282,DIRECT,c107d686becd2d77
 33across.com,001Pg0000197KcKIAU,RESELLER,bbea06d9c4d2853c
@@ -1274,7 +1270,6 @@ zmaticoo.com,5135063,RESELLER
 zmaticoo.com,5135224,RESELLER
 zmaticoo.com,5135302,RESELLER
 zoomd.com,88478941,RESELLER
-
 ## Inmobi Admob
 inmobi.com, 120e4a51d37647a4894dfab37ee3a9a5, DIRECT, 83e75a7ae333ca9d
 rubiconproject.com, 11726, RESELLER, 0bfd66d529a55807
@@ -1359,7 +1354,6 @@ gitberry.com, 335100012, RESELLER
 mman.kr, 32102, RESELLER
 acexchange.co.kr, 1562884725, RESELLER
 adingenious.com, 75036, RESELLER
-
 ## Unity
 sharethrough.com, r9B1MG7E, RESELLER, d53b998a7bd4ecd2
 sharethrough.com, FTVCT81v, RESELLER
@@ -1666,7 +1660,6 @@ lijit.com, 489963, RESELLER, fafdf38b16bf6b2b
 lijit.com, 481366, RESELLER, fafdf38b16bf6b2b
 lijit.com, 491737, RESELLER, fafdf38b16bf6b2b
 lijit.com, 503707, RESELLER, fafdf38b16bf6b2b
-
 ## Inmobi MAx
 inmobi.com, d909ff4a06de4cbcb182abebb045b0bd, DIRECT, 83e75a7ae333ca9d
 rubiconproject.com, 11726, RESELLER, 0bfd66d529a55807
