@@ -5,122 +5,276 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interactive Dreams LLC | FPS Game Studio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-body{margin:0;font-family:Poppins;background:#0b0e1a;color:#fff}
-a{text-decoration:none;color:#fff}
-
-/* NAV */
-nav{
-position:fixed;top:0;width:100%;
-padding:14px 60px;
-display:flex;justify-content:space-between;
-background:rgba(11,14,26,.92);
-z-index:1000
+/* =======================
+   GLOBAL / RESET
+======================= */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Poppins,system-ui;
+  background:#05060c;
+  color:#fff;
+  overflow-x:hidden;
 }
-nav img{height:40px;object-fit:contain}
-nav a{margin-left:24px;font-weight:500}
+a{text-decoration:none;color:inherit}
 
-/* HERO */
+/* =======================
+   ANIMATED BACKGROUND
+======================= */
+.bg-animated{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, #ff475720, transparent 40%),
+    radial-gradient(circle at 80% 60%, #6c5ce720, transparent 45%),
+    linear-gradient(120deg, #05060c, #090b1a, #05060c);
+  background-size:200% 200%;
+  animation:bgMove 18s ease infinite;
+  z-index:-2;
+}
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* =======================
+   NAV
+======================= */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  padding:16px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(5,6,12,.7);
+  backdrop-filter:blur(14px);
+  z-index:999;
+}
+nav img{height:40px}
+nav a{
+  margin-left:28px;
+  font-weight:500;
+  opacity:.85;
+  transition:.3s;
+}
+nav a:hover{opacity:1;color:#ff4757}
+
+/* =======================
+   HERO
+======================= */
 header{
-height:100vh;
-background:
-linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.85)),
-url("images/hero-bg.jpg") center/cover fixed;
-display:flex;align-items:center;justify-content:center;
-text-align:center;padding-top:80px
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:120px 20px 60px;
+  background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.9)),
+    url("images/hero-bg.jpg") center/cover no-repeat;
+}
+.hero{
+  animation:fadeUp 1.2s ease forwards;
+}
+.hero h1{
+  font-size:clamp(2.6rem,6vw,4.5rem);
+  font-weight:800;
+  letter-spacing:2px;
+}
+.hero p{
+  margin-top:16px;
+  color:#cfcfff;
+  max-width:720px;
+  margin-inline:auto;
 }
 .btn{
-display:inline-block;margin-top:24px;
-padding:14px 36px;border-radius:30px;
-background:#ff4757;font-weight:600
+  display:inline-block;
+  margin-top:30px;
+  padding:16px 42px;
+  border-radius:40px;
+  background:linear-gradient(135deg,#ff4757,#ff6b81);
+  font-weight:700;
+  box-shadow:0 20px 40px #ff475755;
+  transition:.3s;
+}
+.btn:hover{
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 30px 60px #ff475799;
 }
 
-/* STATS */
-.stats{display:flex;gap:60px;justify-content:center;margin-top:40px}
-.stats h2{color:#ff4757}
+/* =======================
+   STATS
+======================= */
+.stats{
+  display:flex;
+  gap:60px;
+  justify-content:center;
+  margin-top:60px;
+}
+.stat{
+  animation:fadeUp .8s ease forwards;
+}
+.stat h2{
+  font-size:2.8rem;
+  color:#ff4757;
+}
+.stat p{opacity:.8}
 
-/* SECTIONS */
-section{padding:100px 80px}
-h2{text-align:center;margin-bottom:40px}
+/* =======================
+   SECTIONS
+======================= */
+section{
+  padding:120px 80px;
+}
+section h2{
+  text-align:center;
+  font-size:2.6rem;
+  margin-bottom:60px;
+}
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:40px;
 }
+
+/* =======================
+   GAME CARDS (AAA)
+======================= */
 .card{
-background:#151a33;
-padding:26px;border-radius:20px;
-text-align:center
+  position:relative;
+  background:linear-gradient(180deg,#0e1028,#0a0c1f);
+  border-radius:24px;
+  padding:26px;
+  overflow:hidden;
+  transition:.4s;
+  animation:fadeUp .9s ease forwards;
+}
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,#ffffff12,transparent);
+  opacity:0;
+  transition:.4s;
+}
+.card:hover::before{opacity:1}
+.card:hover{
+  transform:translateY(-10px) scale(1.03);
 }
 .card img{
-width:100%;border-radius:16px;margin-bottom:14px
+  width:100%;
+  border-radius:18px;
+  margin-bottom:16px;
 }
 .installs{
-font-size:.9rem;color:#9fa4ff;
-margin:6px 0 14px;font-weight:500
+  font-size:.9rem;
+  color:#9fa4ff;
+  margin:6px 0 16px;
 }
 
-/* CONTACT */
+/* =======================
+   INVESTOR
+======================= */
+.investor .card{
+  text-align:center;
+  font-weight:600;
+}
+
+/* =======================
+   CONTACT
+======================= */
+form{
+  max-width:600px;
+  margin:auto;
+}
 input,textarea{
-width:100%;padding:14px;margin-bottom:16px;
-border:none;border-radius:10px;
-background:#101535;color:#fff
+  width:100%;
+  padding:16px;
+  margin-bottom:16px;
+  border-radius:14px;
+  border:none;
+  background:#0e1028;
+  color:#fff;
 }
 button{
-width:100%;padding:14px;border:none;
-border-radius:30px;background:#ff4757;
-color:#fff;font-weight:600
+  width:100%;
+  padding:16px;
+  border-radius:40px;
+  border:none;
+  background:linear-gradient(135deg,#ff4757,#ff6b81);
+  font-weight:700;
+  cursor:pointer;
 }
 
-/* FOOTER */
-footer{text-align:center;padding:40px;color:#777}
+/* =======================
+   FOOTER
+======================= */
+footer{
+  text-align:center;
+  padding:40px;
+  color:#888;
+}
 
+/* =======================
+   ANIMATIONS
+======================= */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:none}
+}
+
+/* =======================
+   MOBILE
+======================= */
 @media(max-width:768px){
-nav{padding:14px 25px}
-section{padding:80px 30px}
-.stats{flex-direction:column;gap:20px}
+  nav{padding:14px 24px}
+  section{padding:90px 28px}
+  .stats{flex-direction:column;gap:30px}
 }
 </style>
 </head>
 
 <body>
 
+<div class="bg-animated"></div>
+
 <!-- NAV -->
 <nav>
-<img src="images/logo.png" alt="Interactive Dreams LLC">
-<div>
-<a href="#games">Games</a>
-<a href="#investors">Investors</a>
-<a href="#about">About</a>
-<a href="#contact">Contact</a>
-</div>
+  <img src="images/Logo.png" alt="Interactive Dreams LLC">
+  <div>
+    <a href="#games">Games</a>
+    <a href="#investors">Investors</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <header>
-<div>
-<h1>INTERACTIVE DREAMS LLC</h1>
-<p>Bright, real-action FPS & shooter games with global reach.</p>
-<a class="btn" href="#games">Explore Our Games</a>
+  <div class="hero">
+    <h1>INTERACTIVE DREAMS LLC</h1>
+    <p>AAA-styled FPS & shooter games with bright action, massive scale, and global reach.</p>
+    <a href="#games" class="btn">Explore Our Games</a>
 
-<div class="stats">
-<div><h2>100M+</h2><p>Global Installs</p></div>
-<div><h2>20+</h2><p>Games</p></div>
-<div><h2>5+</h2><p>Years</p></div>
-</div>
-</div>
+    <div class="stats">
+      <div class="stat"><h2>100M+</h2><p>Global Installs</p></div>
+      <div class="stat"><h2>20+</h2><p>Games</p></div>
+      <div class="stat"><h2>5+</h2><p>Years</p></div>
+    </div>
+  </div>
 </header>
 
 <!-- GAMES -->
 <section id="games">
 <h2>Top Games</h2>
-
 <div class="grid">
 
 <div class="card">
-<img src="images/apps/fps-commando-strike.png">
+<img src="images/fps-commando-strike.png">
 <h3>FPS Commando Strike</h3>
 <p class="installs">100M+ Global Installs</p>
 <a class="btn" target="_blank"
@@ -129,7 +283,7 @@ Play on Google Play</a>
 </div>
 
 <div class="card">
-<img src="images/apps/fps-gun-shooting.png">
+<img src="images/fps-gun-shooting.png">
 <h3>FPS Gun Shooting Games</h3>
 <p class="installs">100M+ Global Installs</p>
 <a class="btn" target="_blank"
@@ -138,7 +292,7 @@ Play on Google Play</a>
 </div>
 
 <div class="card">
-<img src="images/apps/gun-shooting-games.png">
+<img src="images/gun-shooting-games.png">
 <h3>Gun Shooting Games</h3>
 <p class="installs">100M+ Global Installs</p>
 <a class="btn" target="_blank"
@@ -147,7 +301,7 @@ Play on Google Play</a>
 </div>
 
 <div class="card">
-<img src="images/apps/fps-counter-terrorist.png">
+<img src="images/fps-counter-terrorist.png">
 <h3>FPS Counter Terrorist</h3>
 <p class="installs">100M+ Global Installs</p>
 <a class="btn" target="_blank"
@@ -159,8 +313,8 @@ Play on Google Play</a>
 </section>
 
 <!-- INVESTORS -->
-<section id="investors">
-<h2>Investor Pitch</h2>
+<section id="investors" class="investor">
+<h2>Investor Snapshot</h2>
 <div class="grid">
 <div class="card">100M+ installs across FPS portfolio</div>
 <div class="card">AdMob & MAX monetization</div>
@@ -171,30 +325,24 @@ Play on Google Play</a>
 
 <!-- ABOUT -->
 <section id="about">
-<h2>About Interactive Dreams LLC</h2>
-<p style="max-width:900px;margin:auto;text-align:center">
+<h2>About Us</h2>
+<p style="max-width:900px;margin:auto;text-align:center;color:#cfcfff">
 Interactive Dreams LLC is a Wyoming-registered mobile game studio focused on
-bright, high-action FPS and shooter games for Android.
-Our games reach players globally with strong monetization and retention.
+bright, high-energy FPS and shooter games for Android, built for scale,
+monetization, and long-term growth.
 </p>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-<h2>Contact Us</h2>
-<div style="max-width:600px;margin:auto">
+<h2>Contact</h2>
 <form action="https://formsubmit.co/idreams425@gmail.com" method="POST">
 <input type="text" name="name" placeholder="Your Name" required>
 <input type="email" name="email" placeholder="Email" required>
 <textarea name="message" rows="5" placeholder="Message" required></textarea>
 <button type="submit">Send Message</button>
 </form>
-
-<p style="margin-top:30px;text-align:center">
-📍 Wyoming, USA<br>
-📧 idreams425@gmail.com
-</p>
-</div>
+<p style="text-align:center;margin-top:30px">📍 Wyoming, USA · 📧 idreams425@gmail.com</p>
 </section>
 
 <footer>© 2025 Interactive Dreams LLC</footer>
