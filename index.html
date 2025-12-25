@@ -19,7 +19,7 @@
             position: relative;
             height: 100vh;
             width: 100%;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('hero-bg.jpg');
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('hero-bg.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -44,23 +44,29 @@
         /* Glassmorphism Navigation */
         .nav-glass {
             background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* Glowing Button Effect */
         .btn-glow {
             background: linear-gradient(90deg, #8b0000, #ff4500);
-            box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
-            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block;
         }
         .btn-glow:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(255, 69, 0, 0.9);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 35px rgba(255, 69, 0, 0.8);
         }
 
         .text-shadow-heavy {
-            text-shadow: 2px 4px 10px rgba(0,0,0,0.9);
+            text-shadow: 0px 10px 30px rgba(0,0,0,1);
+        }
+        
+        /* Subtle pulse for stats */
+        .stat-card h3 {
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
         }
     </style>
 </head>
@@ -70,8 +76,7 @@
 
     <nav class="fixed top-0 w-full z-50 nav-glass px-8 py-4 flex justify-between items-center">
         <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-red-700 rounded-sm flex items-center justify-center font-black text-xl">ID</div>
-            <span class="font-black tracking-tighter text-xl uppercase">Interactive Dreams</span>
+            <div class="w-10 h-10 bg-red-700 rounded-sm flex items-center justify-center font-black text-xl text-white">ID</div>
         </div>
         <div class="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-widest text-gray-300">
             <a href="#" class="hover:text-white transition">Games</a>
@@ -83,48 +88,38 @@
 
     <section class="hero-container relative">
         <div class="z-20 px-4">
-            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tighter text-shadow-heavy mb-2">
-                Interactive Dreams LLC
+            <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter text-shadow-heavy mb-2">
+                Interactive Dreams
             </h1>
-            <p class="text-xl md:text-2xl font-bold text-gray-200 mb-6 uppercase tracking-widest">
+            <p class="text-xl md:text-2xl font-bold text-red-500 mb-6 uppercase tracking-[0.3em]">
                 AAA FPS Studio
             </p>
-            <p class="max-w-xl mx-auto text-gray-300 text-lg mb-8 leading-relaxed">
-                AAA-styled FPS & shooter games with bright action, massive scale, and global reach.
+            <p class="max-w-xl mx-auto text-gray-300 text-lg mb-10 leading-relaxed font-light">
+                Crafting immersive, massive-scale shooter experiences for a global audience.
             </p>
             
-            <button class="btn-glow px-10 py-4 rounded-md font-bold uppercase tracking-widest text-white">
+            <a href="https://play.google.com/store/apps/dev?id=5216659181727146131" target="_blank" class="btn-glow px-12 py-5 rounded-md font-bold uppercase tracking-widest text-white">
                 Explore Our Games
-            </button>
+            </a>
         </div>
 
-        <div class="absolute bottom-12 w-full max-w-4xl grid grid-cols-3 gap-4 z-20">
-            <div class="text-center">
-                <h3 class="text-4xl font-black text-red-500">100M+</h3>
-                <p class="uppercase text-xs tracking-widest text-gray-400">Global Installs</p>
+        <div class="absolute bottom-16 w-full max-w-5xl grid grid-cols-3 gap-4 z-20">
+            <div class="text-center stat-card">
+                <h3 class="text-4xl md:text-5xl font-black text-red-600">100M+</h3>
+                <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Global Installs</p>
             </div>
-            <div class="text-center border-x border-white/10">
-                <h3 class="text-4xl font-black text-red-500">20+</h3>
-                <p class="uppercase text-xs tracking-widest text-gray-400">Games</p>
+            <div class="text-center border-x border-white/10 stat-card">
+                <h3 class="text-4xl md:text-5xl font-black text-red-600">20+</h3>
+                <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Games</p>
             </div>
-            <div class="text-center">
-                <h3 class="text-4xl font-black text-red-500">5+</h3>
-                <p class="uppercase text-xs tracking-widest text-gray-400">Years</p>
+            <div class="text-center stat-card">
+                <h3 class="text-4xl md:text-5xl font-black text-red-600">5+</h3>
+                <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Years</p>
             </div>
-        </div>
-
-        <div class="absolute bottom-10 right-10 z-30">
-            <button class="p-3 bg-red-600/20 border border-red-600/50 rounded-lg hover:bg-red-600/40 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                </svg>
-            </button>
         </div>
     </section>
 
     <script>
-        // Ember Particle System
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -132,44 +127,70 @@
         canvas.height = window.innerHeight;
 
         let particlesArray = [];
+        const numberOfParticles = 150; // Increased count for liveliness
 
         class Particle {
             constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 100;
-                this.size = Math.random() * 3 + 1;
-                this.speedY = Math.random() * 1 + 0.5;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.color = `rgba(255, ${Math.floor(Math.random() * 100 + 50)}, 0, ${Math.random()})`;
+                this.reset();
             }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 200;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedY = Math.random() * 1.5 + 0.5;
+                this.speedX = Math.random() * 2 - 1;
+                this.velocity = Math.random() * 0.05;
+                this.alpha = Math.random() * 0.6 + 0.1;
+                // Ember colors: mix of reds, oranges and yellows
+                const colors = [
+                    `rgba(255, 69, 0, ${this.alpha})`,
+                    `rgba(255, 140, 0, ${this.alpha})`,
+                    `rgba(139, 0, 0, ${this.alpha})`,
+                    `rgba(255, 200, 50, ${this.alpha})`
+                ];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
             update() {
                 this.y -= this.speedY;
-                this.x += this.speedX;
-                if (this.size > 0.2) this.size -= 0.005;
+                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5; // Swell movement
+                
+                // Shrink as they rise
+                if (this.size > 0.1) this.size -= 0.003;
+                
+                // Reset if they go off screen or disappear
+                if (this.y < -10 || this.size <= 0.1) {
+                    this.reset();
+                }
             }
+
             draw() {
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
+                ctx.shadowBlur = 0; // Reset for performance
             }
         }
 
         function init() {
-            for (let i = 0; i < 50; i++) {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
                 particlesArray.push(new Particle());
             }
         }
 
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Slight trails effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update();
                 particlesArray[i].draw();
-                if (particlesArray[i].y < 0) {
-                    particlesArray.splice(i, 1);
-                    particlesArray.push(new Particle());
-                }
             }
             requestAnimationFrame(animate);
         }
@@ -177,6 +198,7 @@
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            init();
         });
 
         init();
