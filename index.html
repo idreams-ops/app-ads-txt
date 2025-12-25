@@ -18,200 +18,185 @@ body{
 }
 a{text-decoration:none;color:inherit}
 
-/* ================= BACKGROUND LAYERS ================= */
-#particleCanvas{
-  position:fixed;
-  inset:0;
-  z-index:-3;
-}
-.bg-animated{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:
-    radial-gradient(circle at 15% 20%, #ff475720, transparent 40%),
-    radial-gradient(circle at 80% 70%, #6c5ce720, transparent 45%),
-    linear-gradient(120deg,#05060c,#090b1a,#05060c);
-  background-size:200% 200%;
-  animation:bgMove 20s ease infinite;
-}
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
 /* ================= NAV ================= */
 nav{
   position:fixed;
-  top:0;left:0;right:0;
-  padding:16px 60px;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 80px);
+  max-width:1200px;
+  padding:14px 32px;
+  border-radius:16px;
+  background:rgba(15,15,20,.65);
+  backdrop-filter:blur(18px);
+  box-shadow:0 10px 40px rgba(0,0,0,.6);
   display:flex;
   justify-content:space-between;
   align-items:center;
-  background:rgba(5,6,12,.7);
-  backdrop-filter:blur(16px);
-  z-index:10;
+  z-index:50;
 }
-nav img{height:40px}
+nav img{height:42px}
 nav a{
-  margin-left:28px;
-  font-weight:500;
-  opacity:.85;
+  margin-left:26px;
+  position:relative;
+}
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
+  background:#ff4747;
   transition:.3s;
 }
-nav a:hover{opacity:1;color:#ff4757}
+nav a:hover::after{width:100%}
 
 /* ================= HERO ================= */
-header{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:120px 20px 60px;
-  background:
-    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.9)),
-    url("images/hero-bg.jpg") center/cover no-repeat;
-}
 .hero{
-  animation:fadeUp 1.2s ease forwards;
+  position:relative;
+  height:100vh;
+  background:url("images/hero-bg.jpg") center/cover no-repeat;
+  overflow:hidden;
 }
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at center, rgba(0,0,0,.35), rgba(0,0,0,.9)),
+    linear-gradient(to top, rgba(0,0,0,.95), transparent 40%);
+  z-index:1;
+}
+
+.hero-content{
+  position:relative;
+  z-index:3;
+  max-width:1100px;
+  margin:auto;
+  text-align:center;
+  padding-top:140px;
+  animation:introZoom 1.6s ease forwards;
+}
+
+@keyframes introZoom{
+  from{opacity:0;transform:scale(1.08)}
+  to{opacity:1;transform:none}
+}
+
 .hero h1{
-  font-size:clamp(2.8rem,6vw,4.8rem);
+  font-size:4rem;
   font-weight:800;
   letter-spacing:2px;
 }
+.hero h2{
+  margin-top:10px;
+  opacity:.85;
+}
 .hero p{
-  margin-top:18px;
-  color:#cfcfff;
+  margin-top:20px;
   max-width:720px;
   margin-inline:auto;
+  color:#ddd;
 }
-.btn{
+
+/* CTA */
+.cta{
   display:inline-block;
-  margin-top:34px;
-  padding:16px 44px;
-  border-radius:40px;
-  background:linear-gradient(135deg,#ff4757,#ff6b81);
+  margin-top:30px;
+  padding:16px 46px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#ff3c3c,#ff6b3d);
+  box-shadow:0 0 40px rgba(255,80,80,.7);
   font-weight:700;
-  box-shadow:0 20px 40px #ff475755;
-  transition:.3s;
+  transition:.25s;
 }
-.btn:hover{
-  transform:translateY(-4px) scale(1.04);
-  box-shadow:0 35px 70px #ff475799;
-}
+.cta:hover{transform:translateY(-3px)}
+.cta:active{transform:translateY(1px)}
 
-/* ================= STATS ================= */
-.stats{
+/* STATS */
+.hero-stats{
   display:flex;
-  gap:60px;
   justify-content:center;
-  margin-top:70px;
+  gap:80px;
+  margin-top:60px;
 }
-.stat h2{
-  font-size:2.8rem;
-  color:#ff4757;
+.hero-stats span{
+  font-size:2.6rem;
+  color:#ff5555;
+  font-weight:700;
 }
-.stat p{opacity:.8}
+.hero-stats label{
+  display:block;
+  margin-top:6px;
+  opacity:.85;
+}
 
-/* ================= SECTIONS ================= */
-section{padding:120px 80px}
-section h2{
-  text-align:center;
-  font-size:2.7rem;
-  margin-bottom:60px;
+/* CANVAS LAYERS */
+#embers,#heat{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
 }
+#embers{z-index:2}
+#heat{z-index:2;mix-blend-mode:screen}
+
+/* SECTIONS */
+section{padding:120px 80px;position:relative;z-index:5}
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:40px;
 }
 
-/* ================= CARDS ================= */
+/* CARDS */
 .card{
-  position:relative;
   background:linear-gradient(180deg,#0e1028,#0a0c1f);
   border-radius:26px;
   padding:26px;
-  overflow:hidden;
-  transition:.45s;
-}
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,#ffffff14,transparent);
-  opacity:0;
   transition:.4s;
 }
-.card:hover::before{opacity:1}
-.card:hover{
-  transform:translateY(-12px) scale(1.04);
-}
+.card:hover{transform:translateY(-10px)}
 .card img{
   width:100%;
   border-radius:20px;
-  margin-bottom:18px;
 }
-.installs{
-  font-size:.9rem;
-  color:#9fa4ff;
-  margin:6px 0 16px;
-}
+.installs{color:#9fa4ff;font-size:.9rem;margin:6px 0 16px}
 
-/* ================= CONTACT ================= */
-form{max-width:600px;margin:auto}
-input,textarea{
-  width:100%;
-  padding:16px;
-  margin-bottom:16px;
-  border-radius:14px;
-  border:none;
-  background:#0e1028;
-  color:#fff;
-}
-button{
-  width:100%;
-  padding:16px;
-  border-radius:40px;
-  border:none;
-  background:linear-gradient(135deg,#ff4757,#ff6b81);
-  font-weight:700;
+/* SOUND TOGGLE */
+#soundToggle{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:rgba(255,70,70,.9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
   cursor:pointer;
+  box-shadow:0 0 20px rgba(255,70,70,.8);
+  z-index:100;
 }
 
-/* ================= FOOTER ================= */
-footer{
-  text-align:center;
-  padding:40px;
-  color:#888;
-}
+/* FOOTER */
+footer{text-align:center;padding:40px;color:#888}
 
-/* ================= ANIM ================= */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:none}
-}
-
-/* ================= MOBILE ================= */
+/* MOBILE */
 @media(max-width:768px){
-  nav{padding:14px 24px}
   section{padding:90px 28px}
-  .stats{flex-direction:column;gap:30px}
+  .hero-stats{flex-direction:column;gap:30px}
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="particleCanvas"></canvas>
-<div class="bg-animated"></div>
-
-<!-- NAV -->
 <nav>
-  <img src="images/Logo.png" alt="Interactive Dreams LLC">
+  <img src="images/Logo.png">
   <div>
     <a href="#games">Games</a>
     <a href="#investors">Investors</a>
@@ -220,138 +205,74 @@ footer{
   </div>
 </nav>
 
-<!-- HERO -->
-<header>
-  <div class="hero">
-    <h1>INTERACTIVE DREAMS LLC</h1>
-    <p>AAA-styled FPS & shooter games with bright action, massive scale, and global reach.</p>
-    <a href="#games" class="btn">Explore Our Games</a>
+<header class="hero">
+  <div class="hero-overlay"></div>
 
-    <div class="stats">
-      <div class="stat"><h2>100M+</h2><p>Global Installs</p></div>
-      <div class="stat"><h2>20+</h2><p>Games</p></div>
-      <div class="stat"><h2>5+</h2><p>Years</p></div>
+  <div class="hero-content">
+    <h1>INTERACTIVE DREAMS LLC</h1>
+    <h2>AAA FPS Studio</h2>
+    <p>AAA-styled FPS & shooter games with bright action, massive scale, and global reach.</p>
+    <a href="#games" class="cta">Explore Our Games</a>
+
+    <div class="hero-stats">
+      <div><span>100M+</span><label>Global Installs</label></div>
+      <div><span>20+</span><label>Games</label></div>
+      <div><span>5+</span><label>Years</label></div>
     </div>
   </div>
+
+  <canvas id="embers"></canvas>
+  <canvas id="heat"></canvas>
+
+  <audio id="wind" src="audio/wind.mp3" loop></audio>
+  <audio id="gunshot" src="audio/gunshot.mp3"></audio>
 </header>
 
-<!-- GAMES -->
-<section id="games">
-<h2>Top Games</h2>
-<div class="grid">
-
-<div class="card">
-<img src="images/fps-commando-strike.png">
-<h3>FPS Commando Strike</h3>
-<p class="installs">100M+ Global Installs</p>
-<a class="btn" target="_blank"
-href="https://play.google.com/store/apps/details?id=com.id.gungames.offline.strike.fps.shooting.counter.attack.terrorist.mission.fpscommando">
-Play on Google Play</a>
-</div>
-
-<div class="card">
-<img src="images/fps-gun-shooting.png">
-<h3>FPS Gun Shooting Games</h3>
-<p class="installs">100M+ Global Installs</p>
-<a class="btn" target="_blank"
-href="https://play.google.com/store/apps/details?id=com.id.fps.gun.shooting.games">
-Play on Google Play</a>
-</div>
-
-<div class="card">
-<img src="images/gun-shooting-games.png">
-<h3>Gun Shooting Games</h3>
-<p class="installs">100M+ Global Installs</p>
-<a class="btn" target="_blank"
-href="https://play.google.com/store/apps/details?id=com.id.gun.shooting.games">
-Play on Google Play</a>
-</div>
-
-<div class="card">
-<img src="images/fps-counter-terrorist.png">
-<h3>FPS Counter Terrorist</h3>
-<p class="installs">100M+ Global Installs</p>
-<a class="btn" target="_blank"
-href="https://play.google.com/store/apps/details?id=com.idreams.fps.counter.attack.terrorist.shooting.games">
-Play on Google Play</a>
-</div>
-
-</div>
-</section>
-
-<!-- INVESTORS -->
-<section id="investors">
-<h2>Investor Snapshot</h2>
-<div class="grid">
-<div class="card">100M+ installs across FPS portfolio</div>
-<div class="card">AdMob & MAX monetization</div>
-<div class="card">ROAS-driven UA scaling</div>
-<div class="card">Publisher-ready studio</div>
-</div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-<h2>About Us</h2>
-<p style="max-width:900px;margin:auto;text-align:center;color:#cfcfff">
-Interactive Dreams LLC is a Wyoming-registered mobile game studio focused on
-bright, high-energy FPS and shooter games built for scale, monetization, and long-term growth.
-</p>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-<h2>Contact</h2>
-<form action="https://formsubmit.co/idreams425@gmail.com" method="POST">
-<input type="text" name="name" placeholder="Your Name" required>
-<input type="email" name="email" placeholder="Email" required>
-<textarea name="message" rows="5" placeholder="Message" required></textarea>
-<button type="submit">Send Message</button>
-</form>
-<p style="text-align:center;margin-top:30px">📍 Wyoming, USA · 📧 idreams425@gmail.com</p>
-</section>
+<div id="soundToggle">🔊</div>
 
 <footer>© 2025 Interactive Dreams LLC</footer>
 
-<!-- ================= PARTICLE ENGINE ================= -->
 <script>
-const canvas=document.getElementById("particleCanvas");
-const ctx=canvas.getContext("2d");
-let w,h,particles=[];
-function resize(){
-  w=canvas.width=window.innerWidth;
-  h=canvas.height=window.innerHeight;
-}
-window.addEventListener("resize",resize);
-resize();
+/* EMBERS */
+const e=document.getElementById("embers").getContext("2d");
+const ec=e.canvas;
+function rs(){ec.width=innerWidth;ec.height=innerHeight}
+rs();addEventListener("resize",rs);
+let emb=[...Array(120)].map(()=>({x:Math.random()*ec.width,y:Math.random()*ec.height,r:Math.random()*2+1,s:Math.random()*.6+.3}));
+(function draw(){
+e.clearRect(0,0,ec.width,ec.height);
+emb.forEach(p=>{
+e.fillStyle="rgba(255,120,60,.7)";
+e.beginPath();e.arc(p.x,p.y,p.r,0,7);e.fill();
+p.y-=p.s;if(p.y<0)p.y=ec.height;
+});
+requestAnimationFrame(draw);
+})();
 
-for(let i=0;i<120;i++){
-  particles.push({
-    x:Math.random()*w,
-    y:Math.random()*h,
-    vx:(Math.random()-.5)*.6,
-    vy:(Math.random()-.5)*.6,
-    r:Math.random()*2+1
-  });
+/* HEAT */
+const h=document.getElementById("heat").getContext("2d");
+(function heat(){
+h.clearRect(0,0,innerWidth,innerHeight);
+for(let i=0;i<20;i++){
+let g=h.createRadialGradient(Math.random()*innerWidth,innerHeight*.6,0,Math.random()*innerWidth,innerHeight*.6,120);
+g.addColorStop(0,"rgba(255,140,60,.08)");
+g.addColorStop(1,"transparent");
+h.fillStyle=g;h.fillRect(0,0,innerWidth,innerHeight);
 }
+requestAnimationFrame(heat);
+})();
 
-function draw(){
-  ctx.clearRect(0,0,w,h);
-  ctx.fillStyle="rgba(255,71,87,.6)";
-  particles.forEach(p=>{
-    p.x+=p.vx;
-    p.y+=p.vy;
-    if(p.x<0||p.x>w)p.vx*=-1;
-    if(p.y<0||p.y>h)p.vy*=-1;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-  });
-  requestAnimationFrame(draw);
+/* SOUND */
+const wind=document.getElementById("wind");
+const gun=document.getElementById("gunshot");
+let on=true;wind.volume=.25;wind.play();
+document.getElementById("soundToggle").onclick=()=>{
+on=!on;
+wind[on?"play":"pause"]();
+event.target.textContent=on?"🔊":"🔇";
 }
-draw();
+document.querySelectorAll("a").forEach(a=>a.onclick=()=>on&&(gun.currentTime=0,gun.play()));
 </script>
 
 </body>
 </html>
-
