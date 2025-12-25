@@ -1,226 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Dreams</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000;
-            overflow-x: hidden;
-            margin: 0;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Dreams</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            overflow-x: hidden;
+            margin: 0;
+        }
 
-        /* Hero Background Styling */
-        .hero-container {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('hero-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
+        /* Hero Background Styling */
+        .hero-container {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
 
-        /* Particle Canvas Overlay */
-        #particle-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 10;
-        }
+        /* Particle Canvas Overlay */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
 
-        /* Glowing Button Effect */
-        .btn-glow {
-            background: linear-gradient(90deg, #8b0000, #ff4500);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: inline-block;
-            z-index: 30;
-        }
-        .btn-glow:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 0 35px rgba(255, 69, 0, 0.8);
-        }
+        /* Glowing Button Effect */
+        .btn-glow {
+            background: linear-gradient(90deg, #8b0000, #ff4500);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block;
+            z-index: 30;
+            position: relative;
+        }
+        .btn-glow:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 35px rgba(255, 69, 0, 0.8);
+        }
 
-        .text-shadow-heavy {
-            text-shadow: 0px 10px 30px rgba(0,0,0,1);
-        }
-        
-        .stat-card h3 {
-            text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
-            font-variant-numeric: tabular-nums; /* Prevents text jitter during counting */
-        }
-    </style>
+        .text-shadow-heavy {
+            text-shadow: 0px 10px 30px rgba(0,0,0,1);
+        }
+        
+        .stat-card h3 {
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+            font-variant-numeric: tabular-nums; 
+        }
+    </style>
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
+    <canvas id="particle-canvas"></canvas>
 
-    <section class="hero-container relative">
-        <div class="z-20 px-4">
-            <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter text-shadow-heavy mb-2">
-                Interactive Dreams
-            </h1>
-            <p class="text-xl md:text-2xl font-bold text-red-500 mb-6 uppercase tracking-[0.3em]">
-                Mobile Games Studio
-            </p>
-            <p class="max-w-xl mx-auto text-gray-300 text-lg mb-10 leading-relaxed font-light">
-                Crafting immersive, massive-scale shooter experiences for a global audience.
-            </p>
-            
-            <a href="https://play.google.com/store/apps/dev?id=5216659181727146131" target="_blank" class="btn-glow px-12 py-5 rounded-md font-bold uppercase tracking-widest text-white">
-                Explore Our Games
-            </a>
-        </div>
+    <section class="hero-container relative">
+        <div class="z-20 px-4">
+            <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter text-shadow-heavy mb-2">
+                Interactive Dreams
+            </h1>
+            <p class="text-xl md:text-2xl font-bold text-red-500 mb-6 uppercase tracking-[0.3em]">
+                Mobile Games Studio
+            </p>
+            <p class="max-w-xl mx-auto text-gray-300 text-lg mb-10 leading-relaxed font-light">
+                Crafting immersive, massive-scale shooter experiences for a global audience.
+            </p>
+            
+            <a href="https://play.google.com/store/apps/dev?id=5216659181727146131" target="_blank" class="btn-glow px-12 py-5 rounded-md font-bold uppercase tracking-widest text-white">
+                Explore Our Games
+            </a>
+        </div>
 
-        <div class="absolute bottom-16 w-full max-w-5xl grid grid-cols-3 gap-4 z-20">
-            <div class="text-center stat-card">
-                <h3 id="count-installs" class="text-4xl md:text-5xl font-black text-red-600">0M+</h3>
-                <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Global Installs</p>
-            </div>
-            <div class="text-center border-x border-white/10 stat-card">
-                <h3 id="count-games" class="text-4xl md:text-5xl font-black text-red-600">0+</h3>
-                <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Games</p>
-            </div>
-            <div class="text-center stat-card">
-                <h3 id="count-years" class="text-4xl md:text-5xl font-black text-red-600">0+</h3>
-                <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Years</p>
-            </div>
-        </div>
-    </section>
+        <div class="absolute bottom-16 w-full max-w-5xl grid grid-cols-3 gap-4 z-20">
+            <div class="text-center stat-card">
+                <h3 id="count-installs" class="text-4xl md:text-5xl font-black text-red-600">0M+</h3>
+                <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Global Installs</p>
+            </div>
+            <div class="text-center border-x border-white/10 stat-card">
+                <h3 id="count-games" class="text-4xl md:text-5xl font-black text-red-600">0+</h3>
+                <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Games</p>
+            </div>
+            <div class="text-center stat-card">
+                <h3 id="count-years" class="text-4xl md:text-5xl font-black text-red-600">0+</h3>
+                <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Years</p>
+            </div>
+        </div>
+    </section>
 
-    <script>
-        /** * PARTICLE SYSTEM 
-         **/
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
+    <script>
+        /** * ENHANCED PARTICLE SYSTEM 
+         **/
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        let particlesArray = [];
-        const numberOfParticles = 100;
+        let particlesArray = [];
+        const numberOfParticles = 150; // Increased for better visual density
 
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 200;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedY = Math.random() * 1 + 0.5;
-                this.speedX = Math.random() * 2 - 1;
-                this.alpha = Math.random() * 0.5 + 0.1;
-                const colors = [`rgba(255, 69, 0, ${this.alpha})`, `rgba(255, 140, 0, ${this.alpha})`, `rgba(139, 0, 0, ${this.alpha})` ];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-            }
-            update() {
-                this.y -= this.speedY;
-                this.x += this.speedX;
-                if (this.size > 0.1) this.size -= 0.002;
-                if (this.y < -10 || this.size <= 0.1) this.reset();
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+        class Particle {
+            constructor() {
+                this.reset();
+            }
 
-        function initParticles() {
-            particlesArray = [];
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 200;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedY = Math.random() * 1.5 + 0.5;
+                this.speedX = Math.random() * 2 - 1;
+                this.alpha = Math.random() * 0.6 + 0.1;
+                
+                const colors = [
+                    `rgba(255, 69, 0, ${this.alpha})`,
+                    `rgba(255, 140, 0, ${this.alpha})`,
+                    `rgba(139, 0, 0, ${this.alpha})`,
+                    `rgba(255, 200, 50, ${this.alpha})`
+                ];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
-            requestAnimationFrame(animateParticles);
-        }
+            update() {
+                this.y -= this.speedY;
+                // Added sin movement for a natural "smoke/ember" sway
+                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5; 
+                
+                if (this.size > 0.1) this.size -= 0.003;
+                if (this.y < -10 || this.size <= 0.1) this.reset();
+            }
 
-        /** * SEQUENTIAL NUMBER COUNTING SYSTEM 
-         **/
-        const statsConfig = [
-            { id: 'count-installs', end: 100, suffix: 'M+' },
-            { id: 'count-games', end: 20, suffix: '+' },
-            { id: 'count-years', end: 5, suffix: '+' }
-        ];
+            draw() {
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0; // Reset blur for performance
+            }
+        }
 
-        function countTo(elementId, endValue, suffix, duration) {
-            return new Promise((resolve) => {
-                const element = document.getElementById(elementId);
-                let start = 0;
-                const startTime = performance.now();
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
 
-                function updateCount(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    
-                    // Ease out cubic for a natural feel
-                    const easedProgress = 1 - Math.pow(1 - progress, 3);
-                    const currentNumber = Math.floor(easedProgress * endValue);
-                    
-                    element.innerText = currentNumber + suffix;
+        function animateParticles() {
+            // Replaced clearRect with a semi-transparent fill for subtle motion trails
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
 
-                    if (progress < 1) {
-                        requestAnimationFrame(updateCount);
-                    } else {
-                        resolve();
-                    }
-                }
-                requestAnimationFrame(updateCount);
-            });
-        }
+        /** * SEQUENTIAL NUMBER COUNTING SYSTEM 
+         **/
+        const statsConfig = [
+            { id: 'count-installs', end: 100, suffix: 'M+' },
+            { id: 'count-games', end: 20, suffix: '+' },
+            { id: 'count-years', end: 5, suffix: '+' }
+        ];
 
-        async function runStatsLoop() {
-            const countDuration = 800; // Speed of each count in ms
-            const pauseDuration = 4000; // Wait time before restarting the cycle
+        function countTo(elementId, endValue, suffix, duration) {
+            return new Promise((resolve) => {
+                const element = document.getElementById(elementId);
+                const startTime = performance.now();
 
-            while (true) {
-                // 1. Reset all to zero
-                statsConfig.forEach(s => {
-                    document.getElementById(s.id).innerText = "0" + s.suffix;
-                });
+                function updateCount(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easedProgress = 1 - Math.pow(1 - progress, 3);
+                    const currentNumber = Math.floor(easedProgress * endValue);
+                    
+                    element.innerText = currentNumber + suffix;
 
-                // 2. Count each one sequentially
-                for (const stat of statsConfig) {
-                    await countTo(stat.id, stat.end, stat.suffix, countDuration);
-                }
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        resolve();
+                    }
+                }
+                requestAnimationFrame(updateCount);
+            });
+        }
 
-                // 3. Pause
-                await new Promise(resolve => setTimeout(resolve, pauseDuration));
-            }
-        }
+        async function runStatsLoop() {
+            const countDuration = 800; 
+            const pauseDuration = 4000; 
 
-        // Initialize Everything
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        });
+            while (true) {
+                statsConfig.forEach(s => {
+                    document.getElementById(s.id).innerText = "0" + s.suffix;
+                });
 
-        initParticles();
-        animateParticles();
-        runStatsLoop();
-    </script>
+                for (const stat of statsConfig) {
+                    await countTo(stat.id, stat.end, stat.suffix, countDuration);
+                }
+
+                await new Promise(resolve => setTimeout(resolve, pauseDuration));
+            }
+        }
+
+        // Initialize Everything
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        initParticles();
+        animateParticles();
+        runStatsLoop();
+    </script>
 </body>
 </html>
