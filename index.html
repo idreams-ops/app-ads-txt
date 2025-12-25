@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Dreams LLC</title>
+    <title>Interactive Dreams</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -19,7 +19,7 @@
             position: relative;
             height: 100vh;
             width: 100%;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('hero-bg.jpg');
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('hero-bg.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -47,6 +47,7 @@
             box-shadow: 0 0 20px rgba(255, 69, 0, 0.4);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-block;
+            z-index: 30;
         }
         .btn-glow:hover {
             transform: scale(1.05) translateY(-2px);
@@ -57,9 +58,9 @@
             text-shadow: 0px 10px 30px rgba(0,0,0,1);
         }
         
-        /* Subtle pulse for stats */
         .stat-card h3 {
-            text-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+            font-variant-numeric: tabular-nums; /* Prevents text jitter during counting */
         }
     </style>
 </head>
@@ -86,21 +87,23 @@
 
         <div class="absolute bottom-16 w-full max-w-5xl grid grid-cols-3 gap-4 z-20">
             <div class="text-center stat-card">
-                <h3 class="text-4xl md:text-5xl font-black text-red-600">100M+</h3>
+                <h3 id="count-installs" class="text-4xl md:text-5xl font-black text-red-600">0M+</h3>
                 <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Global Installs</p>
             </div>
             <div class="text-center border-x border-white/10 stat-card">
-                <h3 class="text-4xl md:text-5xl font-black text-red-600">20+</h3>
+                <h3 id="count-games" class="text-4xl md:text-5xl font-black text-red-600">0+</h3>
                 <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Games</p>
             </div>
             <div class="text-center stat-card">
-                <h3 class="text-4xl md:text-5xl font-black text-red-600">5+</h3>
+                <h3 id="count-years" class="text-4xl md:text-5xl font-black text-red-600">0+</h3>
                 <p class="uppercase text-xs tracking-widest text-gray-400 mt-2">Years</p>
             </div>
         </div>
     </section>
 
     <script>
+        /** * PARTICLE SYSTEM 
+         **/
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -108,78 +111,116 @@
         canvas.height = window.innerHeight;
 
         let particlesArray = [];
-        const numberOfParticles = 150;
+        const numberOfParticles = 100;
 
         class Particle {
             constructor() {
                 this.reset();
             }
-
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = canvas.height + Math.random() * 200;
-                this.size = Math.random() * 2.5 + 0.5;
-                this.speedY = Math.random() * 1.5 + 0.5;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * 1 + 0.5;
                 this.speedX = Math.random() * 2 - 1;
-                this.velocity = Math.random() * 0.05;
-                this.alpha = Math.random() * 0.6 + 0.1;
-                const colors = [
-                    `rgba(255, 69, 0, ${this.alpha})`,
-                    `rgba(255, 140, 0, ${this.alpha})`,
-                    `rgba(139, 0, 0, ${this.alpha})`,
-                    `rgba(255, 200, 50, ${this.alpha})`
-                ];
+                this.alpha = Math.random() * 0.5 + 0.1;
+                const colors = [`rgba(255, 69, 0, ${this.alpha})`, `rgba(255, 140, 0, ${this.alpha})`, `rgba(139, 0, 0, ${this.alpha})` ];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
-
             update() {
                 this.y -= this.speedY;
-                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5; 
-                
-                if (this.size > 0.1) this.size -= 0.003;
-                
-                if (this.y < -10 || this.size <= 0.1) {
-                    this.reset();
-                }
+                this.x += this.speedX;
+                if (this.size > 0.1) this.size -= 0.002;
+                if (this.y < -10 || this.size <= 0.1) this.reset();
             }
-
             draw() {
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
-                ctx.shadowBlur = 0; 
             }
         }
 
-        function init() {
+        function initParticles() {
             particlesArray = [];
             for (let i = 0; i < numberOfParticles; i++) {
                 particlesArray.push(new Particle());
             }
         }
 
-        function animate() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update();
                 particlesArray[i].draw();
             }
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateParticles);
         }
 
+        /** * SEQUENTIAL NUMBER COUNTING SYSTEM 
+         **/
+        const statsConfig = [
+            { id: 'count-installs', end: 100, suffix: 'M+' },
+            { id: 'count-games', end: 20, suffix: '+' },
+            { id: 'count-years', end: 5, suffix: '+' }
+        ];
+
+        function countTo(elementId, endValue, suffix, duration) {
+            return new Promise((resolve) => {
+                const element = document.getElementById(elementId);
+                let start = 0;
+                const startTime = performance.now();
+
+                function updateCount(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Ease out cubic for a natural feel
+                    const easedProgress = 1 - Math.pow(1 - progress, 3);
+                    const currentNumber = Math.floor(easedProgress * endValue);
+                    
+                    element.innerText = currentNumber + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        resolve();
+                    }
+                }
+                requestAnimationFrame(updateCount);
+            });
+        }
+
+        async function runStatsLoop() {
+            const countDuration = 800; // Speed of each count in ms
+            const pauseDuration = 4000; // Wait time before restarting the cycle
+
+            while (true) {
+                // 1. Reset all to zero
+                statsConfig.forEach(s => {
+                    document.getElementById(s.id).innerText = "0" + s.suffix;
+                });
+
+                // 2. Count each one sequentially
+                for (const stat of statsConfig) {
+                    await countTo(stat.id, stat.end, stat.suffix, countDuration);
+                }
+
+                // 3. Pause
+                await new Promise(resolve => setTimeout(resolve, pauseDuration));
+            }
+        }
+
+        // Initialize Everything
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            init();
+            initParticles();
         });
 
-        init();
-        animate();
+        initParticles();
+        animateParticles();
+        runStatsLoop();
     </script>
 </body>
 </html>
