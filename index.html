@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Interactive Dreams LLC | AAA FPS Studio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg-dark:#0b0c10;
   --ember:#ff5a2c;
   --ember-soft:rgba(255,90,44,.6);
-  --metal:rgba(255,255,255,.08);
-  --text-dim:#cfcfcf;
 }
 
+/* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   font-family:Poppins,system-ui;
-  background:var(--bg-dark);
+  background:#000;
   color:#fff;
+  overflow-x:hidden;
 }
+a{text-decoration:none;color:inherit}
 
-/* NAV */
+/* NAV (GLASS) */
 nav{
   position:fixed;
   top:20px;
@@ -34,82 +34,94 @@ nav{
   max-width:1200px;
   padding:14px 32px;
   border-radius:16px;
-  background:rgba(10,10,12,.7);
-  backdrop-filter:blur(18px);
-  box-shadow:0 10px 40px rgba(0,0,0,.7);
+  background:rgba(30,30,35,.55);
+  backdrop-filter:blur(20px) saturate(120%);
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.65),
+    inset 0 1px 0 rgba(255,255,255,.06);
   display:flex;
   justify-content:space-between;
   align-items:center;
   z-index:100;
 }
-nav img{height:42px}
+nav img{height:42px;opacity:.95}
 nav a{
   margin-left:26px;
-  position:relative;
+  font-weight:500;
+  color:rgba(255,255,255,.78);
 }
-nav a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:0;
-  height:2px;
-  background:var(--ember);
-  transition:.3s;
-}
-nav a:hover::after{width:100%}
+nav a:hover{color:rgba(255,255,255,.95)}
 
-/* HERO */
+/* HERO (RAW IMAGE) */
 .hero{
   position:relative;
   height:100vh;
   background:url("images/hero-bg.jpg") center/cover no-repeat;
   overflow:hidden;
 }
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at center, rgba(0,0,0,.35), rgba(0,0,0,.9)),
-    linear-gradient(to top, rgba(0,0,0,.95), transparent 40%);
-}
 
+/* HERO CONTENT */
 .hero-content{
   position:relative;
-  z-index:3;
+  z-index:5;
   max-width:1100px;
   margin:auto;
   text-align:center;
   padding-top:150px;
   animation:intro 1.5s ease forwards;
 }
-
 @keyframes intro{
-  from{opacity:0;transform:scale(1.08)}
+  from{opacity:0;transform:scale(1.05)}
   to{opacity:1;transform:none}
 }
 
-.hero h1{font-size:4rem;font-weight:800}
-.hero h2{margin-top:10px;opacity:.85}
+.hero h1{
+  font-size:4rem;
+  font-weight:800;
+  letter-spacing:2px;
+  color:rgba(255,255,255,.92);
+  text-shadow:
+    0 10px 40px rgba(0,0,0,.8),
+    0 2px 8px rgba(0,0,0,.5);
+}
+.hero h2{
+  margin-top:10px;
+  font-weight:500;
+  color:rgba(255,255,255,.7);
+  text-shadow:0 4px 16px rgba(0,0,0,.6);
+}
 .hero p{
   margin-top:20px;
   max-width:720px;
   margin-inline:auto;
-  color:var(--text-dim);
+  color:rgba(255,255,255,.75);
+  text-shadow:0 3px 12px rgba(0,0,0,.55);
 }
 
+/* CTA */
 .cta{
-  display:inline-block;
-  margin-top:30px;
-  padding:16px 46px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:32px;
+  padding:16px 48px;
   border-radius:14px;
-  background:linear-gradient(135deg,#ff6a2d,#ff3d1f);
-  box-shadow:0 0 35px var(--ember-soft);
+  background:linear-gradient(135deg,#ff7a3d,#ff3d1f);
+  color:#fff;
   font-weight:700;
+  box-shadow:
+    0 0 35px rgba(255,100,60,.6),
+    inset 0 1px 0 rgba(255,255,255,.25);
+  transition:.25s;
 }
-.cta:hover{transform:translateY(-3px)}
+.cta:hover{
+  transform:translateY(-3px);
+  box-shadow:
+    0 0 50px rgba(255,120,60,.9),
+    inset 0 1px 0 rgba(255,255,255,.35);
+}
 
+/* STATS */
 .hero-stats{
   display:flex;
   justify-content:center;
@@ -118,29 +130,32 @@ nav a:hover::after{width:100%}
 }
 .hero-stats span{
   font-size:2.6rem;
-  color:var(--ember);
-  font-weight:700;
+  font-weight:800;
+  background:linear-gradient(180deg,#ffb089,#ff5a2c);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 6px 18px rgba(0,0,0,.55);
 }
 .hero-stats label{
   display:block;
   margin-top:6px;
-  opacity:.85;
+  font-size:.9rem;
+  color:rgba(255,255,255,.7);
 }
 
-/* CANVAS */
-#embers,#heat{
+/* CANVAS EFFECTS */
+#embers,#smoke{
   position:absolute;
   inset:0;
   pointer-events:none;
 }
-#embers{z-index:2}
-#heat{z-index:2;mix-blend-mode:screen}
+#embers{z-index:3}
+#smoke{z-index:4}
 
 /* SECTIONS */
 section{
   padding:120px 80px;
-  position:relative;
-  z-index:5;
+  background:#0b0c10;
 }
 section h2{
   text-align:center;
@@ -148,43 +163,15 @@ section h2{
   margin-bottom:60px;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:40px;
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px;
+  background:#000;
+  color:#888;
 }
 
-/* CARDS */
-.card{
-  background:linear-gradient(180deg,#12131a,#0d0e14);
-  border-radius:24px;
-  padding:26px;
-  transition:.4s;
-}
-.card:hover{transform:translateY(-10px)}
-.card img{width:100%;border-radius:18px}
-.installs{color:#9fa4ff;font-size:.9rem;margin:6px 0 16px}
-
-/* SOUND TOGGLE */
-#soundToggle{
-  position:fixed;
-  bottom:24px;
-  right:24px;
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  background:var(--ember);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  cursor:pointer;
-  box-shadow:0 0 20px var(--ember-soft);
-  z-index:200;
-}
-
-footer{text-align:center;padding:40px;color:#888}
-
+/* MOBILE */
 @media(max-width:768px){
   section{padding:90px 28px}
   .hero-stats{flex-direction:column;gap:30px}
@@ -195,7 +182,7 @@ footer{text-align:center;padding:40px;color:#888}
 <body>
 
 <nav>
-  <img src="images/Logo.png">
+  <img src="images/Logo.png" alt="Interactive Dreams">
   <div>
     <a href="#games">Games</a>
     <a href="#investors">Investors</a>
@@ -219,85 +206,57 @@ footer{text-align:center;padding:40px;color:#888}
   </div>
 
   <canvas id="embers"></canvas>
-  <canvas id="heat"></canvas>
-
-  <audio id="wind" src="audio/wind.mp3" loop></audio>
-  <audio id="gunshot" src="audio/gunshot.mp3"></audio>
+  <canvas id="smoke"></canvas>
 </header>
 
-<section id="games">
-<h2>Top Games</h2>
-<div class="grid">
-  <!-- your game cards here (unchanged) -->
-</div>
-</section>
-
-<section id="investors">
-<h2>Investor Snapshot</h2>
-<div class="grid">
-  <div class="card">100M+ installs across FPS portfolio</div>
-  <div class="card">AdMob & MAX monetization</div>
-  <div class="card">ROAS-driven UA scaling</div>
-  <div class="card">Publisher-ready studio</div>
-</div>
-</section>
-
-<section id="about">
-<h2>About Us</h2>
-<p style="max-width:900px;margin:auto;text-align:center;color:#cfcfff">
-Interactive Dreams LLC is a Wyoming-registered mobile game studio focused on
-bright, high-energy FPS and shooter games built for scale and monetization.
-</p>
-</section>
-
-<section id="contact">
-<h2>Contact</h2>
-<p style="text-align:center">📧 idreams425@gmail.com</p>
-</section>
+<section id="games"><h2>Top Games</h2></section>
+<section id="investors"><h2>Investor Snapshot</h2></section>
+<section id="about"><h2>About Us</h2></section>
+<section id="contact"><h2>Contact</h2></section>
 
 <footer>© 2025 Interactive Dreams LLC</footer>
-
-<div id="soundToggle">🔊</div>
 
 <script>
 /* EMBERS */
 const ec=document.getElementById("embers").getContext("2d");
-function r(){ec.canvas.width=innerWidth;ec.canvas.height=innerHeight}
-r();addEventListener("resize",r);
-let emb=[...Array(120)].map(()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2+1,s:Math.random()*.6+.3}));
-(function d(){
-ec.clearRect(0,0,innerWidth,innerHeight);
-emb.forEach(p=>{
-ec.fillStyle="rgba(255,120,60,.7)";
-ec.beginPath();ec.arc(p.x,p.y,p.r,0,7);ec.fill();
-p.y-=p.s;if(p.y<0)p.y=innerHeight;
-});
-requestAnimationFrame(d);
+function resizeE(){ec.canvas.width=innerWidth;ec.canvas.height=innerHeight}
+resizeE();addEventListener("resize",resizeE);
+let embers=[...Array(90)].map(()=>({
+  x:Math.random()*innerWidth,
+  y:Math.random()*innerHeight,
+  r:Math.random()*2+1,
+  s:Math.random()*.4+.2,
+  a:Math.random()*.6+.2
+}));
+(function drawEmbers(){
+  ec.clearRect(0,0,innerWidth,innerHeight);
+  embers.forEach(e=>{
+    ec.fillStyle=`rgba(255,120,60,${e.a})`;
+    ec.beginPath();ec.arc(e.x,e.y,e.r,0,6);ec.fill();
+    e.y-=e.s;e.x+=Math.sin(e.y*.01)*.3;
+    if(e.y<0){e.y=innerHeight;e.x=Math.random()*innerWidth}
+  });
+  requestAnimationFrame(drawEmbers);
 })();
 
-/* HEAT */
-const hc=document.getElementById("heat").getContext("2d");
-(function h(){
-hc.clearRect(0,0,innerWidth,innerHeight);
-for(let i=0;i<16;i++){
-let g=hc.createRadialGradient(Math.random()*innerWidth,innerHeight*.6,0,Math.random()*innerWidth,innerHeight*.6,120);
-g.addColorStop(0,"rgba(255,140,60,.08)");
-g.addColorStop(1,"transparent");
-hc.fillStyle=g;hc.fillRect(0,0,innerWidth,innerHeight);
-}
-requestAnimationFrame(h);
+/* SMOKE */
+const sc=document.getElementById("smoke").getContext("2d");
+let t=0;
+(function drawSmoke(){
+  sc.clearRect(0,0,innerWidth,innerHeight);
+  for(let i=0;i<6;i++){
+    let x=innerWidth/2+Math.sin(t+i)*200;
+    let y=innerHeight*.65+Math.cos(t+i)*40;
+    let r=200;
+    let g=sc.createRadialGradient(x,y,0,x,y,r);
+    g.addColorStop(0,"rgba(200,200,200,.04)");
+    g.addColorStop(1,"transparent");
+    sc.fillStyle=g;
+    sc.beginPath();sc.arc(x,y,r,0,7);sc.fill();
+  }
+  t+=0.005;
+  requestAnimationFrame(drawSmoke);
 })();
-
-/* SOUND */
-const wind=document.getElementById("wind");
-const gun=document.getElementById("gunshot");
-let on=true;wind.volume=.25;wind.play();
-document.getElementById("soundToggle").onclick=e=>{
-on=!on;
-wind[on?"play":"pause"]();
-e.target.textContent=on?"🔊":"🔇";
-};
-document.querySelectorAll("a").forEach(a=>a.onclick=()=>on&&(gun.currentTime=0,gun.play()));
 </script>
 
 </body>
