@@ -2,166 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Under Maintenance</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Dreams LLC | FPS & Action Game Studio</title>
+  <meta name="description" content="Interactive Dreams LLC is a Wyoming-based mobile game studio creating high-performance FPS and action games for Android & iOS." />
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: "Inter", sans-serif;
-      background: radial-gradient(circle at top left, #000, #111);
-      color: #e5e5e5;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+    :root{
+      --primary:#ff4757;
+      --accent:#6c5ce7;
+      --dark:#0b0e1a;
+      --card:#151a33;
+      --light:#f5f6fa;
     }
 
-    /* Animated Gradient Background */
-    .bg {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(130deg, #000, #222, #000);
-      background-size: 300% 300%;
-      animation: bgMove 16s ease infinite;
-      z-index: -2;
-    }
-    @keyframes bgMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff}
 
-    /* Subtle floating blobs */
-    .blob {
-      position: absolute;
-      width: 380px;
-      height: 380px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
-      filter: blur(30px);
-      animation: float 14s ease-in-out infinite alternate;
-      z-index: -1;
-    }
-    .blob:nth-child(1) { top: -60px; left: -60px; animation-delay: -3s; }
-    .blob:nth-child(2) { bottom: -80px; right: -80px; animation-delay: -8s; }
+    nav{position:fixed;top:0;width:100%;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:14px 60px;background:rgba(11,14,26,.85);backdrop-filter:blur(10px)}
+    nav img{height:42px}
+    nav a{color:#fff;margin-left:26px;text-decoration:none;font-weight:500}
 
-    @keyframes float {
-      from { transform: translate(0,0) scale(1); }
-      to   { transform: translate(40px,-40px) scale(1.1); }
+    header{
+      height:100vh;
+      background:linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),url('images/hero-bg.jpg') center/cover fixed;
+      display:flex;align-items:center;justify-content:center;text-align:center
     }
+    header h1{font-size:3.8rem;text-transform:uppercase}
+    header p{max-width:720px;margin:20px auto;color:#ccc}
 
-    /* Card */
-    .card {
-      background: rgba(0, 0, 0, 0.65);
-      padding: 30px 26px;
-      width: 90%;
-      max-width: 480px;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 25px 80px rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      transform: translateY(10px);
-      opacity: 0;
-      animation: fadeUp 0.9s ease forwards;
-    }
+    .btn{display:inline-block;margin-top:26px;padding:15px 36px;border-radius:40px;background:var(--primary);color:#fff;text-decoration:none;font-weight:600;transition:.3s}
+    .btn:hover{transform:translateY(-3px);background:#e84118}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(15px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    section{padding:110px 80px}
+    .title{text-align:center;margin-bottom:70px}
+    .title h2{font-size:2.7rem}
+    .title p{color:#aaa;margin-top:10px}
 
-    /* Icon */
-    .icon {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 18px;
-      animation: slowSpin 12s linear infinite;
-      opacity: 0.85;
-    }
-    @keyframes slowSpin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
+    .stats{display:flex;justify-content:space-around;text-align:center;margin-top:50px}
+    .stat h3{font-size:3rem;color:var(--primary)}
 
-    /* Heading */
-    .eyebrow {
-      display: inline-block;
-      padding: 4px 10px;
-      font-size: 11px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.2);
-      margin-bottom: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px}
+    .card{background:var(--card);padding:30px;border-radius:20px;transition:.35s}
+    .card:hover{transform:translateY(-10px)}
+    .card img{width:100%;border-radius:16px;margin-bottom:18px}
 
-    h1 {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    p {
-      font-size: 14px;
-      color: #ccc;
-      margin-bottom: 22px;
-      line-height: 1.5;
-    }
+    form input,form textarea{width:100%;padding:14px;margin-bottom:16px;border:none;border-radius:10px;background:#0f1430;color:#fff}
+    form button{width:100%;padding:14px;border:none;border-radius:30px;background:var(--primary);color:#fff;font-weight:600;cursor:pointer}
 
-    /* Animated progress bar */
-    .progress {
-      width: 100%;
-      height: 6px;
-      background: #000;
-      border-radius: 999px;
-      border: 1px solid #333;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(90deg, #fff, #999, #fff);
-      background-size: 200% 100%;
-      animation: loadBar 2.6s ease-in-out infinite;
-    }
+    footer{background:#070a14;padding:50px;text-align:center;color:#777}
 
-    @keyframes loadBar {
-      0% { transform: translateX(-40%); }
-      50% { transform: translateX(0%); }
-      100% { transform: translateX(40%); }
-    }
+    @media(max-width:768px){nav{padding:14px 25px}section{padding:90px 30px}header h1{font-size:2.6rem}}
   </style>
 </head>
-
 <body>
-  <div class="bg"></div>
-  <div class="blob"></div>
-  <div class="blob"></div>
 
-  <div class="card">
-
-    <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="2.3">
-      <circle cx="32" cy="32" r="10" stroke="#fff"/>
-      <path d="M32 8l4 4-1 5 4 3 5-2 3 3-2 5 3 4 5-1 4 4-4 4-5-1-3 4 2 5-3 3-5-2-4 3 1 5-4 4-4-4 1-5-4-3-5 2-3-3 2-5-3-4-5 1-4-4 4-4 5 1 3-4-2-5 3-3 5 2 4-3-1-5 4-4z"/>
-    </svg>
-
-    <div class="eyebrow">Maintenance</div>
-
-    <h1>We&rsquo;re Updating Things</h1>
-
-    <p>
-      Our website is currently down for maintenance.  
-      We&rsquo;ll be back shortly with improvements.
-    </p>
-
-    <div class="progress">
-      <div class="progress-fill"></div>
-    </div>
-
+<nav>
+  <img src="images/logo.png" alt="Interactive Dreams LLC">
+  <div>
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
   </div>
+</nav>
+
+<header>
+  <div data-aos="fade-up">
+    <h1>Interactive Dreams LLC</h1>
+    <p>Building aggressive FPS & action games with publisher-grade monetization and global scale.</p>
+    <a class="btn" href="games.html">Explore Our Games</a>
+
+    <div class="stats" data-aos="fade-up" data-aos-delay="200">
+      <div class="stat"><h3 data-count="10000000">0</h3><p>Downloads</p></div>
+      <div class="stat"><h3 data-count="20">0</h3><p>Games</p></div>
+      <div class="stat"><h3 data-count="5">0</h3><p>Years</p></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="title" data-aos="fade-up">
+    <h2>Top Games</h2>
+    <p>Flagship FPS & Action Titles</p>
+  </div>
+
+  <div class="grid">
+    <div class="card" data-aos="zoom-in">
+      <img src="images/game-1.jpg"><h3>Commando Shooter</h3><p>High-retention offline FPS.</p><a class="btn" href="#">Play Store</a>
+    </div>
+    <div class="card" data-aos="zoom-in" data-aos-delay="150">
+      <img src="images/game-2.jpg"><h3>Desert Ops</h3><p>Tactical modern warfare.</p><a class="btn" href="#">Play Store</a>
+    </div>
+    <div class="card" data-aos="zoom-in" data-aos-delay="300">
+      <img src="images/game-3.jpg"><h3>Sniper Fury</h3><p>Precision-based sniper action.</p><a class="btn" href="#">Play Store</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="title" data-aos="fade-up">
+    <h2>Contact</h2>
+    <p>Publishing & Business Inquiries</p>
+  </div>
+
+  <div class="card" style="max-width:600px;margin:auto" data-aos="zoom-in">
+    <form action="https://formsubmit.co/idreams425@gmail.com" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Interactive Dreams LLC · Wyoming, USA</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+AOS.init({duration:900,once:true});
+
+const counters=document.querySelectorAll('[data-count]');
+counters.forEach(c=>{let i=0;const t=+c.dataset.count;const inc=t/120;const u=()=>{i+=inc;if(i<t){c.innerText=Math.floor(i);requestAnimationFrame(u)}else{c.innerText=t.toLocaleString()}};u();});
+</script>
+
 </body>
 </html>
