@@ -1,134 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Dreams LLC | FPS & Action Game Studio</title>
-  <meta name="description" content="Interactive Dreams LLC is a Wyoming-based mobile game studio creating high-performance FPS and action games for Android & iOS." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Dreams LLC | FPS Game Studio</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --primary:#ff4757;
-      --accent:#6c5ce7;
-      --dark:#0b0e1a;
-      --card:#151a33;
-      --light:#f5f6fa;
-    }
+<style>
+body{margin:0;font-family:Poppins;background:#0b0e1a;color:#fff}
+nav{position:fixed;top:0;width:100%;padding:14px 60px;display:flex;justify-content:space-between;background:rgba(11,14,26,.9);z-index:1000}
+nav img{height:40px;object-fit:contain}
+nav a{color:#fff;margin-left:24px;text-decoration:none;font-weight:500}
 
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff}
+header{
+height:100vh;
+background:linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),
+url("images/hero-bg.jpg") center/cover fixed;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding-top:80px
+}
 
-    nav{position:fixed;top:0;width:100%;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:14px 60px;background:rgba(11,14,26,.85);backdrop-filter:blur(10px)}
-    nav img{height:42px}
-    nav a{color:#fff;margin-left:26px;text-decoration:none;font-weight:500}
+.btn{display:inline-block;margin-top:24px;padding:14px 34px;border-radius:30px;background:#ff4757;color:#fff;text-decoration:none;font-weight:600}
 
-    header{
-      height:100vh;
-      background:linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),url('images/hero-bg.jpg') center/cover fixed;
-      display:flex;align-items:center;justify-content:center;text-align:center
-    }
-    header h1{font-size:3.8rem;text-transform:uppercase}
-    header p{max-width:720px;margin:20px auto;color:#ccc}
+.stats{display:flex;gap:60px;justify-content:center;margin-top:40px}
+.stats h2{color:#ff4757}
 
-    .btn{display:inline-block;margin-top:26px;padding:15px 36px;border-radius:40px;background:var(--primary);color:#fff;text-decoration:none;font-weight:600;transition:.3s}
-    .btn:hover{transform:translateY(-3px);background:#e84118}
+section{padding:100px 80px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px}
+.card{background:#151a33;padding:26px;border-radius:20px}
+.card img{width:100%;border-radius:16px}
+.installs{font-size:.9rem;color:#9fa4ff;margin:8px 0 14px}
 
-    section{padding:110px 80px}
-    .title{text-align:center;margin-bottom:70px}
-    .title h2{font-size:2.7rem}
-    .title p{color:#aaa;margin-top:10px}
-
-    .stats{display:flex;justify-content:space-around;text-align:center;margin-top:50px}
-    .stat h3{font-size:3rem;color:var(--primary)}
-
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px}
-    .card{background:var(--card);padding:30px;border-radius:20px;transition:.35s}
-    .card:hover{transform:translateY(-10px)}
-    .card img{width:100%;border-radius:16px;margin-bottom:18px}
-
-    form input,form textarea{width:100%;padding:14px;margin-bottom:16px;border:none;border-radius:10px;background:#0f1430;color:#fff}
-    form button{width:100%;padding:14px;border:none;border-radius:30px;background:var(--primary);color:#fff;font-weight:600;cursor:pointer}
-
-    footer{background:#070a14;padding:50px;text-align:center;color:#777}
-
-    @media(max-width:768px){nav{padding:14px 25px}section{padding:90px 30px}header h1{font-size:2.6rem}}
-  </style>
+footer{text-align:center;padding:40px;color:#777}
+@media(max-width:768px){
+nav{padding:14px 25px}
+section{padding:80px 30px}
+.stats{flex-direction:column;gap:20px}
+}
+</style>
 </head>
+
 <body>
 
 <nav>
-  <img src="images/logo.png" alt="Interactive Dreams LLC">
-  <div>
-    <a href="index.html">Home</a>
-    <a href="games.html">Games</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </div>
+<img src="images/logo.png" alt="Interactive Dreams LLC Logo">
+<div>
+<a href="index.html">Home</a>
+<a href="games.html">Games</a>
+<a href="about.html">About</a>
+<a href="investor.html">Investors</a>
+<a href="contact.html">Contact</a>
+</div>
 </nav>
 
 <header>
-  <div data-aos="fade-up">
-    <h1>Interactive Dreams LLC</h1>
-    <p>Building aggressive FPS & action games with publisher-grade monetization and global scale.</p>
-    <a class="btn" href="games.html">Explore Our Games</a>
+<div>
+<h1>INTERACTIVE DREAMS LLC</h1>
+<p>Building aggressive FPS & action games with publisher-grade monetization.</p>
+<a class="btn" href="games.html">Explore Our Games</a>
 
-    <div class="stats" data-aos="fade-up" data-aos-delay="200">
-      <div class="stat"><h3 data-count="10000000">0</h3><p>Downloads</p></div>
-      <div class="stat"><h3 data-count="20">0</h3><p>Games</p></div>
-      <div class="stat"><h3 data-count="5">0</h3><p>Years</p></div>
-    </div>
-  </div>
+<div class="stats">
+<div><h2>100M+</h2><p>Global Installs</p></div>
+<div><h2>20+</h2><p>Games</p></div>
+<div><h2>5+</h2><p>Years Experience</p></div>
+</div>
+</div>
 </header>
 
 <section>
-  <div class="title" data-aos="fade-up">
-    <h2>Top Games</h2>
-    <p>Flagship FPS & Action Titles</p>
-  </div>
+<h2>Top Games</h2>
 
-  <div class="grid">
-    <div class="card" data-aos="zoom-in">
-      <img src="images/game-1.jpg"><h3>Commando Shooter</h3><p>High-retention offline FPS.</p><a class="btn" href="#">Play Store</a>
-    </div>
-    <div class="card" data-aos="zoom-in" data-aos-delay="150">
-      <img src="images/game-2.jpg"><h3>Desert Ops</h3><p>Tactical modern warfare.</p><a class="btn" href="#">Play Store</a>
-    </div>
-    <div class="card" data-aos="zoom-in" data-aos-delay="300">
-      <img src="images/game-3.jpg"><h3>Sniper Fury</h3><p>Precision-based sniper action.</p><a class="btn" href="#">Play Store</a>
-    </div>
-  </div>
+<div class="grid">
+
+<div class="card">
+<img src="images/apps/fps-commando-strike.png">
+<h3>FPS Commando Strike</h3>
+<p class="installs">100M+ Global Installs</p>
+<a class="btn" href="https://play.google.com/store/apps/details?id=com.id.gungames.offline.strike.fps.shooting.counter.attack.terrorist.mission.fpscommando" target="_blank">Play on Google Play</a>
+</div>
+
+<div class="card">
+<img src="images/apps/fps-gun-shooting.png">
+<h3>FPS Gun Shooting Games</h3>
+<p class="installs">100M+ Global Installs</p>
+<a class="btn" href="https://play.google.com/store/apps/details?id=com.id.fps.gun.shooting.games" target="_blank">Play on Google Play</a>
+</div>
+
+<div class="card">
+<img src="images/apps/gun-shooting-games.png">
+<h3>Gun Shooting Games</h3>
+<p class="installs">100M+ Global Installs</p>
+<a class="btn" href="https://play.google.com/store/apps/details?id=com.id.gun.shooting.games" target="_blank">Play on Google Play</a>
+</div>
+
+<div class="card">
+<img src="images/apps/fps-counter-terrorist.png">
+<h3>FPS Counter Terrorist</h3>
+<p class="installs">100M+ Global Installs</p>
+<a class="btn" href="https://play.google.com/store/apps/details?id=com.idreams.fps.counter.attack.terrorist.shooting.games" target="_blank">Play on Google Play</a>
+</div>
+
+</div>
 </section>
 
-<section id="contact">
-  <div class="title" data-aos="fade-up">
-    <h2>Contact</h2>
-    <p>Publishing & Business Inquiries</p>
-  </div>
-
-  <div class="card" style="max-width:600px;margin:auto" data-aos="zoom-in">
-    <form action="https://formsubmit.co/idreams425@gmail.com" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 Interactive Dreams LLC · Wyoming, USA</p>
-</footer>
-
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-AOS.init({duration:900,once:true});
-
-const counters=document.querySelectorAll('[data-count]');
-counters.forEach(c=>{let i=0;const t=+c.dataset.count;const inc=t/120;const u=()=>{i+=inc;if(i<t){c.innerText=Math.floor(i);requestAnimationFrame(u)}else{c.innerText=t.toLocaleString()}};u();});
-</script>
+<footer>© 2025 Interactive Dreams LLC · Wyoming, USA</footer>
 
 </body>
 </html>
