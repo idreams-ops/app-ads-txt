@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Dreams LLC | FPS Game Studio</title>
+<title>Interactive Dreams LLC | AAA FPS Studio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* =======================
-   GLOBAL / RESET
-======================= */
+/* ================= RESET ================= */
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:Poppins,system-ui;
@@ -20,19 +18,22 @@ body{
 }
 a{text-decoration:none;color:inherit}
 
-/* =======================
-   ANIMATED BACKGROUND
-======================= */
+/* ================= BACKGROUND LAYERS ================= */
+#particleCanvas{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+}
 .bg-animated{
   position:fixed;
   inset:0;
-  background:
-    radial-gradient(circle at 20% 20%, #ff475720, transparent 40%),
-    radial-gradient(circle at 80% 60%, #6c5ce720, transparent 45%),
-    linear-gradient(120deg, #05060c, #090b1a, #05060c);
-  background-size:200% 200%;
-  animation:bgMove 18s ease infinite;
   z-index:-2;
+  background:
+    radial-gradient(circle at 15% 20%, #ff475720, transparent 40%),
+    radial-gradient(circle at 80% 70%, #6c5ce720, transparent 45%),
+    linear-gradient(120deg,#05060c,#090b1a,#05060c);
+  background-size:200% 200%;
+  animation:bgMove 20s ease infinite;
 }
 @keyframes bgMove{
   0%{background-position:0% 50%}
@@ -40,9 +41,7 @@ a{text-decoration:none;color:inherit}
   100%{background-position:0% 50%}
 }
 
-/* =======================
-   NAV
-======================= */
+/* ================= NAV ================= */
 nav{
   position:fixed;
   top:0;left:0;right:0;
@@ -51,8 +50,8 @@ nav{
   justify-content:space-between;
   align-items:center;
   background:rgba(5,6,12,.7);
-  backdrop-filter:blur(14px);
-  z-index:999;
+  backdrop-filter:blur(16px);
+  z-index:10;
 }
 nav img{height:40px}
 nav a{
@@ -63,9 +62,7 @@ nav a{
 }
 nav a:hover{opacity:1;color:#ff4757}
 
-/* =======================
-   HERO
-======================= */
+/* ================= HERO ================= */
 header{
   min-height:100vh;
   display:flex;
@@ -74,27 +71,27 @@ header{
   text-align:center;
   padding:120px 20px 60px;
   background:
-    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.9)),
+    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.9)),
     url("images/hero-bg.jpg") center/cover no-repeat;
 }
 .hero{
   animation:fadeUp 1.2s ease forwards;
 }
 .hero h1{
-  font-size:clamp(2.6rem,6vw,4.5rem);
+  font-size:clamp(2.8rem,6vw,4.8rem);
   font-weight:800;
   letter-spacing:2px;
 }
 .hero p{
-  margin-top:16px;
+  margin-top:18px;
   color:#cfcfff;
   max-width:720px;
   margin-inline:auto;
 }
 .btn{
   display:inline-block;
-  margin-top:30px;
-  padding:16px 42px;
+  margin-top:34px;
+  padding:16px 44px;
   border-radius:40px;
   background:linear-gradient(135deg,#ff4757,#ff6b81);
   font-weight:700;
@@ -102,21 +99,16 @@ header{
   transition:.3s;
 }
 .btn:hover{
-  transform:translateY(-4px) scale(1.03);
-  box-shadow:0 30px 60px #ff475799;
+  transform:translateY(-4px) scale(1.04);
+  box-shadow:0 35px 70px #ff475799;
 }
 
-/* =======================
-   STATS
-======================= */
+/* ================= STATS ================= */
 .stats{
   display:flex;
   gap:60px;
   justify-content:center;
-  margin-top:60px;
-}
-.stat{
-  animation:fadeUp .8s ease forwards;
+  margin-top:70px;
 }
 .stat h2{
   font-size:2.8rem;
@@ -124,15 +116,11 @@ header{
 }
 .stat p{opacity:.8}
 
-/* =======================
-   SECTIONS
-======================= */
-section{
-  padding:120px 80px;
-}
+/* ================= SECTIONS ================= */
+section{padding:120px 80px}
 section h2{
   text-align:center;
-  font-size:2.6rem;
+  font-size:2.7rem;
   margin-bottom:60px;
 }
 .grid{
@@ -141,34 +129,31 @@ section h2{
   gap:40px;
 }
 
-/* =======================
-   GAME CARDS (AAA)
-======================= */
+/* ================= CARDS ================= */
 .card{
   position:relative;
   background:linear-gradient(180deg,#0e1028,#0a0c1f);
-  border-radius:24px;
+  border-radius:26px;
   padding:26px;
   overflow:hidden;
-  transition:.4s;
-  animation:fadeUp .9s ease forwards;
+  transition:.45s;
 }
 .card::before{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(120deg,transparent,#ffffff12,transparent);
+  background:linear-gradient(120deg,transparent,#ffffff14,transparent);
   opacity:0;
   transition:.4s;
 }
 .card:hover::before{opacity:1}
 .card:hover{
-  transform:translateY(-10px) scale(1.03);
+  transform:translateY(-12px) scale(1.04);
 }
 .card img{
   width:100%;
-  border-radius:18px;
-  margin-bottom:16px;
+  border-radius:20px;
+  margin-bottom:18px;
 }
 .installs{
   font-size:.9rem;
@@ -176,21 +161,8 @@ section h2{
   margin:6px 0 16px;
 }
 
-/* =======================
-   INVESTOR
-======================= */
-.investor .card{
-  text-align:center;
-  font-weight:600;
-}
-
-/* =======================
-   CONTACT
-======================= */
-form{
-  max-width:600px;
-  margin:auto;
-}
+/* ================= CONTACT ================= */
+form{max-width:600px;margin:auto}
 input,textarea{
   width:100%;
   padding:16px;
@@ -210,26 +182,20 @@ button{
   cursor:pointer;
 }
 
-/* =======================
-   FOOTER
-======================= */
+/* ================= FOOTER ================= */
 footer{
   text-align:center;
   padding:40px;
   color:#888;
 }
 
-/* =======================
-   ANIMATIONS
-======================= */
+/* ================= ANIM ================= */
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(30px)}
   to{opacity:1;transform:none}
 }
 
-/* =======================
-   MOBILE
-======================= */
+/* ================= MOBILE ================= */
 @media(max-width:768px){
   nav{padding:14px 24px}
   section{padding:90px 28px}
@@ -240,6 +206,7 @@ footer{
 
 <body>
 
+<canvas id="particleCanvas"></canvas>
 <div class="bg-animated"></div>
 
 <!-- NAV -->
@@ -313,7 +280,7 @@ Play on Google Play</a>
 </section>
 
 <!-- INVESTORS -->
-<section id="investors" class="investor">
+<section id="investors">
 <h2>Investor Snapshot</h2>
 <div class="grid">
 <div class="card">100M+ installs across FPS portfolio</div>
@@ -328,8 +295,7 @@ Play on Google Play</a>
 <h2>About Us</h2>
 <p style="max-width:900px;margin:auto;text-align:center;color:#cfcfff">
 Interactive Dreams LLC is a Wyoming-registered mobile game studio focused on
-bright, high-energy FPS and shooter games for Android, built for scale,
-monetization, and long-term growth.
+bright, high-energy FPS and shooter games built for scale, monetization, and long-term growth.
 </p>
 </section>
 
@@ -346,6 +312,45 @@ monetization, and long-term growth.
 </section>
 
 <footer>© 2025 Interactive Dreams LLC</footer>
+
+<!-- ================= PARTICLE ENGINE ================= -->
+<script>
+const canvas=document.getElementById("particleCanvas");
+const ctx=canvas.getContext("2d");
+let w,h,particles=[];
+function resize(){
+  w=canvas.width=window.innerWidth;
+  h=canvas.height=window.innerHeight;
+}
+window.addEventListener("resize",resize);
+resize();
+
+for(let i=0;i<120;i++){
+  particles.push({
+    x:Math.random()*w,
+    y:Math.random()*h,
+    vx:(Math.random()-.5)*.6,
+    vy:(Math.random()-.5)*.6,
+    r:Math.random()*2+1
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle="rgba(255,71,87,.6)";
+  particles.forEach(p=>{
+    p.x+=p.vx;
+    p.y+=p.vy;
+    if(p.x<0||p.x>w)p.vx*=-1;
+    if(p.y<0||p.y>h)p.vy*=-1;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
 
 </body>
 </html>
