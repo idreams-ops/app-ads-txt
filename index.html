@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ================= RESET ================= */
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -19,7 +18,7 @@ body{
 }
 a{text-decoration:none;color:inherit}
 
-/* ================= HEADER / NAV ================= */
+/* ================= NAV ================= */
 nav{
   position:fixed;
   top:24px;
@@ -29,14 +28,11 @@ nav{
   max-width:1450px;
   padding:20px 44px;
   border-radius:18px;
-
   background:rgba(45,45,50,.65);
   backdrop-filter:blur(22px) saturate(130%);
-
   box-shadow:
     0 18px 60px rgba(0,0,0,.7),
     inset 0 1px 0 rgba(255,255,255,.08);
-
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -48,19 +44,15 @@ nav{
   align-items:center;
   gap:14px;
 }
-
 .logo img{
   height:56px;
-  filter:
-    drop-shadow(0 0 10px rgba(255,80,40,.6));
+  filter:drop-shadow(0 0 10px rgba(255,80,40,.6));
 }
-
 .logo span{
   font-size:1.15rem;
   font-weight:800;
   letter-spacing:1.6px;
   color:rgba(255,255,255,.96);
-
   text-shadow:
     0 2px 10px rgba(0,0,0,.55),
     0 0 10px rgba(255,255,255,.15);
@@ -82,7 +74,7 @@ nav a:hover{color:#fff}
   overflow:hidden;
 }
 
-/* ================= CENTER TEXT ================= */
+/* ================= HERO TEXT ================= */
 .hero-text{
   position:absolute;
   top:50%;
@@ -99,19 +91,14 @@ nav a:hover{color:#fff}
   font-weight:800;
   letter-spacing:2.8px;
   text-transform:uppercase;
-
   color:rgba(255,255,255,.92);
-
-  text-shadow:
-    0 8px 40px rgba(0,0,0,.8);
+  text-shadow:0 8px 40px rgba(0,0,0,.8);
 }
 
 .hero-text h2{
   margin-top:14px;
   font-size:1.15rem;
   font-weight:600;
-  letter-spacing:1px;
-
   color:rgba(255,255,255,.72);
 }
 
@@ -119,14 +106,10 @@ nav a:hover{color:#fff}
   margin-top:22px;
   max-width:560px;
   margin-inline:auto;
-
   font-size:0.98rem;
   line-height:1.7;
-
   color:rgba(255,255,255,.78);
-
-  text-shadow:
-    0 3px 14px rgba(0,0,0,.7);
+  text-shadow:0 3px 14px rgba(0,0,0,.7);
 }
 
 /* ================= CTA ================= */
@@ -135,31 +118,16 @@ nav a:hover{color:#fff}
   margin-top:26px;
   padding:14px 40px;
   border-radius:12px;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,120,60,.95),
-      rgba(255,60,30,.95)
-    );
-
+  background:linear-gradient(135deg,rgba(255,120,60,.95),rgba(255,60,30,.95));
   font-weight:700;
   font-size:0.95rem;
-
   box-shadow:
     0 0 30px rgba(255,90,40,.8),
     inset 0 1px 0 rgba(255,255,255,.25);
-
-  transition:.25s;
 }
-.cta:hover{
-  transform:translateY(-2px);
-  box-shadow:
-    0 0 45px rgba(255,120,60,1),
-    inset 0 1px 0 rgba(255,255,255,.35);
-}
+.cta:hover{transform:translateY(-2px)}
 
-/* ================= STATS ================= */
+/* ================= STATS (FIXED VISIBILITY) ================= */
 .hero-stats{
   display:flex;
   justify-content:center;
@@ -170,33 +138,64 @@ nav a:hover{color:#fff}
 .hero-stats span{
   font-size:2.6rem;
   font-weight:800;
-
-  background:linear-gradient(180deg,#ffb089,#ff5a2c);
+  background:linear-gradient(180deg,#ffcfb3,#ff6a2c);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-
-  text-shadow:0 6px 20px rgba(0,0,0,.6);
+  text-shadow:
+    0 4px 16px rgba(0,0,0,.9),
+    0 0 18px rgba(0,0,0,.8);
 }
 
 .hero-stats label{
   display:block;
   margin-top:6px;
   font-size:0.9rem;
-  color:rgba(255,255,255,.75);
+  color:rgba(255,255,255,.88);
+  text-shadow:0 2px 8px rgba(0,0,0,.8);
 }
 
 /* ================= EMBERS ================= */
 #embers{
   position:absolute;
   inset:0;
-  z-index:3;
   pointer-events:none;
+  z-index:3;
 }
 
-/* ================= RESPONSIVE ================= */
+/* ================= SECTIONS ================= */
+.content-section{
+  padding:140px 80px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,90,44,.06), transparent 40%),
+    linear-gradient(180deg,#07080d,#0c0d14);
+}
+
+.content-section h2{
+  font-size:2.6rem;
+  margin-bottom:20px;
+}
+
+.content-section p{
+  max-width:720px;
+  margin:auto;
+  color:rgba(255,255,255,.78);
+  line-height:1.7;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  text-align:center;
+  padding:40px;
+  background:#000;
+  color:#888;
+}
+
+/* ================= MOBILE ================= */
 @media(max-width:900px){
   .hero-text h1{font-size:2.8rem}
   .hero-stats{flex-direction:column;gap:32px}
+  .content-section{padding:100px 30px}
 }
 </style>
 </head>
@@ -208,7 +207,6 @@ nav a:hover{color:#fff}
     <img src="images/Logo.png" alt="Interactive Dreams">
     <span>INTERACTIVE DREAMS</span>
   </div>
-
   <div>
     <a href="#games">Games</a>
     <a href="#investors">Investors</a>
@@ -218,7 +216,6 @@ nav a:hover{color:#fff}
 </nav>
 
 <header class="hero">
-
   <div class="hero-text">
     <h1>INTERACTIVE DREAMS LLC</h1>
     <h2>AAA FPS Studio</h2>
@@ -249,8 +246,32 @@ nav a:hover{color:#fff}
   <canvas id="embers"></canvas>
 </header>
 
+<section id="games" class="content-section">
+  <h2>Top Games</h2>
+  <p>Our most downloaded FPS & action games with global reach.</p>
+</section>
+
+<section id="investors" class="content-section">
+  <h2>Investor Snapshot</h2>
+  <p>100M+ installs · Proven monetization · ROAS-driven growth.</p>
+</section>
+
+<section id="about" class="content-section">
+  <h2>About Us</h2>
+  <p>
+    Interactive Dreams LLC is a Wyoming-registered mobile game studio focused on
+    AAA-styled FPS and shooter games built for scale, monetization, and long-term growth.
+  </p>
+</section>
+
+<section id="contact" class="content-section">
+  <h2>Contact</h2>
+  <p>Email: idreams425@gmail.com</p>
+</section>
+
+<footer>© 2025 Interactive Dreams LLC</footer>
+
 <script>
-/* EMBER PARTICLES (REFERENCE-LIKE) */
 const c=document.getElementById("embers");
 const ctx=c.getContext("2d");
 
