@@ -8,17 +8,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ================= RESET ================= */
+:root{
+  --bg-dark:#0b0c10;
+  --ember:#ff5a2c;
+  --ember-soft:rgba(255,90,44,.6);
+  --metal:rgba(255,255,255,.08);
+  --text-dim:#cfcfcf;
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   font-family:Poppins,system-ui;
-  background:#05060c;
+  background:var(--bg-dark);
   color:#fff;
-  overflow-x:hidden;
 }
-a{text-decoration:none;color:inherit}
 
-/* ================= NAV ================= */
+/* NAV */
 nav{
   position:fixed;
   top:20px;
@@ -28,13 +34,13 @@ nav{
   max-width:1200px;
   padding:14px 32px;
   border-radius:16px;
-  background:rgba(15,15,20,.65);
+  background:rgba(10,10,12,.7);
   backdrop-filter:blur(18px);
-  box-shadow:0 10px 40px rgba(0,0,0,.6);
+  box-shadow:0 10px 40px rgba(0,0,0,.7);
   display:flex;
   justify-content:space-between;
   align-items:center;
-  z-index:50;
+  z-index:100;
 }
 nav img{height:42px}
 nav a{
@@ -48,26 +54,25 @@ nav a::after{
   bottom:-6px;
   width:0;
   height:2px;
-  background:#ff4747;
+  background:var(--ember);
   transition:.3s;
 }
 nav a:hover::after{width:100%}
 
-/* ================= HERO ================= */
+/* HERO */
 .hero{
   position:relative;
   height:100vh;
   background:url("images/hero-bg.jpg") center/cover no-repeat;
   overflow:hidden;
 }
-
-.hero-overlay{
+.hero::after{
+  content:"";
   position:absolute;
   inset:0;
   background:
     radial-gradient(circle at center, rgba(0,0,0,.35), rgba(0,0,0,.9)),
     linear-gradient(to top, rgba(0,0,0,.95), transparent 40%);
-  z-index:1;
 }
 
 .hero-content{
@@ -76,46 +81,35 @@ nav a:hover::after{width:100%}
   max-width:1100px;
   margin:auto;
   text-align:center;
-  padding-top:140px;
-  animation:introZoom 1.6s ease forwards;
+  padding-top:150px;
+  animation:intro 1.5s ease forwards;
 }
 
-@keyframes introZoom{
+@keyframes intro{
   from{opacity:0;transform:scale(1.08)}
   to{opacity:1;transform:none}
 }
 
-.hero h1{
-  font-size:4rem;
-  font-weight:800;
-  letter-spacing:2px;
-}
-.hero h2{
-  margin-top:10px;
-  opacity:.85;
-}
+.hero h1{font-size:4rem;font-weight:800}
+.hero h2{margin-top:10px;opacity:.85}
 .hero p{
   margin-top:20px;
   max-width:720px;
   margin-inline:auto;
-  color:#ddd;
+  color:var(--text-dim);
 }
 
-/* CTA */
 .cta{
   display:inline-block;
   margin-top:30px;
   padding:16px 46px;
   border-radius:14px;
-  background:linear-gradient(135deg,#ff3c3c,#ff6b3d);
-  box-shadow:0 0 40px rgba(255,80,80,.7);
+  background:linear-gradient(135deg,#ff6a2d,#ff3d1f);
+  box-shadow:0 0 35px var(--ember-soft);
   font-weight:700;
-  transition:.25s;
 }
 .cta:hover{transform:translateY(-3px)}
-.cta:active{transform:translateY(1px)}
 
-/* STATS */
 .hero-stats{
   display:flex;
   justify-content:center;
@@ -124,7 +118,7 @@ nav a:hover::after{width:100%}
 }
 .hero-stats span{
   font-size:2.6rem;
-  color:#ff5555;
+  color:var(--ember);
   font-weight:700;
 }
 .hero-stats label{
@@ -133,7 +127,7 @@ nav a:hover::after{width:100%}
   opacity:.85;
 }
 
-/* CANVAS LAYERS */
+/* CANVAS */
 #embers,#heat{
   position:absolute;
   inset:0;
@@ -143,7 +137,17 @@ nav a:hover::after{width:100%}
 #heat{z-index:2;mix-blend-mode:screen}
 
 /* SECTIONS */
-section{padding:120px 80px;position:relative;z-index:5}
+section{
+  padding:120px 80px;
+  position:relative;
+  z-index:5;
+}
+section h2{
+  text-align:center;
+  font-size:2.6rem;
+  margin-bottom:60px;
+}
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -152,16 +156,13 @@ section{padding:120px 80px;position:relative;z-index:5}
 
 /* CARDS */
 .card{
-  background:linear-gradient(180deg,#0e1028,#0a0c1f);
-  border-radius:26px;
+  background:linear-gradient(180deg,#12131a,#0d0e14);
+  border-radius:24px;
   padding:26px;
   transition:.4s;
 }
 .card:hover{transform:translateY(-10px)}
-.card img{
-  width:100%;
-  border-radius:20px;
-}
+.card img{width:100%;border-radius:18px}
 .installs{color:#9fa4ff;font-size:.9rem;margin:6px 0 16px}
 
 /* SOUND TOGGLE */
@@ -172,20 +173,18 @@ section{padding:120px 80px;position:relative;z-index:5}
   width:52px;
   height:52px;
   border-radius:50%;
-  background:rgba(255,70,70,.9);
+  background:var(--ember);
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:22px;
   cursor:pointer;
-  box-shadow:0 0 20px rgba(255,70,70,.8);
-  z-index:100;
+  box-shadow:0 0 20px var(--ember-soft);
+  z-index:200;
 }
 
-/* FOOTER */
 footer{text-align:center;padding:40px;color:#888}
 
-/* MOBILE */
 @media(max-width:768px){
   section{padding:90px 28px}
   .hero-stats{flex-direction:column;gap:30px}
@@ -206,8 +205,6 @@ footer{text-align:center;padding:40px;color:#888}
 </nav>
 
 <header class="hero">
-  <div class="hero-overlay"></div>
-
   <div class="hero-content">
     <h1>INTERACTIVE DREAMS LLC</h1>
     <h2>AAA FPS Studio</h2>
@@ -228,49 +225,78 @@ footer{text-align:center;padding:40px;color:#888}
   <audio id="gunshot" src="audio/gunshot.mp3"></audio>
 </header>
 
-<div id="soundToggle">🔊</div>
+<section id="games">
+<h2>Top Games</h2>
+<div class="grid">
+  <!-- your game cards here (unchanged) -->
+</div>
+</section>
+
+<section id="investors">
+<h2>Investor Snapshot</h2>
+<div class="grid">
+  <div class="card">100M+ installs across FPS portfolio</div>
+  <div class="card">AdMob & MAX monetization</div>
+  <div class="card">ROAS-driven UA scaling</div>
+  <div class="card">Publisher-ready studio</div>
+</div>
+</section>
+
+<section id="about">
+<h2>About Us</h2>
+<p style="max-width:900px;margin:auto;text-align:center;color:#cfcfff">
+Interactive Dreams LLC is a Wyoming-registered mobile game studio focused on
+bright, high-energy FPS and shooter games built for scale and monetization.
+</p>
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+<p style="text-align:center">📧 idreams425@gmail.com</p>
+</section>
 
 <footer>© 2025 Interactive Dreams LLC</footer>
 
+<div id="soundToggle">🔊</div>
+
 <script>
 /* EMBERS */
-const e=document.getElementById("embers").getContext("2d");
-const ec=e.canvas;
-function rs(){ec.width=innerWidth;ec.height=innerHeight}
-rs();addEventListener("resize",rs);
-let emb=[...Array(120)].map(()=>({x:Math.random()*ec.width,y:Math.random()*ec.height,r:Math.random()*2+1,s:Math.random()*.6+.3}));
-(function draw(){
-e.clearRect(0,0,ec.width,ec.height);
+const ec=document.getElementById("embers").getContext("2d");
+function r(){ec.canvas.width=innerWidth;ec.canvas.height=innerHeight}
+r();addEventListener("resize",r);
+let emb=[...Array(120)].map(()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2+1,s:Math.random()*.6+.3}));
+(function d(){
+ec.clearRect(0,0,innerWidth,innerHeight);
 emb.forEach(p=>{
-e.fillStyle="rgba(255,120,60,.7)";
-e.beginPath();e.arc(p.x,p.y,p.r,0,7);e.fill();
-p.y-=p.s;if(p.y<0)p.y=ec.height;
+ec.fillStyle="rgba(255,120,60,.7)";
+ec.beginPath();ec.arc(p.x,p.y,p.r,0,7);ec.fill();
+p.y-=p.s;if(p.y<0)p.y=innerHeight;
 });
-requestAnimationFrame(draw);
+requestAnimationFrame(d);
 })();
 
 /* HEAT */
-const h=document.getElementById("heat").getContext("2d");
-(function heat(){
-h.clearRect(0,0,innerWidth,innerHeight);
-for(let i=0;i<20;i++){
-let g=h.createRadialGradient(Math.random()*innerWidth,innerHeight*.6,0,Math.random()*innerWidth,innerHeight*.6,120);
+const hc=document.getElementById("heat").getContext("2d");
+(function h(){
+hc.clearRect(0,0,innerWidth,innerHeight);
+for(let i=0;i<16;i++){
+let g=hc.createRadialGradient(Math.random()*innerWidth,innerHeight*.6,0,Math.random()*innerWidth,innerHeight*.6,120);
 g.addColorStop(0,"rgba(255,140,60,.08)");
 g.addColorStop(1,"transparent");
-h.fillStyle=g;h.fillRect(0,0,innerWidth,innerHeight);
+hc.fillStyle=g;hc.fillRect(0,0,innerWidth,innerHeight);
 }
-requestAnimationFrame(heat);
+requestAnimationFrame(h);
 })();
 
 /* SOUND */
 const wind=document.getElementById("wind");
 const gun=document.getElementById("gunshot");
 let on=true;wind.volume=.25;wind.play();
-document.getElementById("soundToggle").onclick=()=>{
+document.getElementById("soundToggle").onclick=e=>{
 on=!on;
 wind[on?"play":"pause"]();
-event.target.textContent=on?"🔊":"🔇";
-}
+e.target.textContent=on?"🔊":"🔇";
+};
 document.querySelectorAll("a").forEach(a=>a.onclick=()=>on&&(gun.currentTime=0,gun.play()));
 </script>
 
