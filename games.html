@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Games | Interactive Dreams LLC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    body{margin:0;font-family:Poppins;background:#0b0e1a;color:#fff}
+    nav{padding:14px 60px;display:flex;justify-content:space-between;background:#0b0e1a}
+    nav img{height:40px}
+    nav a{color:#fff;margin-left:24px;text-decoration:none}
+    section{padding:100px 80px}
+    .title{text-align:center;margin-bottom:60px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px}
+    .card{background:#151a33;padding:26px;border-radius:20px;transition:.3s}
+    .card:hover{transform:translateY(-8px)}
+    .card img{width:100%;border-radius:14px}
+    .btn{display:inline-block;margin-top:14px;padding:12px 26px;border-radius:30px;background:#ff4757;color:#fff;text-decoration:none}
+    footer{text-align:center;padding:40px;color:#777}
+  </style>
+</head>
+<body>
+<nav>
+  <img src="images/logo.png">
+  <div>
+    <a href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
 
+<section>
+  <div class="title" data-aos="fade-up">
+    <h1>Our Games</h1>
+    <p>FPS & Action Titles Played Worldwide</p>
+  </div>
+
+  <h2>Featured Games</h2>
+  <div class="grid">
+    <div class="card" data-aos="zoom-in"><img src="images/game-1.jpg"><h3>Commando Shooter</h3><a class="btn" href="#">Play Store</a></div>
+    <div class="card" data-aos="zoom-in"><img src="images/game-2.jpg"><h3>Desert Ops</h3><a class="btn" href="#">Play Store</a></div>
+    <div class="card" data-aos="zoom-in"><img src="images/game-3.jpg"><h3>Sniper Fury</h3><a class="btn" href="#">Play Store</a></div>
+  </div>
+
+  <h2 style="margin-top:80px">More Games</h2>
+  <div class="grid">
+    <div class="card" data-aos="fade-up"><h3>Gun Strike</h3><a class="btn" href="#">Play Store</a></div>
+    <div class="card" data-aos="fade-up"><h3>War Zone FPS</h3><a class="btn" href="#">Play Store</a></div>
+    <div class="card" data-aos="fade-up"><h3>Sniper Mission</h3><a class="btn" href="#">Play Store</a></div>
+  </div>
+</section>
+
+<footer>© 2025 Interactive Dreams LLC</footer>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>AOS.init({once:true})</script>
+</body>
+</html>
