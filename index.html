@@ -41,13 +41,6 @@
             z-index: 10;
         }
 
-        /* Glassmorphism Navigation */
-        .nav-glass {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
         /* Glowing Button Effect */
         .btn-glow {
             background: linear-gradient(90deg, #8b0000, #ff4500);
@@ -73,18 +66,6 @@
 <body>
 
     <canvas id="particle-canvas"></canvas>
-
-    <nav class="fixed top-0 w-full z-50 nav-glass px-8 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-red-700 rounded-sm flex items-center justify-center font-black text-xl text-white">ID</div>
-        </div>
-        <div class="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-widest text-gray-300">
-            <a href="#" class="hover:text-white transition">Games</a>
-            <a href="#" class="hover:text-white transition">Investors</a>
-            <a href="#" class="hover:text-white transition">About</a>
-            <a href="#" class="hover:text-white transition">Contact</a>
-        </div>
-    </nav>
 
     <section class="hero-container relative">
         <div class="z-20 px-4">
@@ -127,7 +108,7 @@
         canvas.height = window.innerHeight;
 
         let particlesArray = [];
-        const numberOfParticles = 150; // Increased count for liveliness
+        const numberOfParticles = 150;
 
         class Particle {
             constructor() {
@@ -142,7 +123,6 @@
                 this.speedX = Math.random() * 2 - 1;
                 this.velocity = Math.random() * 0.05;
                 this.alpha = Math.random() * 0.6 + 0.1;
-                // Ember colors: mix of reds, oranges and yellows
                 const colors = [
                     `rgba(255, 69, 0, ${this.alpha})`,
                     `rgba(255, 140, 0, ${this.alpha})`,
@@ -154,12 +134,10 @@
 
             update() {
                 this.y -= this.speedY;
-                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5; // Swell movement
+                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5; 
                 
-                // Shrink as they rise
                 if (this.size > 0.1) this.size -= 0.003;
                 
-                // Reset if they go off screen or disappear
                 if (this.y < -10 || this.size <= 0.1) {
                     this.reset();
                 }
@@ -172,7 +150,7 @@
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
-                ctx.shadowBlur = 0; // Reset for performance
+                ctx.shadowBlur = 0; 
             }
         }
 
@@ -184,7 +162,6 @@
         }
 
         function animate() {
-            // Slight trails effect
             ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
