@@ -1,5 +1,10 @@
+const ENV = process.env.ADS_ENV || "prod";
+
 module.exports = {
-  outputFile: "app-ads.txt",
+  outputFile:
+    ENV === "test"
+      ? "app-ads.test.txt"
+      : "app-ads.txt",
 
   networks: {
     Admob: "ads/admob.txt",
