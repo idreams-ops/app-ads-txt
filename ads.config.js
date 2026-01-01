@@ -1,5 +1,5 @@
 module.exports = {
-  outputFile: "app-ads.txt",
+  outputFile: "app-ads.txt(Test)",
 
   networks: {
     Admob: "ads/admob.txt",
