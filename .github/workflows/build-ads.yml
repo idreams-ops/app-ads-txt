@@ -1,7 +1,16 @@
 name: Build app-ads.txt (Manual)
 
 on:
-  workflow_dispatch:   # 👈 MANUAL ONLY
+  workflow_dispatch:
+    inputs:
+      env:
+        description: "Environment"
+        required: true
+        default: "test"
+        type: choice
+        options:
+          - test
+          - prod
 
 permissions:
   contents: write
@@ -11,21 +20,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Build app-ads.txt
-        run: node build_app_ads.js
+      - name: Build ads file
+        run: ADS_ENV=${{ github.event.inputs.env }} node build_app_ads.js
 
       - name: Commit generated file
         run: |
           git config user.name "ads-bot"
           git config user.email "ads-bot@users.noreply.github.com"
-          git add app-ads.txt
-          git commit -m "Manual build app-ads.txt" || echo "No changes"
+          git add app-ads*.txt
+          git commit -m "Manual build (${{ github.event.inputs.env }})" || echo "No changes"
           git push
