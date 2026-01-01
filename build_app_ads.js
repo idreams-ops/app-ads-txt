@@ -1,11 +1,25 @@
+/***************************************************
+ * BUILD app-ads.txt
+ * - Combines network files
+ * - Adds ## Network headers
+ * - Removes duplicate entries from output
+ * - Logs duplicates ONLY to console (GitHub logs)
+ * - Supports ENV switch: test / prod
+ ***************************************************/
+
 const fs = require("fs");
 const path = require("path");
 const CONFIG = require("./ads.config");
 
-const seen = new Map();     // entry -> [networks]
-const output = [];
-const duplicateLog = [];
+const ENV = process.env.ADS_ENV || "prod";
 
+const seen = new Map();        // entry -> [networks]
+const duplicateMap = new Map(); // entry -> Set(networks)
+const outputLines = [];
+
+/* -------------------------------------------------
+ * PROCESS NETWORK FILES
+ * -------------------------------------------------*/
 for (const [network, filePath] of Object.entries(CONFIG.networks)) {
 
   if (!fs.existsSync(filePath)) {
@@ -13,7 +27,7 @@ for (const [network, filePath] of Object.entries(CONFIG.networks)) {
     continue;
   }
 
-  output.push(`## ${network}`);
+  outputLines.push(`## ${network}`);
 
   const lines = fs
     .readFileSync(filePath, "utf8")
@@ -24,46 +38,44 @@ for (const [network, filePath] of Object.entries(CONFIG.networks)) {
   for (const line of lines) {
 
     if (!seen.has(line)) {
-      seen.set(line, [network]);
-      output.push(line);
+      seen.set(line, network);
+      outputLines.push(line);
     } else {
-      seen.get(line).push(network);
+      // Track duplicates (but DO NOT write to output)
+      if (!duplicateMap.has(line)) {
+        duplicateMap.set(line, new Set([seen.get(line)]));
+      }
+      duplicateMap.get(line).add(network);
     }
   }
 
-  output.push(""); // spacing
+  outputLines.push(""); // spacing between networks
 }
 
-/* ----- DUPLICATE REPORT ----- */
-output.push("## DUPLICATE ENTRIES (AUTO-DETECTED)");
+/* -------------------------------------------------
+ * WRITE OUTPUT FILE (NO DUPLICATE SECTION)
+ * -------------------------------------------------*/
+fs.writeFileSync(CONFIG.outputFile, outputLines.join("\n"));
 
-for (const [entry, networks] of seen.entries()) {
-  if (networks.length > 1) {
-    duplicateLog.push({ entry, networks });
+console.log(`✅ ${CONFIG.outputFile} generated (${ENV})`);
 
-    output.push(
-      `# DUPLICATE → ${entry}`
-    );
-    output.push(
-      `# FOUND IN → ${networks.join(", ")}`
-    );
-    output.push("");
-  }
-}
+/* -------------------------------------------------
+ * LOG DUPLICATES (CONSOLE / GITHUB ACTIONS ONLY)
+ * -------------------------------------------------*/
+if (duplicateMap.size > 0) {
+  console.log("⚠️ Duplicate ads.txt entries detected:");
 
-/* ----- WRITE FILE ----- */
-fs.writeFileSync(CONFIG.outputFile, output.join("\n"));
-
-/* ----- CONSOLE LOG (GITHUB FRIENDLY) ----- */
-console.log("✅ app-ads.txt generated");
-
-if (duplicateLog.length) {
-  console.log("⚠️ Duplicates found:");
-  duplicateLog.forEach(d =>
+  for (const [entry, networks] of duplicateMap.entries()) {
     console.log(
-      `• ${d.entry} → ${d.networks.join(", ")}`
-    )
-  );
+      `• ${entry} → ${Array.from(networks).join(", ")}`
+    );
+  }
+
+  // Block PROD builds if duplicates exist
+  if (ENV === "prod") {
+    console.error("❌ PROD build blocked due to duplicates");
+    process.exit(1);
+  }
 } else {
-  console.log("🎉 No duplicates detected");
+  console.log("🎉 No duplicate entries found");
 }
