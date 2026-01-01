@@ -3,23 +3,57 @@
  * - Combines network files
  * - Adds ## Network headers
  * - Removes duplicate entries from output
- * - Logs duplicates ONLY to console (GitHub logs)
- * - Supports ENV switch: test / prod
+ * - Logs duplicates ONLY to console
+ * - Logs per-network change summary vs last build
+ * - ENV support: test / prod
  ***************************************************/
 
 const fs = require("fs");
-const path = require("path");
 const CONFIG = require("./ads.config");
 
 const ENV = process.env.ADS_ENV || "prod";
-
-const seen = new Map();        // entry -> [networks]
-const duplicateMap = new Map(); // entry -> Set(networks)
-const outputLines = [];
+const OUTPUT_FILE = CONFIG.outputFile;
 
 /* -------------------------------------------------
- * PROCESS NETWORK FILES
+ * HELPERS
  * -------------------------------------------------*/
+function parseAdsFileByNetwork(content) {
+  const map = {};
+  let current = null;
+
+  content.split("\n").forEach(line => {
+    const l = line.trim();
+    if (!l) return;
+
+    if (l.startsWith("## ")) {
+      current = l.replace("## ", "");
+      map[current] = new Set();
+    } else if (current) {
+      map[current].add(l);
+    }
+  });
+
+  return map;
+}
+
+/* -------------------------------------------------
+ * LOAD PREVIOUS OUTPUT (IF EXISTS)
+ * -------------------------------------------------*/
+let previousByNetwork = {};
+
+if (fs.existsSync(OUTPUT_FILE)) {
+  const prevContent = fs.readFileSync(OUTPUT_FILE, "utf8");
+  previousByNetwork = parseAdsFileByNetwork(prevContent);
+}
+
+/* -------------------------------------------------
+ * BUILD NEW OUTPUT
+ * -------------------------------------------------*/
+const seen = new Map();              // entry -> first network
+const duplicateMap = new Map();      // entry -> Set(networks)
+const newByNetwork = {};
+const outputLines = [];
+
 for (const [network, filePath] of Object.entries(CONFIG.networks)) {
 
   if (!fs.existsSync(filePath)) {
@@ -28,6 +62,7 @@ for (const [network, filePath] of Object.entries(CONFIG.networks)) {
   }
 
   outputLines.push(`## ${network}`);
+  newByNetwork[network] = new Set();
 
   const lines = fs
     .readFileSync(filePath, "utf8")
@@ -39,9 +74,9 @@ for (const [network, filePath] of Object.entries(CONFIG.networks)) {
 
     if (!seen.has(line)) {
       seen.set(line, network);
+      newByNetwork[network].add(line);
       outputLines.push(line);
     } else {
-      // Track duplicates (but DO NOT write to output)
       if (!duplicateMap.has(line)) {
         duplicateMap.set(line, new Set([seen.get(line)]));
       }
@@ -49,21 +84,42 @@ for (const [network, filePath] of Object.entries(CONFIG.networks)) {
     }
   }
 
-  outputLines.push(""); // spacing between networks
+  outputLines.push("");
 }
 
 /* -------------------------------------------------
- * WRITE OUTPUT FILE (NO DUPLICATE SECTION)
+ * WRITE OUTPUT FILE
  * -------------------------------------------------*/
-fs.writeFileSync(CONFIG.outputFile, outputLines.join("\n"));
-
-console.log(`✅ ${CONFIG.outputFile} generated (${ENV})`);
+fs.writeFileSync(OUTPUT_FILE, outputLines.join("\n"));
+console.log(`✅ ${OUTPUT_FILE} generated (${ENV})`);
 
 /* -------------------------------------------------
- * LOG DUPLICATES (CONSOLE / GITHUB ACTIONS ONLY)
+ * CHANGE LOG
+ * -------------------------------------------------*/
+console.log("\n📊 CHANGE SUMMARY (vs previous build)\n");
+
+for (const network of Object.keys(CONFIG.networks)) {
+
+  const oldSet = previousByNetwork[network] || new Set();
+  const newSet = newByNetwork[network] || new Set();
+
+  let added = 0;
+  let removed = 0;
+
+  for (const e of newSet) if (!oldSet.has(e)) added++;
+  for (const e of oldSet) if (!newSet.has(e)) removed++;
+
+  console.log(`${network}:`);
+  console.log(`  + Added   : ${added}`);
+  console.log(`  - Removed : ${removed}`);
+  console.log(`  Δ Net     : ${added - removed}\n`);
+}
+
+/* -------------------------------------------------
+ * DUPLICATE LOG (CONSOLE ONLY)
  * -------------------------------------------------*/
 if (duplicateMap.size > 0) {
-  console.log("⚠️ Duplicate ads.txt entries detected:");
+  console.log("⚠️ DUPLICATE ENTRIES DETECTED:");
 
   for (const [entry, networks] of duplicateMap.entries()) {
     console.log(
@@ -71,7 +127,6 @@ if (duplicateMap.size > 0) {
     );
   }
 
-  // Block PROD builds if duplicates exist
   if (ENV === "prod") {
     console.error("❌ PROD build blocked due to duplicates");
     process.exit(1);
