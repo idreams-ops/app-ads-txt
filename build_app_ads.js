@@ -3,8 +3,9 @@
  * - Combines network files
  * - Adds ## Network headers
  * - Removes duplicate entries from output
- * - Logs duplicates ONLY to console
- * - Logs per-network change summary vs last build
+ * - Validates ads.txt format
+ * - Logs per-network changes
+ * - Saves latest log in repo
  * - ENV support: test / prod
  ***************************************************/
 
@@ -15,7 +16,37 @@ const ENV = process.env.ADS_ENV || "prod";
 const OUTPUT_FILE = CONFIG.outputFile;
 
 /* -------------------------------------------------
- * HELPERS
+ * LOG SETUP
+ * -------------------------------------------------*/
+const LOG_DIR = "logs";
+const LOG_FILE = `${LOG_DIR}/ads-build-latest.log`;
+
+if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR);
+
+const logLines = [];
+function log(line = "") {
+  console.log(line);
+  logLines.push(line);
+}
+
+/* -------------------------------------------------
+ * VALIDATION
+ * -------------------------------------------------*/
+function isValidAdsLine(line) {
+  const parts = line.split(",").map(p => p.trim());
+  if (parts.length < 3 || parts.length > 4) return false;
+
+  const [domain, publisherId, relationship] = parts;
+
+  if (!domain || !publisherId || !relationship) return false;
+  if (!/^[a-z0-9.-]+$/.test(domain)) return false;
+  if (!["DIRECT", "RESELLER"].includes(relationship)) return false;
+
+  return true;
+}
+
+/* -------------------------------------------------
+ * PARSE PREVIOUS OUTPUT (FOR CHANGE LOG)
  * -------------------------------------------------*/
 function parseAdsFileByNetwork(content) {
   const map = {};
@@ -36,41 +67,49 @@ function parseAdsFileByNetwork(content) {
   return map;
 }
 
-/* -------------------------------------------------
- * LOAD PREVIOUS OUTPUT (IF EXISTS)
- * -------------------------------------------------*/
 let previousByNetwork = {};
-
 if (fs.existsSync(OUTPUT_FILE)) {
-  const prevContent = fs.readFileSync(OUTPUT_FILE, "utf8");
-  previousByNetwork = parseAdsFileByNetwork(prevContent);
+  previousByNetwork = parseAdsFileByNetwork(
+    fs.readFileSync(OUTPUT_FILE, "utf8")
+  );
 }
 
 /* -------------------------------------------------
  * BUILD NEW OUTPUT
  * -------------------------------------------------*/
-const seen = new Map();              // entry -> first network
-const duplicateMap = new Map();      // entry -> Set(networks)
+const seen = new Map();           // entry -> first network
+const duplicateMap = new Map();   // entry -> Set(networks)
 const newByNetwork = {};
+const invalidLines = [];
+
 const outputLines = [];
+
+log(`BUILD: ${new Date().toISOString()}`);
+log(`ENV: ${ENV}`);
+log(`OUTPUT: ${OUTPUT_FILE}`);
+log("");
 
 for (const [network, filePath] of Object.entries(CONFIG.networks)) {
 
   if (!fs.existsSync(filePath)) {
-    console.warn(`⚠️ Missing file: ${filePath}`);
+    log(`⚠️ Missing file: ${filePath}`);
     continue;
   }
 
   outputLines.push(`## ${network}`);
   newByNetwork[network] = new Set();
 
-  const lines = fs
-    .readFileSync(filePath, "utf8")
+  const lines = fs.readFileSync(filePath, "utf8")
     .split("\n")
     .map(l => l.trim())
     .filter(Boolean);
 
   for (const line of lines) {
+
+    if (!isValidAdsLine(line)) {
+      invalidLines.push({ network, line });
+      continue;
+    }
 
     if (!seen.has(line)) {
       seen.set(line, network);
@@ -91,15 +130,17 @@ for (const [network, filePath] of Object.entries(CONFIG.networks)) {
  * WRITE OUTPUT FILE
  * -------------------------------------------------*/
 fs.writeFileSync(OUTPUT_FILE, outputLines.join("\n"));
-console.log(`✅ ${OUTPUT_FILE} generated (${ENV})`);
+log(`✅ ${OUTPUT_FILE} generated`);
+log("");
 
 /* -------------------------------------------------
- * CHANGE LOG
+ * CHANGE LOG (PER NETWORK)
  * -------------------------------------------------*/
-console.log("\n📊 CHANGE SUMMARY (vs previous build)\n");
+log("=".repeat(30));
+log("CHANGE SUMMARY");
+log("=".repeat(30));
 
 for (const network of Object.keys(CONFIG.networks)) {
-
   const oldSet = previousByNetwork[network] || new Set();
   const newSet = newByNetwork[network] || new Set();
 
@@ -109,28 +150,55 @@ for (const network of Object.keys(CONFIG.networks)) {
   for (const e of newSet) if (!oldSet.has(e)) added++;
   for (const e of oldSet) if (!newSet.has(e)) removed++;
 
-  console.log(`${network}:`);
-  console.log(`  + Added   : ${added}`);
-  console.log(`  - Removed : ${removed}`);
-  console.log(`  Δ Net     : ${added - removed}\n`);
+  log(`NETWORK: ${network}`);
+  log(`Entries   : ${newSet.size}`);
+  log(`+ Added   : ${added}`);
+  log(`- Removed : ${removed}`);
+  log(`Δ Net     : ${added - removed}`);
+  log("");
 }
 
 /* -------------------------------------------------
- * DUPLICATE LOG (CONSOLE ONLY)
+ * DUPLICATES
  * -------------------------------------------------*/
-if (duplicateMap.size > 0) {
-  console.log("⚠️ DUPLICATE ENTRIES DETECTED:");
+log("=".repeat(30));
+log("DUPLICATES");
+log("=".repeat(30));
 
-  for (const [entry, networks] of duplicateMap.entries()) {
-    console.log(
-      `• ${entry} → ${Array.from(networks).join(", ")}`
-    );
-  }
-
-  if (ENV === "prod") {
-    console.error("❌ PROD build blocked due to duplicates");
-    process.exit(1);
-  }
+if (duplicateMap.size === 0) {
+  log("None");
 } else {
-  console.log("🎉 No duplicate entries found");
+  for (const [entry, networks] of duplicateMap.entries()) {
+    log(entry);
+    log(`→ ${Array.from(networks).join(", ")}`);
+    log("");
+  }
+}
+
+/* -------------------------------------------------
+ * INVALID LINES
+ * -------------------------------------------------*/
+log("=".repeat(30));
+log("INVALID LINES");
+log("=".repeat(30));
+
+if (invalidLines.length === 0) {
+  log("None");
+} else {
+  invalidLines.forEach(i => {
+    log(`[${i.network}] ${i.line}`);
+  });
+}
+
+/* -------------------------------------------------
+ * WRITE LOG FILE
+ * -------------------------------------------------*/
+fs.writeFileSync(LOG_FILE, logLines.join("\n"));
+
+/* -------------------------------------------------
+ * BLOCK PROD IF ISSUES
+ * -------------------------------------------------*/
+if (ENV === "prod" && (duplicateMap.size > 0 || invalidLines.length > 0)) {
+  console.error("❌ PROD build blocked due to duplicates or invalid lines");
+  process.exit(1);
 }
