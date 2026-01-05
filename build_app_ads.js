@@ -1,175 +1,184 @@
-#!/usr/bin/env node
+/***************************************************
+ * BUILD app-ads.txt
+ ***************************************************/
 
 const fs = require("fs");
-const path = require("path");
+const CONFIG = require("./ads.config");
 
-/* ================= CONFIG ================= */
+const ENV = process.env.ADS_ENV || "prod";
+const OUTPUT_FILE = ENV === "test"
+  ? "app-ads.test.txt"
+  : "app-ads.txt";
 
-const ENV = process.env.ADS_ENV || "test";
-const ADS_DIR = "ads";
+/* ---------------- LOG SETUP ---------------- */
+
 const LOG_DIR = "logs";
+const LOG_FILE = `${LOG_DIR}/ads-build-latest.log`;
+if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR);
 
-const OUTPUT_FILE =
-  ENV === "prod" ? "app-ads.txt" : `app-ads.${ENV}.txt`;
-
-const LOG_FILE = path.join(LOG_DIR, "ads-build-latest.log");
-
-/* =============== UTIL ===================== */
-
-function log(msg = "") {
-  console.log(msg);
-  fs.appendFileSync(LOG_FILE, msg + "\n");
+const logLines = [];
+function log(l = "") {
+  console.log(l);
+  logLines.push(l);
 }
 
-function now() {
-  return new Date().toISOString();
-}
-
-function isComment(line) {
-  return line.startsWith("#");
-}
-
-/* ========= CERT VALIDATION ONLY ============ */
+/* ---------------- CERT VALIDATION ---------------- */
 
 function normalize(line, network, invalidCerts) {
   const p = line.split(",").map(x => x.trim());
   if (p.length < 3 || p.length > 4) return null;
 
   let [domain, pub, rel, cert] = p;
-
   if (!domain || !pub || !rel) return null;
 
   domain = domain.toLowerCase();
   rel = rel.toUpperCase();
-
   if (!/^[a-z0-9.-]+$/.test(domain)) return null;
   if (!["DIRECT", "RESELLER"].includes(rel)) return null;
 
   let finalCert = null;
-
   if (cert) {
     const c = cert.toLowerCase();
     if (/^[a-z0-9]+$/.test(c) && (c.length === 9 || c.length === 16)) {
       finalCert = c;
     } else {
-      invalidCerts.push({
-        network,
-        original: line,
-        removedCert: cert
-      });
+      invalidCerts.push({ network, line, removed: cert });
     }
   }
 
   return [domain, pub, rel, finalCert].filter(Boolean).join(", ");
 }
 
-/* ================= BUILD =================== */
+/* ---------------- LOAD PREVIOUS FILE ---------------- */
 
-if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR);
+function parseByNetwork(txt) {
+  const map = {};
+  let cur = null;
+  txt.split("\n").forEach(l => {
+    if (l.startsWith("##")) {
+      cur = l.replace("##", "").trim();
+      map[cur] = new Set();
+    } else if (cur && l.trim()) {
+      map[cur].add(l.trim());
+    }
+  });
+  return map;
+}
 
-fs.writeFileSync(LOG_FILE, "");
-log(`BUILD: ${now()}`);
+let previous = {};
+if (fs.existsSync(OUTPUT_FILE)) {
+  previous = parseByNetwork(fs.readFileSync(OUTPUT_FILE, "utf8"));
+}
+
+/* ---------------- BUILD ---------------- */
+
+const seen = new Map(); // line -> first network
+const duplicateMap = new Map(); // line -> {presentIn, skippedFrom:Set}
+const invalidCerts = [];
+const newByNetwork = {};
+const skippedCount = {};
+
+const output = [];
+
+log(`BUILD: ${new Date().toISOString()}`);
 log(`ENV: ${ENV}`);
 log(`OUTPUT: ${OUTPUT_FILE}`);
 log("");
 
-const seen = new Set();
-const duplicates = [];
-const invalidCerts = [];
+for (const [network, file] of Object.entries(CONFIG.networks)) {
+  newByNetwork[network] = new Set();
+  skippedCount[network] = 0;
 
-const networkStats = {};
-const output = [];
-
-const files = fs
-  .readdirSync(ADS_DIR)
-  .filter(f => f.endsWith(".txt"))
-  .sort();
-
-for (const file of files) {
-  const network = path.basename(file, ".txt");
-  const content = fs.readFileSync(path.join(ADS_DIR, file), "utf8");
-
-  networkStats[network] = {
-    total: 0,
-    added: 0,
-    skipped: 0
-  };
+  if (!fs.existsSync(file)) {
+    log(`⚠️ Missing: ${file}`);
+    continue;
+  }
 
   output.push(`## ${network}`);
 
-  for (const rawLine of content.split(/\r?\n/)) {
-    const line = rawLine.trim();
-    if (!line || isComment(line)) continue;
+  fs.readFileSync(file, "utf8")
+    .split("\n")
+    .map(l => l.trim())
+    .filter(Boolean)
+    .forEach(raw => {
+      const n = normalize(raw, network, invalidCerts);
+      if (!n) return;
 
-    networkStats[network].total++;
-
-    const normalized = normalize(line, network, invalidCerts);
-    if (!normalized) {
-      networkStats[network].skipped++;
-      continue;
-    }
-
-    if (seen.has(normalized)) {
-      networkStats[network].skipped++;
-      duplicates.push({
-        network,
-        entry: normalized
-      });
-      continue;
-    }
-
-    seen.add(normalized);
-    output.push(normalized);
-    networkStats[network].added++;
-  }
-
-  output.push("");
+      if (!seen.has(n)) {
+        seen.set(n, network);
+        newByNetwork[network].add(n);
+        output.push(n);
+      } else {
+        skippedCount[network]++;
+        if (!duplicateMap.has(n)) {
+          duplicateMap.set(n, {
+            presentIn: seen.get(n),
+            skippedFrom: new Set()
+          });
+        }
+        duplicateMap.get(n).skippedFrom.add(network);
+      }
+    });
 }
 
-/* ============== WRITE OUTPUT =============== */
+/* ---------------- WRITE OUTPUT ---------------- */
 
-const finalOutput = output.join("\n").replace(/\n{3,}/g, "\n\n").trim() + "\n";
-fs.writeFileSync(OUTPUT_FILE, finalOutput);
-
+fs.writeFileSync(OUTPUT_FILE, output.join("\n"));
 log(`✅ ${OUTPUT_FILE} generated`);
 log("");
 
-/* ============ CHANGE SUMMARY =============== */
+/* ---------------- CHANGE SUMMARY ---------------- */
 
 log("CHANGE SUMMARY");
-for (const [n, s] of Object.entries(networkStats)) {
+for (const net of Object.keys(CONFIG.networks)) {
+  const oldSet = previous[net] || new Set();
+  const newSet = newByNetwork[net] || new Set();
+  let added = 0, removed = 0;
+
+  newSet.forEach(e => { if (!oldSet.has(e)) added++; });
+  oldSet.forEach(e => { if (!newSet.has(e)) removed++; });
+
   log(
-    `${n}: entries=${s.added}, skipped=${s.skipped}`
+    `${net}: entries=${newSet.size}, +${added}, -${removed}, Δ${added - removed}, skipped=${skippedCount[net]}`
   );
 }
 log("");
 
-/* =============== DUPLICATES ================= */
+/* ---------------- DUPLICATES ---------------- */
 
 log("DUPLICATES");
-if (!duplicates.length) {
+if (!duplicateMap.size) {
   log("None");
 } else {
-  for (const d of duplicates) {
-    log(`DUPLICATE ENTRY:`);
-    log(d.entry);
-    log(`• skipped from: ${d.network}`);
-    log("");
+  for (const [entry, info] of duplicateMap.entries()) {
+    log("DUPLICATE ENTRY:");
+    log(entry);
+    log(`• already present in: ${info.presentIn}`);
+    log(`• skipped from: ${Array.from(info.skippedFrom).join(", ")}`);
   }
 }
+log("");
 
-/* ========= INVALID CERT REMOVALS ============ */
+/* ---------------- INVALID CERTS ---------------- */
 
 log("INVALID CERT IDS REMOVED");
 if (!invalidCerts.length) {
   log("None");
 } else {
-  for (const c of invalidCerts) {
-    log(`⚠️ INVALID CERT ID REMOVED [${c.network}]`);
-    log(c.original);
-    log("");
-  }
+  invalidCerts.forEach(i => {
+    log(`⚠️ INVALID CERT ID REMOVED [${i.network}]`);
+    log(i.line);
+  });
 }
+log("");
 
-log("INVALID LINES");
-log("None");
+/* ---------------- SAVE LOG ---------------- */
+
+fs.writeFileSync(LOG_FILE, logLines.join("\n"));
+
+/* ---------------- PROD GUARD ---------------- */
+
+if (ENV === "prod" && invalidCerts.length) {
+  console.error("❌ PROD blocked due to invalid cert IDs");
+  process.exit(1);
+}
