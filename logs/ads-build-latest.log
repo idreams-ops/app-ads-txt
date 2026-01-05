@@ -1,4 +1,4 @@
-BUILD: 2026-01-05T12:54:04.794Z
+BUILD: 2026-01-05T13:10:14.447Z
 ENV: test
 OUTPUT: app-ads.test.txt
 
@@ -8,7 +8,7 @@ CHANGE SUMMARY
 Admob: entries=1, +1, -0, Δ1, skipped=0
 Meta: entries=1, +1, -0, Δ1, skipped=0
 Applovin: entries=38, +38, -0, Δ38, skipped=0
-Mintegral: entries=797, +797, -0, Δ797, skipped=13
+Mintegral: entries=797, +797, -0, Δ797, skipped=21
 Liftoff: entries=272, +272, -0, Δ272, skipped=162
 Unity: entries=187, +187, -0, Δ187, skipped=130
 Inmobi Admob: entries=60, +60, -0, Δ60, skipped=23
@@ -67,6 +67,38 @@ DUPLICATE ENTRY:
 media.net, 8CU12AQ1Y, RESELLER
 • already present in: Applovin
 • skipped from: Mintegral, Liftoff, Unity
+DUPLICATE ENTRY:
+se7en.es, 212503, RESELLER, 064bc410192443d8
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+xapads.com, 155860, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+improvedigital.com, 1699, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+lijit.com, 411121, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+app-stock.com, 558223, RESELLER, ed8c126ea5971415
+• already present in: Mintegral
+• skipped from: Mintegral, Unity
+DUPLICATE ENTRY:
+sabio.us, 100092, RESELLER, 96ed93aaa9795702
+• already present in: Mintegral
+• skipped from: Mintegral, Unity
+DUPLICATE ENTRY:
+freewheel.tv, 1606620, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+freewheel.tv, 1606633, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
 DUPLICATE ENTRY:
 adform.com, 2671, RESELLER
 • already present in: Mintegral
@@ -860,10 +892,6 @@ onetag.com, 5d1628750185ace, RESELLER
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
-app-stock.com, 558223, RESELLER, ed8c126ea5971415
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
 video.unrulymedia.com, 3881266972, RESELLER
 • already present in: Liftoff
 • skipped from: Unity
@@ -897,10 +925,6 @@ sharethrough.com, Bc6D1WHS, RESELLER, d53b998a7bd4ecd2
 • skipped from: Unity
 DUPLICATE ENTRY:
 sharethrough.com, K5WDGAsP, RESELLER, d53b998a7bd4ecd2
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-sabio.us, 100092, RESELLER, 96ed93aaa9795702
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
@@ -1321,6 +1345,8 @@ myfeature.tv, N1fNlXquFCVDX3gt6MJN, RESELLER
 • skipped from: Inmobi MAX
 
 INVALID CERT IDS REMOVED
+⚠️ INVALID CERT ID REMOVED [Mintegral]
+lijit.com, 411121, RESELLER, fafdf38b16bf6b2b #SOVRN
 ⚠️ INVALID CERT ID REMOVED [Mintegral]
 lijit.com, 411121, RESELLER, fafdf38b16bf6b2b #SOVRN
 ⚠️ INVALID CERT ID REMOVED [Unity]
