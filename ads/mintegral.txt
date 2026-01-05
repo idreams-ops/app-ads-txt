@@ -808,3 +808,11 @@ pubmatic.com, 166836, RESELLER, 5d62403b186f2ace
 algogear.com, 7bce3c82e6da7741, RESELLER
 algogear.com, 406353d0e9db6c5d, RESELLER
 algogear.com, a6bc46b1ba706474, RESELLER
+Se7en.es, 212503, RESELLER, 064bc410192443d8
+Xapads.com, 155860, RESELLER
+Improvedigital.com, 1699, RESELLER
+lijit.com, 411121, RESELLER, fafdf38b16bf6b2b #SOVRN
+App-stock.com, 558223, Reseller, ed8c126ea5971415
+sabio.us, 100092, reseller, 96ed93aaa9795702
+freewheel.tv, 1606620, reseller
+freewheel.tv, 1606633, reseller
