@@ -58,6 +58,7 @@ const seen = new Map();            // entry -> firstNetwork
 const duplicates = [];             // detailed duplicate logs
 const invalid = [];
 const next = {};
+const skippedCount = {};
 const out = [];
 
 log(`BUILD: ${new Date().toISOString()}`);
@@ -74,6 +75,7 @@ for (const [network, file] of Object.entries(CONFIG.networks)) {
 
   out.push(`##${network}`);
   next[network] = new Set();
+  skippedCount[network] = 0;
 
   const lines = fs.readFileSync(file, "utf8")
     .split("\n")
@@ -93,6 +95,7 @@ for (const [network, file] of Object.entries(CONFIG.networks)) {
       next[network].add(n);
       out.push(n);
     } else {
+      skippedCount[network]++;
       duplicates.push({
         entry: n,
         existingIn: seen.get(n),
@@ -112,10 +115,13 @@ log("CHANGE SUMMARY");
 for (const n of Object.keys(CONFIG.networks)) {
   const a = prev[n] || new Set();
   const b = next[n] || new Set();
+
   const add = [...b].filter(x => !a.has(x)).length;
   const rem = [...a].filter(x => !b.has(x)).length;
 
-  log(`${n}: entries=${b.size}, +${add}, -${rem}, Δ${add - rem}`);
+  log(
+    `${n}: entries=${b.size}, skipped=${skippedCount[n] || 0}, +${add}, -${rem}, Δ${add - rem}`
+  );
 }
 log("");
 
@@ -125,7 +131,7 @@ if (!duplicates.length) {
   log("None");
 } else {
   duplicates.forEach(d => {
-    log(`DUPLICATE ENTRY:`);
+    log("DUPLICATE ENTRY:");
     log(d.entry);
     log(`• already present in: ${d.existingIn}`);
     log(`• skipped from: ${d.skippedFrom}`);
