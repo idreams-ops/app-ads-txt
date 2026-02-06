@@ -1,18 +1,19 @@
-BUILD: 2026-01-07T11:10:14.806Z
+BUILD: 2026-02-06T11:31:38.697Z
 ENV: test
 OUTPUT: app-ads.test.txt
 
 ✅ app-ads.test.txt generated
 
 CHANGE SUMMARY
-Admob: entries=1, +1, -0, Δ1, skipped=0
-Meta: entries=1, +1, -0, Δ1, skipped=0
-Applovin: entries=38, +38, -0, Δ38, skipped=0
-Mintegral: entries=797, +797, -0, Δ797, skipped=21
-Liftoff: entries=272, +272, -0, Δ272, skipped=162
-Unity: entries=187, +187, -0, Δ187, skipped=130
-Inmobi Admob: entries=60, +60, -0, Δ60, skipped=23
-Inmobi MAX: entries=1, +1, -0, Δ1, skipped=82
+Admob: entries=1, +0, -0, Δ0, skipped=0
+Meta: entries=1, +0, -0, Δ0, skipped=0
+Applovin: entries=38, +0, -0, Δ0, skipped=0
+Mintegral: entries=818, +22, -1, Δ21, skipped=27
+Liftoff: entries=244, +1, -29, Δ-28, skipped=159
+Unity: entries=89, +55, -153, Δ-98, skipped=50
+Pangle: entries=2, +2, -0, Δ2, skipped=0
+Inmobi Admob: entries=61, +1, -0, Δ1, skipped=22
+Inmobi MAX: entries=1, +0, -0, Δ0, skipped=82
 
 DUPLICATES
 DUPLICATE ENTRY:
@@ -22,15 +23,15 @@ rubiconproject.com, 20744, RESELLER, 0bfd66d529a55807
 DUPLICATE ENTRY:
 pubmatic.com, 158154, RESELLER, 5d62403b186f2ace
 • already present in: Applovin
-• skipped from: Mintegral, Liftoff, Unity
+• skipped from: Mintegral, Liftoff
 DUPLICATE ENTRY:
 smartadserver.com, 3817, RESELLER
 • already present in: Applovin
-• skipped from: Mintegral, Liftoff, Unity
+• skipped from: Mintegral, Liftoff
 DUPLICATE ENTRY:
 rubiconproject.com, 20050, RESELLER, 0bfd66d529a55807
 • already present in: Applovin
-• skipped from: Mintegral, Liftoff, Unity
+• skipped from: Mintegral, Liftoff
 DUPLICATE ENTRY:
 xandr.com, 13799, RESELLER
 • already present in: Applovin
@@ -40,6 +41,10 @@ thunder-monetize.com, 6343837988, RESELLER
 • already present in: Applovin
 • skipped from: Mintegral, Liftoff
 DUPLICATE ENTRY:
+webeyemob.com, 70098, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
 sharethrough.com, UbYLkrys, RESELLER, d53b998a7bd4ecd2
 • already present in: Applovin
 • skipped from: Mintegral, Liftoff
@@ -48,13 +53,57 @@ yieldmo.com, 3591550211052216798, RESELLER, 6a92c77cfc3d2258
 • already present in: Applovin
 • skipped from: Mintegral, Liftoff
 DUPLICATE ENTRY:
+admixer.net, f6790c61-b9ce-49b0-b809-059710d60dfd, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+themediagrid.com, NG9STC, RESELLER, 35d5010d7789b49d
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+krushmedia.com, AJxF6R192a9M6CaTvK, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+zmaticoo.com, 114490, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral, Liftoff
+DUPLICATE ENTRY:
+pubmatic.com, 157800, RESELLER, 5d62403b186f2ace
+• already present in: Mintegral
+• skipped from: Mintegral, Liftoff
+DUPLICATE ENTRY:
+rubiconproject.com, 18364, RESELLER, 0bfd66d529a55807
+• already present in: Mintegral
+• skipped from: Mintegral, Liftoff
+DUPLICATE ENTRY:
+pubnative.net, 1008379, RESELLER, d641df8625486a7b
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+pubmatic.com, 159382, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+smaato.com, 1100004890, RESELLER, 07bcf65f187117b4
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+singularads.com, 445896, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
+DUPLICATE ENTRY:
 improvedigital.com, 2602, RESELLER
 • already present in: Applovin
 • skipped from: Mintegral, Liftoff
 DUPLICATE ENTRY:
 pubmatic.com, 164532, RESELLER, 5d62403b186f2ace
 • already present in: Applovin
-• skipped from: Mintegral, Unity
+• skipped from: Mintegral
+DUPLICATE ENTRY:
+peak226.com, 12900, RESELLER
+• already present in: Mintegral
+• skipped from: Mintegral
 DUPLICATE ENTRY:
 video.unrulymedia.com, 169764768, RESELLER
 • already present in: Applovin
@@ -62,41 +111,17 @@ video.unrulymedia.com, 169764768, RESELLER
 DUPLICATE ENTRY:
 sharethrough.com, bXzzb1bR, RESELLER, d53b998a7bd4ecd2
 • already present in: Applovin
-• skipped from: Mintegral, Liftoff, Unity
+• skipped from: Mintegral, Liftoff
 DUPLICATE ENTRY:
 media.net, 8CU12AQ1Y, RESELLER
 • already present in: Applovin
-• skipped from: Mintegral, Liftoff, Unity
+• skipped from: Mintegral, Liftoff
 DUPLICATE ENTRY:
-se7en.es, 212503, RESELLER, 064bc410192443d8
+loopme.com, 11414, RESELLER, 6c8d5f95897a5a3b
 • already present in: Mintegral
-• skipped from: Mintegral
+• skipped from: Mintegral, Liftoff, Inmobi Admob, Inmobi MAX
 DUPLICATE ENTRY:
-xapads.com, 155860, RESELLER
-• already present in: Mintegral
-• skipped from: Mintegral
-DUPLICATE ENTRY:
-improvedigital.com, 1699, RESELLER
-• already present in: Mintegral
-• skipped from: Mintegral
-DUPLICATE ENTRY:
-lijit.com, 411121, RESELLER
-• already present in: Mintegral
-• skipped from: Mintegral
-DUPLICATE ENTRY:
-app-stock.com, 558223, RESELLER, ed8c126ea5971415
-• already present in: Mintegral
-• skipped from: Mintegral, Unity
-DUPLICATE ENTRY:
-sabio.us, 100092, RESELLER, 96ed93aaa9795702
-• already present in: Mintegral
-• skipped from: Mintegral, Unity
-DUPLICATE ENTRY:
-freewheel.tv, 1606620, RESELLER
-• already present in: Mintegral
-• skipped from: Mintegral
-DUPLICATE ENTRY:
-freewheel.tv, 1606633, RESELLER
+smartadserver.com, 3627, RESELLER, 060d053dcf45cbf3
 • already present in: Mintegral
 • skipped from: Mintegral
 DUPLICATE ENTRY:
@@ -118,7 +143,7 @@ admanmedia.com, 2248, RESELLER
 DUPLICATE ENTRY:
 admanmedia.com, 990, RESELLER
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 adyoulike.com, 76375ac0f5abb5a550c87326b9063b59, RESELLER
 • already present in: Mintegral
@@ -133,6 +158,10 @@ aniview.com, 603f65a2e291680ef30af9c7, RESELLER, 78b21b97965ec3f8
 • skipped from: Liftoff
 DUPLICATE ENTRY:
 appnexus.com, 15426, RESELLER, f5ab79cb980f11d1
+• already present in: Mintegral
+• skipped from: Liftoff
+DUPLICATE ENTRY:
+appnexus.com, 15816, RESELLER, f5ab79cb980f11d1
 • already present in: Mintegral
 • skipped from: Liftoff
 DUPLICATE ENTRY:
@@ -182,25 +211,17 @@ conversantmedia.com, 100308, RESELLER, 03113cd04947736d
 DUPLICATE ENTRY:
 conversantmedia.com, 100358, RESELLER, 03113cd04947736d
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 conversantmedia.com, 100863, RESELLER, 03113cd04947736d
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 equativ.com, 4762, RESELLER, 060d053dcf45cbf3
 • already present in: Mintegral
 • skipped from: Liftoff
 DUPLICATE ENTRY:
 equativ.com, 5026, RESELLER, 060d053dcf45cbf3
-• already present in: Mintegral
-• skipped from: Liftoff
-DUPLICATE ENTRY:
-freewheel.tv, 1137745, RESELLER
-• already present in: Mintegral
-• skipped from: Liftoff
-DUPLICATE ENTRY:
-freewheel.tv, 1138513, RESELLER
 • already present in: Mintegral
 • skipped from: Liftoff
 DUPLICATE ENTRY:
@@ -226,7 +247,7 @@ lijit.com, 400766, RESELLER, fafdf38b16bf6b2b
 DUPLICATE ENTRY:
 lijit.com, 465542, RESELLER, fafdf38b16bf6b2b
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 lijit.com, 500520, RESELLER, fafdf38b16bf6b2b
 • already present in: Mintegral
@@ -234,7 +255,7 @@ lijit.com, 500520, RESELLER, fafdf38b16bf6b2b
 DUPLICATE ENTRY:
 lijit.com, 503707, RESELLER, fafdf38b16bf6b2b
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 lijit.com, 530498, RESELLER, fafdf38b16bf6b2b
 • already present in: Mintegral
@@ -251,10 +272,6 @@ DUPLICATE ENTRY:
 loopme.com, 11362, RESELLER, 6c8d5f95897a5a3b
 • already present in: Mintegral
 • skipped from: Liftoff
-DUPLICATE ENTRY:
-loopme.com, 11414, RESELLER, 6c8d5f95897a5a3b
-• already present in: Mintegral
-• skipped from: Liftoff, Inmobi Admob, Inmobi MAX
 DUPLICATE ENTRY:
 loopme.com, 5679, RESELLER, 6c8d5f95897a5a3b
 • already present in: Mintegral
@@ -294,7 +311,7 @@ openx.com, 540031703, RESELLER, 6a698e2ec38604c6
 DUPLICATE ENTRY:
 openx.com, 540396775, RESELLER, 6a698e2ec38604c6
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 openx.com, 540543195, RESELLER, 6a698e2ec38604c6
 • already present in: Mintegral
@@ -302,7 +319,7 @@ openx.com, 540543195, RESELLER, 6a698e2ec38604c6
 DUPLICATE ENTRY:
 openx.com, 540679900, RESELLER, 6a698e2ec38604c6
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 openx.com, 540838151, RESELLER, 6a698e2ec38604c6
 • already present in: Mintegral
@@ -312,13 +329,17 @@ openx.com, 540866936, RESELLER, 6a698e2ec38604c6
 • already present in: Mintegral
 • skipped from: Liftoff
 DUPLICATE ENTRY:
+openx.com, 561446248, RESELLER, 6a698e2ec38604c6
+• already present in: Mintegral
+• skipped from: Liftoff, Unity
+DUPLICATE ENTRY:
 openx.com, 562174952, RESELLER, 6a698e2ec38604c6
 • already present in: Mintegral
-• skipped from: Liftoff
+• skipped from: Liftoff, Unity
 DUPLICATE ENTRY:
 pubmatic.com, 156177, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
-• skipped from: Liftoff
+• skipped from: Liftoff, Unity
 DUPLICATE ENTRY:
 pubmatic.com, 156425, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
@@ -332,13 +353,9 @@ pubmatic.com, 156520, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
 • skipped from: Liftoff, Unity
 DUPLICATE ENTRY:
-pubmatic.com, 157800, RESELLER, 5d62403b186f2ace
-• already present in: Mintegral
-• skipped from: Liftoff
-DUPLICATE ENTRY:
 pubmatic.com, 158060, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 pubmatic.com, 158100, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
@@ -346,7 +363,7 @@ pubmatic.com, 158100, RESELLER, 5d62403b186f2ace
 DUPLICATE ENTRY:
 pubmatic.com, 158481, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 pubmatic.com, 160113, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
@@ -370,7 +387,7 @@ pubmatic.com, 160974, RESELLER, 5d62403b186f2ace
 DUPLICATE ENTRY:
 pubmatic.com, 161136, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 pubmatic.com, 161372, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
@@ -378,7 +395,7 @@ pubmatic.com, 161372, RESELLER, 5d62403b186f2ace
 DUPLICATE ENTRY:
 pubmatic.com, 165980, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 pubmatic.com, 166536, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
@@ -386,11 +403,11 @@ pubmatic.com, 166536, RESELLER, 5d62403b186f2ace
 DUPLICATE ENTRY:
 pubmatic.com, 167188, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
-• skipped from: Liftoff
+• skipped from: Liftoff, Unity
 DUPLICATE ENTRY:
 pubnative.net, 1007262, RESELLER, d641df8625486a7b
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 pubnative.net, 1007303, RESELLER, d641df8625486a7b
 • already present in: Mintegral
@@ -402,11 +419,11 @@ pubnative.net, 1007311, RESELLER, d641df8625486a7b
 DUPLICATE ENTRY:
 pubnative.net, 1007501, RESELLER, d641df8625486a7b
 • already present in: Applovin
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 pubnative.net, 1009988, RESELLER, d641df8625486a7b
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 pubnative.net, 1010067, RESELLER, d641df8625486a7b
 • already present in: Mintegral
@@ -442,7 +459,7 @@ rubiconproject.com, 13856, RESELLER, 0bfd66d529a55807
 DUPLICATE ENTRY:
 rubiconproject.com, 14558, RESELLER, 0bfd66d529a55807
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 rubiconproject.com, 15278, RESELLER, 0bfd66d529a55807
 • already present in: Mintegral
@@ -450,17 +467,13 @@ rubiconproject.com, 15278, RESELLER, 0bfd66d529a55807
 DUPLICATE ENTRY:
 rubiconproject.com, 16834, RESELLER, 0bfd66d529a55807
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 rubiconproject.com, 17328, RESELLER, 0bfd66d529a55807
 • already present in: Mintegral
-• skipped from: Liftoff
-DUPLICATE ENTRY:
-rubiconproject.com, 17608, RESELLER, 0bfd66d529a55807
-• already present in: Mintegral
 • skipped from: Liftoff, Unity
 DUPLICATE ENTRY:
-rubiconproject.com, 18364, RESELLER, 0bfd66d529a55807
+rubiconproject.com, 17608, RESELLER, 0bfd66d529a55807
 • already present in: Mintegral
 • skipped from: Liftoff, Unity
 DUPLICATE ENTRY:
@@ -468,17 +481,13 @@ rubiconproject.com, 23644, RESELLER, 0bfd66d529a55807
 • already present in: Mintegral
 • skipped from: Liftoff
 DUPLICATE ENTRY:
-rubiconproject.com, 24170, RESELLER, 0bfd66d529a55807
-• already present in: Mintegral
-• skipped from: Liftoff, Unity
-DUPLICATE ENTRY:
 rubiconproject.com, 24362, RESELLER, 0bfd66d529a55807
 • already present in: Mintegral
 • skipped from: Liftoff, Unity
 DUPLICATE ENTRY:
 rubiconproject.com, 24600, RESELLER, 0bfd66d529a55807
 • already present in: Mintegral
-• skipped from: Liftoff
+• skipped from: Liftoff, Unity
 DUPLICATE ENTRY:
 rubiconproject.com, 25978, RESELLER, 0bfd66d529a55807
 • already present in: Mintegral
@@ -506,7 +515,7 @@ sharethrough.com, 5026, RESELLER, d53b998a7bd4ecd2
 DUPLICATE ENTRY:
 sharethrough.com, 6qlnf8SY, RESELLER, d53b998a7bd4ecd2
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 showheroes.com, 6031, RESELLER
 • already present in: Mintegral
@@ -546,7 +555,7 @@ smartadserver.com, 4140, RESELLER
 DUPLICATE ENTRY:
 smartadserver.com, 4457, RESELLER, 060d053dcf45cbf3
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 smartadserver.com, 4610, RESELLER, 060d053dcf45cbf3
 • already present in: Mintegral
@@ -554,7 +563,7 @@ smartadserver.com, 4610, RESELLER, 060d053dcf45cbf3
 DUPLICATE ENTRY:
 smartadserver.com, 4625, RESELLER, 060d053dcf45cbf3
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 smartadserver.com, 4762, RESELLER, 060d053dcf45cbf3
 • already present in: Mintegral
@@ -565,10 +574,6 @@ smartadserver.com, 5026, RESELLER, 060d053dcf45cbf3
 • skipped from: Liftoff
 DUPLICATE ENTRY:
 smartclip.net, 27985, RESELLER
-• already present in: Mintegral
-• skipped from: Liftoff, Unity
-DUPLICATE ENTRY:
-sonobi.com, 7b37f8ccbc, RESELLER, d1a215d9eb5aee9e
 • already present in: Mintegral
 • skipped from: Liftoff
 DUPLICATE ENTRY:
@@ -598,11 +603,11 @@ taurusx.com, 80614, RESELLER
 DUPLICATE ENTRY:
 thebrave.io, 9840732, RESELLER, c25b2154543746ac
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 themediagrid.com, NC7LXT, RESELLER, 35d5010d7789b49d
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 thunder-monetize.com, 2297825074, RESELLER
 • already present in: Mintegral
@@ -632,10 +637,6 @@ video.unrulymedia.com, 3948367200, RESELLER
 • already present in: Mintegral
 • skipped from: Liftoff
 DUPLICATE ENTRY:
-video.unrulymedia.com, 4631344382657206988, RESELLER
-• already present in: Mintegral
-• skipped from: Liftoff
-DUPLICATE ENTRY:
 video.unrulymedia.com, 475093422, RESELLER
 • already present in: Mintegral
 • skipped from: Liftoff
@@ -650,11 +651,11 @@ video.unrulymedia.com, 689559416, RESELLER
 DUPLICATE ENTRY:
 video.unrulymedia.com, 906352066, RESELLER
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 videoheroes.tv, 212450, RESELLER, 064bc410192443d8
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 visiblemeasures.com, 1004, RESELLER
 • already present in: Mintegral
@@ -666,7 +667,7 @@ webeyemob.com, 80609, RESELLER
 DUPLICATE ENTRY:
 xandr.com, 13293, RESELLER, f5ab79cb980f11d1
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
+• skipped from: Liftoff
 DUPLICATE ENTRY:
 xandr.com, 15426, RESELLER, f5ab79cb980f11d1
 • already present in: Mintegral
@@ -674,7 +675,7 @@ xandr.com, 15426, RESELLER, f5ab79cb980f11d1
 DUPLICATE ENTRY:
 xandr.com, 15840, RESELLER
 • already present in: Mintegral
-• skipped from: Liftoff
+• skipped from: Liftoff, Unity
 DUPLICATE ENTRY:
 xandr.com, 17417, RESELLER, f5ab79cb980f11d1
 • already present in: Mintegral
@@ -694,37 +695,81 @@ zetaglobal.com, 815, RESELLER
 DUPLICATE ENTRY:
 zetaglobal.net, 815, RESELLER
 • already present in: Mintegral
-• skipped from: Liftoff, Unity
-DUPLICATE ENTRY:
-zmaticoo.com, 114490, RESELLER
-• already present in: Mintegral
 • skipped from: Liftoff
 DUPLICATE ENTRY:
-media.net, 8CU9B72O6, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-conversantmedia.com, 100396, RESELLER, 03113cd04947736d
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-conversantmedia.com, 100569, RESELLER, 03113cd04947736d
+smaato.com, 1100059375, RESELLER, 07bcf65f187117b4
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
-improvedigital.com, 2276, RESELLER
+smaato.com, 1100047589, RESELLER, 07bcf65f187117b4
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
-improvedigital.com, 2525, RESELLER
+adyoulike.com, f78b24039641337f06634ab9a3da4b48, RESELLER
 • already present in: Liftoff
 • skipped from: Unity
 DUPLICATE ENTRY:
-improvedigital.com, 2371, RESELLER
+rubiconproject.com, 17960, RESELLER, 0bfd66d529a55807
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+rubiconproject.com, 15268, RESELLER, 0bfd66d529a55807
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+rubiconproject.com, 22134, RESELLER, 0bfd66d529a55807
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+rubiconproject.com, 28169, RESELLER, 0bfd66d529a55807
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+rubiconproject.com, 26132, RESELLER, 0bfd66d529a55807
 • already present in: Liftoff
 • skipped from: Unity
 DUPLICATE ENTRY:
-loopme.com, 11635, RESELLER, 6c8d5f95897a5a3b
+rubiconproject.com, 25064, RESELLER, 0bfd66d529a55807
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+rubiconproject.com, 17476, RESELLER, 0bfd66d529a55807
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+rubiconproject.com, 24400, RESELLER, 0bfd66d529a55807
+• already present in: Liftoff
+• skipped from: Unity, Inmobi Admob, Inmobi MAX
+DUPLICATE ENTRY:
+google.com, pub-3990748024667386, RESELLER, f08c47fec0942fa0
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+inmobi.com, 23d316d3d980453d8ea0dcf9caec4078, RESELLER, 83e75a7ae333ca9d
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+videoheroes.tv, 212428, RESELLER, 064bc410192443d8
+• already present in: Liftoff
+• skipped from: Unity
+DUPLICATE ENTRY:
+pubnative.net, 1009966, RESELLER, d641df8625486a7b
+• already present in: Liftoff
+• skipped from: Unity
+DUPLICATE ENTRY:
+bidmachine.io, 896, RESELLER
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+appnexus.com, 6849, RESELLER
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+appnexus.com, 15980, RESELLER, f5ab79cb980f11d1
+• already present in: Mintegral
+• skipped from: Unity
+DUPLICATE ENTRY:
+appnexus.com, 12061, RESELLER, f5ab79cb980f11d1
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
@@ -732,105 +777,9 @@ loopme.com, 11463, RESELLER, 6c8d5f95897a5a3b
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
-loopme.com, 11605, RESELLER, 6c8d5f95897a5a3b
+pubmatic.com, 160456, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
 • skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 25064, RESELLER, 0bfd66d529a55807
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 26156, RESELLER, 0bfd66d529a55807
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 24752, RESELLER, 0bfd66d529a55807
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 22134, RESELLER, 0bfd66d529a55807
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 26846, RESELLER, 0bfd66d529a55807
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 26132, RESELLER, 0bfd66d529a55807
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 17130, RESELLER, 0bfd66d529a55807
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 17960, RESELLER, 0bfd66d529a55807
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 18202, RESELLER, 0bfd66d529a55807
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 15268, RESELLER, 0bfd66d529a55807
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 25872, RESELLER, 0bfd66d529a55807
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-rubiconproject.com, 24400, RESELLER, 0bfd66d529a55807
-• already present in: Liftoff
-• skipped from: Unity, Inmobi Admob, Inmobi MAX
-DUPLICATE ENTRY:
-inmobi.com, edd282ac8f29464792bf2b7f3df2f9df, RESELLER, 83e75a7ae333ca9d
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-inmobi.com, b01aa06531c543d8a5fb9982f60afb00, RESELLER, 83e75a7ae333ca9d
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-openx.com, 540393169, RESELLER, 6a698e2ec38604c6
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-triplelift.com, 12908, RESELLER, 6c33edb13117fd86
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-triplelift.com, 10223, RESELLER, 6c33edb13117fd86
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-triplelift.com, 12158, RESELLER, 6c33edb13117fd86
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-smartadserver.com, 4568, RESELLER, 060d053dcf45cbf3
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-smartadserver.com, 4865, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-smartadserver.com, 4343, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-smartadserver.com, 4467, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-visiblemeasures.com, 1020, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-outbrain.com, 0073fa86cff719c752763d2c3ee52c8f00, RESELLER
-• already present in: Applovin
-• skipped from: Unity, Inmobi Admob, Inmobi MAX
 DUPLICATE ENTRY:
 pubmatic.com, 165438, RESELLER, 5d62403b186f2ace
 • already present in: Liftoff
@@ -840,63 +789,39 @@ pubmatic.com, 161151, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
-pubmatic.com, 162588, RESELLER, 5d62403b186f2ace
+pubmatic.com, 137711, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-pubmatic.com, 166078, RESELLER, 5d62403b186f2ace
-• already present in: Liftoff
 • skipped from: Unity
 DUPLICATE ENTRY:
 pubmatic.com, 159501, RESELLER, 5d62403b186f2ace
 • already present in: Liftoff
 • skipped from: Unity
 DUPLICATE ENTRY:
-pubmatic.com, 165329, RESELLER, 5d62403b186f2ace
+pubmatic.com, 162588, RESELLER, 5d62403b186f2ace
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
-pubmatic.com, 162968, RESELLER, 5d62403b186f2ace
+smartadserver.com, 4568, RESELLER, 060d053dcf45cbf3
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
-pubmatic.com, 164119, RESELLER, 5d62403b186f2ace
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-pubmatic.com, 163319, RESELLER, 5d62403b186f2ace
+triplelift.com, 12908, RESELLER, 6c33edb13117fd86
 • already present in: Liftoff
 • skipped from: Unity
 DUPLICATE ENTRY:
-pubmatic.com, 160493, RESELLER, 5d62403b186f2ace
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-pubmatic.com, 160456, RESELLER, 5d62403b186f2ace
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-pubmatic.com, 162882, RESELLER, 5d62403b186f2ace
+adagio.io, 1522, RESELLER
 • already present in: Liftoff
 • skipped from: Unity
 DUPLICATE ENTRY:
-pubmatic.com, 162270, RESELLER, 5d62403b186f2ace
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-onetag.com, 8668c16092f01e8, RESELLER
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-onetag.com, 5d1628750185ace, RESELLER
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-video.unrulymedia.com, 3881266972, RESELLER
+opera.com, pub6148735850944, RESELLER, 55a0c5fd61378de3
 • already present in: Liftoff
 • skipped from: Unity
 DUPLICATE ENTRY:
-video.unrulymedia.com, 123476257, RESELLER
+outbrain.com, 0073fa86cff719c752763d2c3ee52c8f00, RESELLER
+• already present in: Applovin
+• skipped from: Unity, Inmobi Admob, Inmobi MAX
+DUPLICATE ENTRY:
+thunder-monetize.com, 4818959194, RESELLER
 • already present in: Mintegral
 • skipped from: Unity
 DUPLICATE ENTRY:
@@ -904,141 +829,9 @@ video.unrulymedia.com, 389957698, RESELLER
 • already present in: Liftoff
 • skipped from: Unity
 DUPLICATE ENTRY:
-video.unrulymedia.com, 3634565696, RESELLER, 6f752381ad5ec0e5
+openx.com, 561470659, RESELLER, 6a698e2ec38604c6
 • already present in: Liftoff
 • skipped from: Unity
-DUPLICATE ENTRY:
-google.com, pub-3990748024667386, RESELLER, f08c47fec0942fa0
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-sharethrough.com, XeKuhSkz, RESELLER, d53b998a7bd4ecd2
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-sharethrough.com, DQQogebZ, RESELLER, d53b998a7bd4ecd2
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-sharethrough.com, Bc6D1WHS, RESELLER, d53b998a7bd4ecd2
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-sharethrough.com, K5WDGAsP, RESELLER, d53b998a7bd4ecd2
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-themediagrid.com, A6CWLO, RESELLER, 35d5010d7789b49d
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-freewheel.tv, 741650, RESELLER
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-onairglobal.com, 4357629, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-lijit.com, 273050, RESELLER, fafdf38b16bf6b2b
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-lijit.com, 417620, RESELLER, fafdf38b16bf6b2b
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-lijit.com, 558045, RESELLER, fafdf38b16bf6b2b
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-lijit.com, 483304, RESELLER, fafdf38b16bf6b2b
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-lijit.com, 481366, RESELLER, fafdf38b16bf6b2b
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-pubnative.net, 1009966, RESELLER, d641df8625486a7b
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-pubnative.net, 1008379, RESELLER, d641df8625486a7b
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-pubnative.net, 1009046, RESELLER, d641df8625486a7b
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-pubnative.net, 1007974, RESELLER, d641df8625486a7b
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-videoheroes.tv, 212428, RESELLER, 064bc410192443d8
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-iion.io, 10162, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-zmaticoo.com, 5135063, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-e-planning.net, af5a107262468954, RESELLER, c1ba615865ed87b2
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-e-planning.net, 79686787743ddfc5, RESELLER, c1ba615865ed87b2
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-sonobi.com, 2b51f34067, RESELLER, d1a215d9eb5aee9e
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-appnexus.com, 15349, RESELLER, f5ab79cb980f11d1
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-appnexus.com, 12878, RESELLER, f5ab79cb980f11d1
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-appnexus.com, 12061, RESELLER, f5ab79cb980f11d1
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-appnexus.com, 15980, RESELLER, f5ab79cb980f11d1
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-eliteappgrade.com, 494223, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-contextweb.com, 563521, RESELLER, 89ff185a4c4e857c
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-contextweb.com, 562791, RESELLER, 89ff185a4c4e857c
-• already present in: Mintegral
-• skipped from: Unity
-DUPLICATE ENTRY:
-opera.com, pub6148735850944, RESELLER, 55a0c5fd61378de3
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-azberry.com, 321006, RESELLER
-• already present in: Liftoff
-• skipped from: Unity
-DUPLICATE ENTRY:
-playwire.com, 1025119, RESELLER
-• already present in: Mintegral
-• skipped from: Unity, Inmobi Admob, Inmobi MAX
 DUPLICATE ENTRY:
 rubiconproject.com, 11726, RESELLER, 0bfd66d529a55807
 • already present in: Liftoff
@@ -1100,8 +893,8 @@ pubmatic.com, 159035, RESELLER, 5d62403b186f2ace
 • already present in: Liftoff
 • skipped from: Inmobi Admob, Inmobi MAX
 DUPLICATE ENTRY:
-appnexus.com, 15670, RESELLER
-• already present in: Unity
+playwire.com, 1025119, RESELLER
+• already present in: Mintegral
 • skipped from: Inmobi Admob, Inmobi MAX
 DUPLICATE ENTRY:
 video.unrulymedia.com, 322585001, RESELLER
@@ -1232,6 +1025,10 @@ eskimi.com, 2020000030, RESELLER
 • already present in: Inmobi Admob
 • skipped from: Inmobi MAX
 DUPLICATE ENTRY:
+appnexus.com, 15670, RESELLER
+• already present in: Inmobi Admob
+• skipped from: Inmobi MAX
+DUPLICATE ENTRY:
 ssp.e-volution.ai, AJxF6R378a9M6CaTvK, RESELLER
 • already present in: Inmobi Admob
 • skipped from: Inmobi MAX
@@ -1347,7 +1144,3 @@ myfeature.tv, N1fNlXquFCVDX3gt6MJN, RESELLER
 INVALID CERT IDS REMOVED
 ⚠️ INVALID CERT ID REMOVED [Mintegral]
 lijit.com, 411121, RESELLER, fafdf38b16bf6b2b #SOVRN
-⚠️ INVALID CERT ID REMOVED [Mintegral]
-lijit.com, 411121, RESELLER, fafdf38b16bf6b2b #SOVRN
-⚠️ INVALID CERT ID REMOVED [Unity]
-verve.com, 15503, RESELLER, 0c8f5958fc2d627
