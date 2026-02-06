@@ -1,3 +1,4 @@
+## V-1.2 BUILD: 2026-02-06
 ## Admob
 google.com, pub-9199513813375602, DIRECT, f08c47fec0942fa0
 ## Meta
