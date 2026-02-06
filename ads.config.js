@@ -13,6 +13,7 @@ module.exports = {
     Mintegral: "ads/mintegral.txt",
     Liftoff: "ads/liftoff.txt",
     Unity: "ads/unity.txt",
+    Pangle: "ads/pangle.txt",
     "Inmobi Admob": "ads/inmobi_admob.txt",
     "Inmobi MAX": "ads/inmobi_max.txt"
   }
