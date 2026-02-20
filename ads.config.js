@@ -16,5 +16,6 @@ module.exports = {
     Pangle: "ads/pangle.txt",
     "Inmobi Admob": "ads/inmobi_admob.txt",
     "Inmobi MAX": "ads/inmobi_max.txt"
+    "Tap": "ads/tapmind.txt"
   }
 };
