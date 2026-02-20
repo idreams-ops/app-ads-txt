@@ -1,19 +1,19 @@
-BUILD: 2026-02-06T11:31:38.697Z
+BUILD: 2026-02-20T09:50:52.774Z
 ENV: test
 OUTPUT: app-ads.test.txt
 
 ✅ app-ads.test.txt generated
 
 CHANGE SUMMARY
-Admob: entries=1, +0, -0, Δ0, skipped=0
-Meta: entries=1, +0, -0, Δ0, skipped=0
-Applovin: entries=38, +0, -0, Δ0, skipped=0
-Mintegral: entries=818, +22, -1, Δ21, skipped=27
-Liftoff: entries=244, +1, -29, Δ-28, skipped=159
-Unity: entries=89, +55, -153, Δ-98, skipped=50
+Admob: entries=1, +1, -0, Δ1, skipped=0
+Meta: entries=1, +1, -0, Δ1, skipped=0
+Applovin: entries=38, +38, -0, Δ38, skipped=0
+Mintegral: entries=818, +818, -0, Δ818, skipped=27
+Liftoff: entries=244, +244, -0, Δ244, skipped=159
+Unity: entries=89, +89, -0, Δ89, skipped=50
 Pangle: entries=2, +2, -0, Δ2, skipped=0
-Inmobi Admob: entries=61, +1, -0, Δ1, skipped=22
-Inmobi MAX: entries=1, +0, -0, Δ0, skipped=82
+Inmobi Admob: entries=61, +61, -0, Δ61, skipped=22
+Inmobi MAX: entries=1, +1, -0, Δ1, skipped=82
 
 DUPLICATES
 DUPLICATE ENTRY:
