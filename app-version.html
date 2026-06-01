@@ -1,0 +1,1682 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AdMob Version Comparison Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --bg:#05111f;--bg2:#071a2d;--panel:#0b1c30;--panel2:#102842;--line:#1f4564;
+  --text:#f2f7ff;--muted:#9eb1c7;--blue:#2f8cff;--blue2:#55c3ff;--purple:#9b5cff;
+  --green:#54e37f;--red:#ff5d67;--yellow:#ffc857;--cyan:#36d6c9;
+  --shadow:0 16px 48px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--text);
+  font:14px/1.42 Inter,ui-sans-serif,system-ui,Segoe UI,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 7% 0%,rgba(47,140,255,.16),transparent 28%),
+    radial-gradient(circle at 96% 4%,rgba(155,92,255,.14),transparent 30%),
+    linear-gradient(180deg,#04101e,#06172a 45%,#04101e);
+}
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 20px;
+  min-height:74px;
+  width:100%;
+  border-bottom:1px solid rgba(85,195,255,.28);
+  background:#071a2d;
+  position:relative;
+  z-index:10;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+.logo{
+  width:46px;
+  height:46px;
+  min-width:46px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#16456f,#0b2038);
+  border:1px solid rgba(85,195,255,.35);
+  display:grid;
+  place-items:center;
+  box-shadow:inset 0 0 20px rgba(85,195,255,.18),0 8px 18px rgba(0,0,0,.22);
+}
+.logo svg{
+  width:30px;
+  height:30px;
+  display:block;
+}
+h1{
+  font-size:22px;
+  margin:0;
+  letter-spacing:-.03em;
+  line-height:1.1;
+  color:#ffffff;
+  font-weight:900;
+}
+.sub{
+  color:#b9cce2;
+  font-size:12px;
+  margin-top:4px;
+  line-height:1.25;
+}
+.controls{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:10px;
+  margin-bottom:14px;
+}
+.control{
+  min-width:0;border:1px solid rgba(85,195,255,.20);border-radius:10px;background:rgba(8,25,43,.78);
+  padding:7px 9px;
+}
+.control label{display:block;color:#c5d7ea;font-size:11px;margin-bottom:3px}
+select,input{
+  width:100%;background:transparent;color:var(--text);border:0;outline:0;font-weight:700;
+}
+input[type=file]{font-size:12px}
+main{padding:14px 18px 28px;max-width:1900px;margin:auto}
+#emptyState{
+  padding:26px;border:1px dashed rgba(85,195,255,.28);border-radius:18px;background:rgba(11,28,48,.72);
+  color:#d7e6f7;box-shadow:var(--shadow);
+}
+.dashboard{display:none}
+.kpis{display:grid;grid-template-columns:repeat(8,minmax(160px,1fr));gap:9px;margin-bottom:9px}
+.kpi{
+  background:linear-gradient(180deg,rgba(16,40,66,.96),rgba(8,26,45,.96));
+  border:1px solid rgba(85,195,255,.20);border-radius:10px;padding:12px 14px;box-shadow:var(--shadow);
+}
+.kpiHead{display:flex;align-items:center;gap:9px;font-weight:800;font-size:13px;margin-bottom:10px}
+.ico{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900}
+.ico.green{background:rgba(84,227,127,.22);color:var(--green)}.ico.blue{background:rgba(47,140,255,.22);color:var(--blue)}
+.ico.purple{background:rgba(155,92,255,.22);color:var(--purple)}.ico.cyan{background:rgba(54,214,201,.22);color:var(--cyan)}
+.ico.yellow{background:rgba(255,200,87,.22);color:var(--yellow)}.ico.red{background:rgba(255,93,103,.22);color:var(--red)}
+.kpiVals{display:grid;grid-template-columns:1fr auto;gap:3px 8px;color:#d9e8f8}
+.kpiVals b{font-size:16px;color:#fff}
+.kpiDelta{
+  margin-top:9px;text-align:center;border-radius:6px;padding:4px 6px;font-weight:900;
+  background:rgba(84,227,127,.14);color:var(--green);
+}
+.kpiDelta.bad{background:rgba(255,93,103,.14);color:var(--red)}
+.grid{display:grid;grid-template-columns:1.1fr .62fr .62fr .9fr;gap:9px}
+.panel{
+  background:linear-gradient(180deg,rgba(11,28,48,.97),rgba(6,22,39,.97));
+  border:1px solid rgba(85,195,255,.22);border-radius:10px;box-shadow:var(--shadow);overflow:hidden;
+}
+.panel h2{font-size:16px;margin:0;padding:11px 14px;border-bottom:1px solid rgba(85,195,255,.14)}
+.panelBody{padding:12px 14px}
+.scoreRows{display:grid;grid-template-columns:120px 1fr 54px 1fr 54px;gap:10px;align-items:center}
+.scoreLabel{display:flex;gap:8px;align-items:center;font-weight:800}
+.scoreBar{height:9px;background:#10253d;border-radius:999px;overflow:hidden}
+.scoreFillA{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:999px}
+.scoreFillB{height:100%;background:linear-gradient(90deg,var(--purple),#d184ff);border-radius:999px}
+.scoreFooter{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px;border-top:1px solid rgba(85,195,255,.12);padding-top:10px}
+.scoreCircle{display:flex;justify-content:center;align-items:center;gap:10px;font-weight:900}
+.circle{
+  width:39px;height:39px;border-radius:50%;display:grid;place-items:center;border:3px solid var(--blue);background:#0b1b31
+}
+.circle.p{border-color:var(--purple)}
+.listTable{width:100%;border-collapse:collapse}
+.listTable th,.listTable td{font-size:12px;padding:7px 6px;border-bottom:1px solid rgba(85,195,255,.10);text-align:left}
+.listTable td:last-child,.listTable th:last-child{text-align:right;font-weight:900}
+.rank{width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;background:rgba(84,227,127,.22);color:var(--green);font-size:11px;font-weight:900}
+.rank.bad{background:rgba(255,93,103,.20);color:var(--red)}
+.layout2{display:grid;grid-template-columns:1fr 1fr .78fr;gap:9px;margin-top:9px}
+.layout3{display:grid;grid-template-columns:1fr .62fr;gap:9px;margin-top:9px}
+.chart{width:100%;height:235px;display:block}
+.chart.tall{height:300px}
+.metricTableWrap{max-height:580px;overflow:auto}
+.metricTable{width:100%;border-collapse:collapse}
+.metricTable th,.metricTable td{padding:6px 8px;border-bottom:1px solid rgba(85,195,255,.12);font-size:12px;text-align:right}
+.metricTable th:first-child,.metricTable td:first-child{text-align:left}
+.metricTable th{position:sticky;top:0;background:#102842;color:#cfe0f4}
+.good{color:var(--green)}.bad{color:var(--red)}.muted{color:var(--muted)}
+.legend{display:flex;gap:16px;justify-content:center;font-size:12px;color:#dce8f6;margin-top:-4px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px}.dot.a{background:var(--blue)}.dot.b{background:var(--purple)}
+.footerSmall{font-size:12px;color:var(--muted);padding:0 14px 12px}
+@media(max-width:1450px){.kpis{grid-template-columns:repeat(4,1fr)}.grid,.layout2,.layout3{grid-template-columns:1fr}.controls{justify-content:flex-start}}
+@media(max-width:760px){header{display:block}.controls{margin-top:12px}.kpis{grid-template-columns:1fr}.scoreRows{grid-template-columns:1fr}.scoreRows > div:nth-child(n+2){display:block}}
+
+
+select{
+  background:#0b2238 !important;
+  color:#f2f7ff !important;
+  border:1px solid rgba(85,195,255,.30) !important;
+  border-radius:8px;
+  padding:6px 8px;
+}
+select option{
+  background:#0b2238;
+  color:#f2f7ff;
+}
+select option:checked,
+select option:hover{
+  background:#1b4d7a;
+  color:#ffffff;
+}
+.topTabs{
+  display:flex;
+  gap:8px;
+  padding:8px 20px;
+  background:#061525;
+  border-bottom:1px solid rgba(85,195,255,.18);
+  position:relative;
+  z-index:9;
+}
+.pageTab{
+  border:1px solid rgba(85,195,255,.24);
+  background:rgba(8,25,43,.88);
+  color:#dceaff;
+  border-radius:999px;
+  padding:7px 13px;
+  font-weight:800;
+  cursor:pointer;
+}
+.pageTab.active{
+  background:linear-gradient(135deg,rgba(47,140,255,.42),rgba(155,92,255,.32));
+  border-color:rgba(85,195,255,.48);
+  color:#fff;
+}
+.page{display:none}
+.page.active{display:block}
+.settingsPanel{display:block}
+.settingsGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+  gap:12px;
+}
+.settingsCard{
+  background:linear-gradient(180deg,rgba(11,28,48,.97),rgba(6,22,39,.97));
+  border:1px solid rgba(85,195,255,.22);
+  border-radius:12px;
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+.settingsCard h2{
+  margin:0 0 8px;
+  font-size:17px;
+}
+.summaryRow{
+  display:grid;
+  grid-template-columns:130px 1fr;
+  gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(85,195,255,.12);
+}
+.summaryRow b{color:#fff}
+.metricChip{
+  display:inline-block;
+  margin:4px 5px 0 0;
+  padding:6px 9px;
+  border-radius:999px;
+  background:rgba(85,195,255,.10);
+  border:1px solid rgba(85,195,255,.20);
+  color:#dceaff;
+  font-weight:800;
+  font-size:12px;
+}
+.primaryBtn{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  border:0;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:10px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+
+.headerStatus{
+  color:#cfe0f4;
+  font-size:12px;
+  font-weight:800;
+  padding:7px 11px;
+  border:1px solid rgba(85,195,255,.20);
+  border-radius:999px;
+  background:rgba(8,25,43,.72);
+  white-space:nowrap;
+}
+@media(max-width:760px){
+  header{min-height:64px;padding:10px 14px}
+  .headerStatus{display:none}
+  h1{font-size:18px}
+  .sub{display:none}
+  .logo{width:38px;height:38px}
+  .topTabs{top:64px}
+}
+
+
+.compareControls{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:10px;
+  margin-bottom:12px;
+}
+.unitCompareGrid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:9px;
+  margin-bottom:9px;
+}
+.unitCompareGrid2{
+  display:grid;
+  grid-template-columns:1fr .9fr;
+  gap:9px;
+}
+.unitScoreRows{
+  display:grid;
+  grid-template-columns:140px 1fr 68px 1fr 68px;
+  gap:10px;
+  align-items:center;
+}
+.unitCompareName{
+  font-size:20px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.metricDiffPill{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:999px;
+  font-weight:900;
+  border:1px solid rgba(85,195,255,.16);
+  background:rgba(8,25,43,.72);
+}
+@media(max-width:1200px){
+  .unitCompareGrid,.unitCompareGrid2{grid-template-columns:1fr}
+  .unitScoreRows{grid-template-columns:1fr}
+}
+
+
+.headerStatus{
+  display:block !important;
+  color:#dceaff;
+  font-size:12px;
+  font-weight:800;
+  padding:7px 11px;
+  border:1px solid rgba(85,195,255,.28);
+  border-radius:999px;
+  background:rgba(13,40,66,.90);
+  white-space:nowrap;
+}
+@media(max-width:760px){
+  header{min-height:62px;padding:10px 14px}
+  .headerStatus{display:none !important}
+  h1{font-size:18px}
+  .sub{display:none}
+  .logo{width:38px;height:38px;min-width:38px}
+  .logo svg{width:25px;height:25px}
+}
+
+
+.controls{
+  display:grid !important;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:10px;
+  margin:0 0 14px 0;
+  padding:12px;
+  border:1px solid rgba(85,195,255,.22);
+  background:rgba(8,25,43,.82);
+  border-radius:14px;
+}
+.control:first-child{
+  border-color:rgba(84,227,127,.35);
+  background:rgba(22,60,42,.55);
+}
+.control:first-child label::after{
+  content:" ← upload here";
+  color:#54e37f;
+  font-weight:900;
+}
+input[type=file]{
+  cursor:pointer;
+  color:#ffffff !important;
+}
+
+
+.singleWide{grid-template-columns:1fr !important;}
+
+.metricMegaPanel .panelBody{padding-top:8px}
+.metricMegaSummary{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:10px;
+}
+.metricMiniCard{
+  background:rgba(8,25,43,.78);
+  border:1px solid rgba(85,195,255,.14);
+  border-radius:10px;
+  padding:10px 12px;
+}
+.metricMiniCard .label{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.metricMiniCard .value{
+  font-size:20px;
+  font-weight:900;
+  margin-top:4px;
+}
+.metricMiniCard .subv{
+  margin-top:4px;
+  font-size:12px;
+  color:#d9e8f8;
+}
+.metricMegaLegend{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:8px 0 12px;
+}
+.metricMegaLegend .metricChip{
+  margin:0;
+}
+.revenueSourceWrap{
+  padding:6px 14px 12px;
+}
+.revenueHelp{
+  color:#dce8f6;
+  font-size:12px;
+  margin:0 0 8px;
+}
+@media(max-width:1200px){
+  .metricMegaSummary{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .metricMegaSummary{grid-template-columns:1fr}
+}
+
+
+.layoutRevenueMetrics{
+  display:grid;
+  grid-template-columns:1.12fr 1.35fr;
+  gap:9px;
+  margin-top:9px;
+}
+.snapshotGrid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+.snapshotCard{
+  background:rgba(8,25,43,.78);
+  border:1px solid rgba(85,195,255,.14);
+  border-radius:10px;
+  padding:10px 12px;
+}
+.snapshotCard .label{
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.snapshotCard .big{
+  font-size:24px;
+  font-weight:900;
+  margin-top:6px;
+}
+.snapshotCard .sub{
+  color:#d9e8f8;
+  margin-top:6px;
+  font-size:12px;
+}
+.masterMetricTable td:first-child{
+  font-weight:700;
+}
+.masterMetricTable .selectedFlag{
+  display:inline-block;
+  margin-left:6px;
+  padding:2px 6px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+  background:rgba(85,195,255,.10);
+  border:1px solid rgba(85,195,255,.18);
+  color:#dceaff;
+}
+.revenueSourceWrap .chart.tall{
+  height:460px;
+}
+.revenueNote{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:10px 0 2px;
+}
+.revenueNote div{
+  padding:8px 10px;
+  border-radius:10px;
+  background:rgba(8,25,43,.70);
+  border:1px solid rgba(85,195,255,.14);
+  color:#dce8f6;
+  font-size:12px;
+}
+@media(max-width:1450px){
+  .layoutRevenueMetrics{grid-template-columns:1fr}
+}
+
+
+.uploadStatus{
+  margin:10px 0 12px;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,93,103,.35);
+  background:rgba(80,20,30,.55);
+  color:#ffd9dd;
+  font-weight:800;
+}
+.uploadStatus.good{
+  border-color:rgba(84,227,127,.35);
+  background:rgba(18,70,42,.45);
+  color:#d8ffe4;
+}
+
+
+.layoutRevenueMetrics{
+  grid-template-columns:1fr !important;
+}
+.revenueStandaloneWrap{
+  padding:10px 18px 22px;
+}
+.revenueStandaloneChart{
+  width:100%;
+  height:700px;
+  display:block;
+}
+.revenueStandaloneWrap .revenueHelp{
+  font-size:13px;
+  margin-bottom:10px;
+}
+.revenueStandaloneWrap .revenueNote{
+  margin-bottom:14px;
+}
+
+
+.adSourceTableWrap{
+  margin-top:16px;
+  border-top:1px solid rgba(85,195,255,.14);
+  padding-top:14px;
+}
+.adSourceTableTitle{
+  font-size:15px;
+  font-weight:900;
+  color:#eaf4ff;
+  margin-bottom:10px;
+}
+.adSourceTable th,
+.adSourceTable td{
+  font-size:12px;
+  white-space:nowrap;
+}
+.adSourceTable th:first-child,
+.adSourceTable td:first-child{
+  position:sticky;
+  left:0;
+  background:#102842;
+  z-index:2;
+}
+.adSourceTable td:first-child{
+  background:#0b1c30;
+  z-index:1;
+}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">
+      <svg viewBox="0 0 64 64" fill="none">
+        <rect x="10" y="34" width="10" height="20" rx="2" fill="#2f8cff"/>
+        <rect x="27" y="22" width="10" height="32" rx="2" fill="#55c3ff"/>
+        <rect x="44" y="12" width="10" height="42" rx="2" fill="#9b5cff"/>
+      </svg>
+    </div>
+    <div>
+      <h1>App Version Comparison Dashboard</h1>
+      <div class="sub">Compare monetization performance across two versions using normalized metrics</div>
+    </div>
+  </div>
+  
+<div class="headerStatus">Settings → Dashboard → Revenue by Ad Source → Ad Unit Compare</div>
+</header>
+
+<nav class="topTabs">
+  <button class="pageTab active" data-page="settingsPage">Settings</button>
+  <button class="pageTab" data-page="dashboardPage">Dashboard</button>
+  <button class="pageTab" data-page="adSourcePage">Revenue by Ad Source</button>
+  <button class="pageTab" data-page="unitComparePage">Ad Unit Compare</button>
+</nav>
+
+<main>
+  <section id="settingsPage" class="page active">
+    <div id="uploadStatus" class="uploadStatus" style="display:none"></div>
+
+    <div id="emptyState">
+      Use the green-highlighted CSV / TSV control above to upload your AdMob report. Required columns: <b>App version</b> and <b>Ad unit</b>.
+    </div>
+
+    <div class="controls">
+    <div class="control"><label>CSV / TSV</label><input id="fileInput" type="file" accept=".csv,.tsv,.txt"></div>
+    <div class="control"><label>Version A</label><select id="versionA"></select></div>
+    <div class="control"><label>Version B</label><select id="versionB"></select></div>
+    <div class="control"><label>Format</label><select id="formatFilter"><option value="">All</option></select></div>
+    <div class="control"><label>Ad Unit</label><select id="unitFilter"><option value="">All</option></select></div>
+    <div class="control"><label>Metric 1</label><select id="decisionMetric1"></select></div>
+    <div class="control"><label>Metric 2</label><select id="decisionMetric2"></select></div>
+    <div class="control"><label>Metric 3</label><select id="decisionMetric3"></select></div>
+    <div class="control"><label>Metric 4</label><select id="decisionMetric4"></select></div>
+    <div class="control"><label>Metric 5</label><select id="decisionMetric5"></select></div>
+  </div>
+
+    <div id="settingsPanel" class="settingsPanel" style="display:none">
+      <div class="settingsGrid">
+        <div class="settingsCard">
+          <h2>1. Dataset & scope</h2>
+          <p class="muted">Use these controls in the header: CSV/TSV, Version A, Version B, Format, and Ad Unit. Dashboard updates automatically.</p>
+          <div id="settingsSummary"></div>
+        </div>
+        <div class="settingsCard">
+          <h2>2. Custom decision metrics</h2>
+          <p class="muted">Select 5 metrics. These drive score breakdown, top improvements, top declines, and overall version decision.</p>
+          <div id="metricSummary"></div>
+        </div>
+        <div class="settingsCard">
+          <h2>3. Decision rule</h2>
+          <p class="muted">Higher is better for most metrics. Latency/load/crash/error style metrics are automatically treated as lower-is-better.</p>
+          <button class="primaryBtn" onclick="switchPage('dashboardPage')">Show Dashboard</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboardPage" class="page">
+  <div id="dashboard" class="dashboard">
+    <section class="kpis" id="kpis"></section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Score Breakdown</h2>
+        <div class="panelBody" id="scoreBreakdown"></div>
+      </div>
+      <div class="panel">
+        <h2>⬆ Top Improvements</h2>
+        <div class="panelBody"><table class="listTable" id="topImprovements"></table></div>
+      </div>
+      <div class="panel">
+        <h2>⬇ Top Declines</h2>
+        <div class="panelBody"><table class="listTable" id="topDeclines"></table></div>
+      </div>
+      <div class="panel">
+        <h2>Decision Snapshot</h2>
+        <div class="panelBody" id="decisionSnapshotPanel"></div>
+      </div>
+    </section>
+
+    <section class="layout2">
+      <div class="panel">
+        <h2>Performance by Format <span class="muted" id="formatMetricLabel"></span></h2>
+        <div class="legend"><span><i class="dot a"></i><span id="legA"></span></span><span><i class="dot b"></i><span id="legB"></span></span></div>
+        <svg class="chart" id="formatChart" viewBox="0 0 700 260"></svg>
+      </div>
+      <div class="panel">
+        <h2>Auction & Delivery</h2>
+        <div class="legend"><span><i class="dot a"></i><span id="legA2"></span></span><span><i class="dot b"></i><span id="legB2"></span></span></div>
+        <svg class="chart" id="auctionChart" viewBox="0 0 620 260"></svg>
+      </div>
+      <div class="panel">
+        <h2>Overall Decision</h2>
+        <div class="panelBody" id="decisionPanel"></div>
+      </div>
+    </section>
+
+    <section class="layoutRevenueMetrics">
+      <div class="panel metricMegaPanel">
+        <h2>Metric Winner & Detailed Comparison</h2>
+        <div class="panelBody">
+          <div class="metricMegaSummary" id="winnerSummaryPanel"></div>
+          <div class="metricMegaLegend" id="winnerLegend"></div>
+          <div class="metricTableWrap"><table class="metricTable masterMetricTable" id="winnerByMetricTable"></table></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="layout3 singleWide"><section class="layout3 singleWide">
+      <div class="panel">
+        <h2>Ad Unit Delta Heatmap</h2>
+        <div class="footerSmall">Selected-metric delta by ad unit. Positive values favor Version B. Lower-is-better metrics are automatically inverted.</div>
+        <div class="panelBody metricTableWrap"><table class="metricTable" id="heatmapTable"></table></div>
+      </div>
+    </section>
+  </div>
+  </section>
+
+  
+  <section id="adSourcePage" class="page">
+    <div class="panel">
+      <h2>Revenue by Ad Source</h2>
+      <div class="revenueSourceWrap revenueStandaloneWrap">
+        <p class="revenueHelp">Uses <b>Ad source</b> + revenue/earnings from the CSV. Donut charts show the revenue mix for Version A vs Version B within the current Format / Ad Unit scope.</p>
+        <div class="revenueNote">
+          <div><b>Blue</b> = Version A</div>
+          <div><b>Purple</b> = Version B</div>
+        </div>
+        <svg class="chart revenueStandaloneChart" id="adSourceRevenueChart" viewBox="0 0 1400 700"></svg>
+        <div class="adSourceTableWrap">
+          <div class="adSourceTableTitle">All Networks Table</div>
+          <div class="metricTableWrap">
+            <table class="metricTable adSourceTable" id="adSourceRevenueTable"></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="unitComparePage" class="page">
+    <div id="unitCompareEmpty" class="empty">Upload a CSV first, then select two ad units to compare.</div>
+    <div id="unitCompareBody" style="display:none">
+      <div class="compareControls">
+        <div class="control"><label>Compare Version</label><select id="compareUnitVersion"></select></div>
+        <div class="control"><label>Ad Unit A</label><select id="compareUnitA"></select></div>
+        <div class="control"><label>Ad Unit B</label><select id="compareUnitB"></select></div>
+      </div>
+
+      <div class="unitCompareGrid">
+        <div class="panel">
+          <h2>Ad Unit Score Breakdown</h2>
+          <div class="panelBody" id="unitScoreBreakdown"></div>
+        </div>
+        <div class="panel">
+          <h2>Decision</h2>
+          <div class="panelBody" id="unitDecisionPanel"></div>
+        </div>
+      </div>
+
+      <div class="unitCompareGrid2">
+        <div class="panel">
+          <h2>Selected Metric Comparison</h2>
+          <svg class="chart tall" id="unitMetricChart" viewBox="0 0 1000 340"></svg>
+        </div>
+        <div class="panel">
+          <h2>Metric-by-Metric Table</h2>
+          <div class="panelBody metricTableWrap"><table class="metricTable" id="unitCompareTable"></table></div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:9px">
+        <h2>All Available Metrics</h2>
+        <div class="panelBody metricTableWrap"><table class="metricTable" id="unitAllMetricsTable"></table></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+let rawRows=[], dashboardRows=[], metrics=[], versions=[], formats=[], units=[];
+const metricAliases = {
+  earnings:["Estimated earnings (USD)","Estimated earnings","Revenue"],
+  ecpm:["Observed eCPM (USD)","Observed eCPM"],
+  requests:["Requests"],
+  impressions:["Impressions"],
+  match:["Match rate"],
+  show:["Show rate"],
+  ctr:["CTR"],
+  arpdau:["Ads ARPDAU (USD)","ARPDAU"],
+  arpu:["Ads ARPU (USD)","Ads ARPU"],
+  arpv:["Ads ARPV (USD)","Ads ARPV"],
+  viewerRate:["Ad viewer rate"],
+  impsAu:["Imps / AU"],
+  impsAv:["Imps / AV"],
+  latency:["Ad load latency"],
+  bidsPct:["Bids in auction (%)"],
+  win:["Win rate"]
+};
+const presetMetrics = {
+  balanced:["Ads ARPU (USD)","Ads ARPV (USD)","Imps / AU","Imps / AV"],
+  user:["Ads ARPU (USD)","Ads ARPDAU (USD)","Ad viewer rate","Imps / AU"],
+  viewer:["Ads ARPV (USD)","Ads ARPDAV (USD)","Imps / AV","Observed eCPM (USD)"],
+  delivery:["Match rate","Show rate","Bids in auction (%)","Win rate"],
+  engagement:["CTR","Ad viewer rate","Show rate","Imps / AU"]
+};
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
+function detectDelimiter(text){const l=text.split(/\r?\n/).find(x=>x.trim());return ((l.match(/\t/g)||[]).length>(l.match(/,/g)||[]).length)?"\t":","}
+function decode(buf){const b=new Uint8Array(buf); if(b[0]===255&&b[1]===254)return new TextDecoder("utf-16le").decode(b); let z=0; for(let i=0;i<Math.min(4000,b.length);i++) if(b[i]===0) z++; return z>40?new TextDecoder("utf-16le").decode(b):new TextDecoder("utf-8").decode(b)}
+function parseDelimited(text,delim){
+  const rows=[];let row=[],cur="",q=false;
+  for(let i=0;i<text.length;i++){const ch=text[i],nx=text[i+1];
+    if(ch==='"'){if(q&&nx==='"'){cur+='"';i++}else q=!q}
+    else if(ch===delim&&!q){row.push(cur);cur=""}
+    else if((ch==="\n"||ch==="\r")&&!q){if(ch==="\r"&&nx==="\n")i++;row.push(cur);cur="";if(row.some(x=>x.trim()))rows.push(row);row=[]}
+    else cur+=ch
+  }
+  row.push(cur); if(row.some(x=>x.trim())) rows.push(row);
+  const h=rows[0].map(x=>x.trim().replace(/^\ufeff/,""));
+  return rows.slice(1).map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??""])));
+}
+function isPct(c){return /rate|ctr|%|win/i.test(c)}
+function isMoney(c){return /usd|earn|revenue|ecpm|arpu|arpv/i.test(c)}
+function lowerBetter(c){return /latency|load|crash|fail|error|anr/i.test(c)}
+function num(v,c){let s=String(v??"").trim(); if(!s||s==="-"||s==="NaN")return null; const pct=s.includes("%")||isPct(c); s=s.replace(/[$,٪%]/g,""); const n=Number(s); return Number.isFinite(n)?(pct?n/100:n):null}
+function firstExisting(cols, names){
+  return names.find(n=>cols.includes(n)) || null;
+}
+function aggregateAdUnitRows(rows){
+  if(!rows.length) return [];
+  const cols = Object.keys(rows[0]);
+  const groups = new Map();
+
+  rows.forEach(r=>{
+    const key = [
+      String(r["App version"]||"").trim(),
+      String(r["Format"]||"Unknown").trim() || "Unknown",
+      String(r["Ad unit"]||"").trim()
+    ].join("|||");
+    if(!groups.has(key)){
+      groups.set(key, rows[0] ? {...r} : {});
+      const g = groups.get(key);
+      cols.forEach(c=>{
+        if(!["App","App version","Format","Ad unit"].includes(c) && num(r[c],c)!=null) g[c] = 0;
+      });
+    }
+  });
+
+  // Helper names
+  const revCol = firstExisting(cols, ["Estimated earnings (USD)","Estimated earnings","Revenue"]);
+  const impCol = firstExisting(cols, ["Impressions"]);
+  const reqCol = firstExisting(cols, ["Requests"]);
+  const matchedCol = firstExisting(cols, ["Matched requests"]);
+  const clicksCol = firstExisting(cols, ["Clicks"]);
+  const auCol = firstExisting(cols, ["Active users (AU)"]);
+  const avCol = firstExisting(cols, ["Ad viewers (AV)"]);
+  const dauCol = firstExisting(cols, ["DAU"]);
+  const davCol = firstExisting(cols, ["DAV"]);
+  const bidReqCol = firstExisting(cols, ["Bid requests"]);
+  const bidsAuctionCol = firstExisting(cols, ["Bids in auction"]);
+  const winningBidsCol = firstExisting(cols, ["Winning bids"]);
+
+  const additiveHints = /earning|revenue|request|matched|impression|click|bid|winning|dav|dau|viewer|user/i;
+
+  // Initialize accumulator metadata
+  const acc = new Map();
+  groups.forEach((g,k)=>acc.set(k,{count:0, latencyWeight:0, latencySum:0}));
+
+  rows.forEach(r=>{
+    const key = [
+      String(r["App version"]||"").trim(),
+      String(r["Format"]||"Unknown").trim() || "Unknown",
+      String(r["Ad unit"]||"").trim()
+    ].join("|||");
+    const g = groups.get(key);
+    const a = acc.get(key);
+    a.count++;
+
+    cols.forEach(c=>{
+      if(["App","App version","Format","Ad unit","Ad source"].includes(c)) return;
+      const v = num(r[c],c);
+      if(v==null) return;
+
+      // Use max for user-base columns to avoid double-counting users across ad sources.
+      if(c === auCol || c === dauCol){
+        g[c] = Math.max(num(g[c],c)||0, v);
+      }
+      // Use sum for directly additive delivery/revenue columns.
+      else if(additiveHints.test(c) && !isPct(c) && !/ecpm|arpu|arpv|imps \//i.test(c)){
+        g[c] = (num(g[c],c)||0) + v;
+      }
+      // Keep weighted-ish average fallback for rates/ratios.
+      else if(c.toLowerCase().includes("latency")){
+        const w = reqCol ? (num(r[reqCol],reqCol)||1) : 1;
+        a.latencyWeight += w;
+        a.latencySum += v*w;
+      }
+      else {
+        g[c] = (num(g[c],c)||0) + v;
+      }
+    });
+  });
+
+  const out = [...groups.values()];
+  out.forEach(g=>{
+    const key = [
+      String(g["App version"]||"").trim(),
+      String(g["Format"]||"Unknown").trim() || "Unknown",
+      String(g["Ad unit"]||"").trim()
+    ].join("|||");
+    const a = acc.get(key);
+    cols.forEach(c=>{
+      if(["App","App version","Format","Ad unit","Ad source"].includes(c)) return;
+      if(num(g[c],c)==null) return;
+      if((isPct(c) || /ecpm|arpu|arpv|imps \//i.test(c)) && !c.toLowerCase().includes("latency")){
+        // These will be recalculated below where possible. If not possible, average them.
+        g[c] = (num(g[c],c)||0) / Math.max(a.count,1);
+      }
+    });
+
+    const rev = revCol ? num(g[revCol],revCol) : null;
+    const imp = impCol ? num(g[impCol],impCol) : null;
+    const req = reqCol ? num(g[reqCol],reqCol) : null;
+    const matched = matchedCol ? num(g[matchedCol],matchedCol) : null;
+    const clicks = clicksCol ? num(g[clicksCol],clicksCol) : null;
+    const au = auCol ? num(g[auCol],auCol) : null;
+    const av = avCol ? num(g[avCol],avCol) : null;
+    const dau = dauCol ? num(g[dauCol],dauCol) : null;
+    const dav = davCol ? num(g[davCol],davCol) : null;
+    const bidReq = bidReqCol ? num(g[bidReqCol],bidReqCol) : null;
+    const bidsAuction = bidsAuctionCol ? num(g[bidsAuctionCol],bidsAuctionCol) : null;
+    const winningBids = winningBidsCol ? num(g[winningBidsCol],winningBidsCol) : null;
+
+    if(revCol && impCol && rev!=null && imp>0 && cols.includes("Observed eCPM (USD)")) g["Observed eCPM (USD)"] = rev/imp*1000;
+    if(matchedCol && reqCol && matched!=null && req>0 && cols.includes("Match rate")) g["Match rate"] = matched/req;
+    if(impCol && matchedCol && imp!=null && matched>0 && cols.includes("Show rate")) g["Show rate"] = imp/matched;
+    if(clicksCol && impCol && clicks!=null && imp>0 && cols.includes("CTR")) g["CTR"] = clicks/imp;
+    if(revCol && auCol && rev!=null && au>0 && cols.includes("Ads ARPU (USD)")) g["Ads ARPU (USD)"] = rev/au;
+    if(revCol && avCol && rev!=null && av>0 && cols.includes("Ads ARPV (USD)")) g["Ads ARPV (USD)"] = rev/av;
+    if(impCol && auCol && imp!=null && au>0 && cols.includes("Imps / AU")) g["Imps / AU"] = imp/au;
+    if(impCol && avCol && imp!=null && av>0 && cols.includes("Imps / AV")) g["Imps / AV"] = imp/av;
+    if(avCol && auCol && av!=null && au>0 && cols.includes("Ad viewer rate")) g["Ad viewer rate"] = av/au;
+    if(revCol && dauCol && rev!=null && dau>0 && cols.includes("Ads ARPDAU (USD)")) g["Ads ARPDAU (USD)"] = rev/dau;
+    if(revCol && davCol && rev!=null && dav>0 && cols.includes("Ads ARPDAV (USD)")) g["Ads ARPDAV (USD)"] = rev/dav;
+    if(davCol && dauCol && dav!=null && dau>0 && cols.includes("Daily ad viewer rate")) g["Daily ad viewer rate"] = dav/dau;
+    if(impCol && davCol && imp!=null && dav>0 && cols.includes("IMPDAV")) g["IMPDAV"] = imp/dav;
+    if(impCol && dauCol && imp!=null && dau>0 && cols.includes("IMPDAU")) g["IMPDAU"] = imp/dau;
+    if(bidsAuctionCol && bidReqCol && bidsAuction!=null && bidReq>0 && cols.includes("Bids in auction (%)")) g["Bids in auction (%)"] = bidsAuction/bidReq;
+    if(winningBidsCol && bidsAuctionCol && winningBids!=null && bidsAuction>0 && cols.includes("Win rate")) g["Win rate"] = winningBids/bidsAuction;
+    if(cols.includes("Ad load latency") && a.latencyWeight>0) g["Ad load latency"] = a.latencySum/a.latencyWeight;
+  });
+
+  return out;
+}
+
+function fmt(x,c){if(x==null||Number.isNaN(x))return "—"; if(isPct(c))return (x*100).toFixed(2)+"%"; if(isMoney(c))return "$"+x.toFixed(Math.abs(x)<.01?5:2); if(Math.abs(x)>=1e6)return (x/1e6).toFixed(2)+"M"; if(Math.abs(x)>=1e3)return (x/1e3).toFixed(1)+"K"; return x.toFixed(2)}
+function versionSort(a,b){const aa=String(a).match(/\d+(\.\d+)*/)?.[0]?.split(".").map(Number)||[0],bb=String(b).match(/\d+(\.\d+)*/)?.[0]?.split(".").map(Number)||[0]; for(let i=0;i<Math.max(aa.length,bb.length);i++){let x=aa[i]||0,y=bb[i]||0;if(x!==y)return x-y} return String(a).localeCompare(String(b))}
+function findMetric(keys){for(const k of keys){if(metrics.includes(k))return k} return null}
+function selectedMetrics(){
+  return ["decisionMetric1","decisionMetric2","decisionMetric3","decisionMetric4","decisionMetric5"]
+    .map(id=>document.getElementById(id).value)
+    .filter(Boolean);
+}
+function getRows(ver){
+  const f=document.getElementById("formatFilter").value;
+  const u=document.getElementById("unitFilter").value;
+  return dashboardRows.filter(r=>
+    String(r["App version"]).trim()===ver &&
+    (!f || r.Format===f) &&
+    (!u || r["Ad unit"]===u)
+  )
+}
+function sumMetric(rows,m){const vals=rows.map(r=>num(r[m],m)).filter(x=>x!=null); if(!vals.length)return null; if(/rate|ctr|ecpm|arpu|arpv|imps \/|latency|win|auction/i.test(m)) return vals.reduce((a,b)=>a+b,0)/vals.length; return vals.reduce((a,b)=>a+b,0)}
+function delta(a,b,m){if(a==null||b==null||a===0)return null; return (b-a)/a*100}
+function adjDelta(a,b,m){const d=delta(a,b,m); return d==null?0:(lowerBetter(m)?-d:d)}
+function dcls(d,m){const a=lowerBetter(m)?-d:d; return a>=0?"good":"bad"}
+function dtext(d){return d==null?"—":(d>0?"+":"")+d.toFixed(2)+"%"}
+function valueScore(row,m,ver,visible){
+  const vals=visible.map(r=>num(r[m],m)).filter(x=>x!=null); const v=num(row[m],m); if(v==null||!vals.length)return 0;
+  if(lowerBetter(m)){const min=Math.min(...vals.filter(x=>x>0)); return min&&v>0?min/v*100:0}
+  const max=Math.max(...vals,.000001); return v/max*100;
+}
+function scoreRow(row,ver,visible,sel){return sel.length?sel.reduce((s,m)=>s+valueScore(row,m,ver,visible),0)/sel.length:0}
+function aggregateScore(ver,sel){
+  const rows=getRows(ver); if(!rows.length)return 0;
+  return rows.reduce((s,r)=>s+scoreRow(r,ver,rows,sel),0)/rows.length;
+}
+function unitPairs(){
+  const a=document.getElementById("versionA").value,b=document.getElementById("versionB").value;
+  const A=getRows(a),B=getRows(b),map=new Map(A.map(r=>[(r.Format||"")+"|||"+(r["Ad unit"]||""),r]));
+  return B.map(br=>({a:map.get((br.Format||"")+"|||"+(br["Ad unit"]||"")),b:br})).filter(x=>x.a&&x.b);
+}
+function pairDeltaScore(p,sel){return sel.length?sel.reduce((s,m)=>s+adjDelta(num(p.a[m],m),num(p.b[m],m),m),0)/sel.length:0}
+
+function renderKpis(){
+  const a=document.getElementById("versionA").value,b=document.getElementById("versionB").value;
+  const rowsA=getRows(a), rowsB=getRows(b);
+  const kpiList=[
+    ["Estimated Earnings",findMetric(metricAliases.earnings),"green","$"],
+    ["Observed eCPM",findMetric(metricAliases.ecpm),"blue","◉"],
+    ["Requests",findMetric(metricAliases.requests),"purple","⇄"],
+    ["Impressions",findMetric(metricAliases.impressions),"cyan","◉"],
+    ["Match Rate",findMetric(metricAliases.match),"yellow","⌁"],
+    ["Show Rate",findMetric(metricAliases.show),"blue","▶"],
+    ["CTR",findMetric(metricAliases.ctr),"red","⌖"],
+    ["Ads ARPDAU",findMetric(metricAliases.arpdau),"purple","♙"]
+  ].filter(x=>x[1]);
+  document.getElementById("kpis").innerHTML=kpiList.map(([title,m,color,icon])=>{
+    const va=sumMetric(rowsA,m), vb=sumMetric(rowsB,m), d=delta(va,vb,m);
+    return `<div class="kpi">
+      <div class="kpiHead"><span class="ico ${color}">${icon}</span>${esc(title)}</div>
+      <div class="kpiVals"><span>${esc(a)}</span><b>${fmt(va,m)}</b><span>${esc(b)}</span><b>${fmt(vb,m)}</b></div>
+      <div class="kpiDelta ${dcls(d||0,m)}">${d==null?"—":(lowerBetter(m)?(d<0?"↘ ":"↗ "):(d>=0?"↗ ":"↘ "))+dtext(d)}</div>
+    </div>`
+  }).join("");
+}
+function renderScore(){
+  const a=document.getElementById("versionA").value,b=document.getElementById("versionB").value,sel=selectedMetrics();
+  const sA=aggregateScore(a,sel),sB=aggregateScore(b,sel);
+  document.getElementById("scoreBreakdown").innerHTML=`
+    <div class="scoreRows">
+      <div></div><div class="muted" style="text-align:center">${esc(a)}</div><div></div><div class="muted" style="text-align:center">${esc(b)}</div><div></div>
+      ${sel.map(m=>{
+        const rowsA=getRows(a),rowsB=getRows(b);
+        const ma=rowsA.reduce((s,r)=>s+valueScore(r,m,a,rowsA),0)/(rowsA.length||1);
+        const mb=rowsB.reduce((s,r)=>s+valueScore(r,m,b,rowsB),0)/(rowsB.length||1);
+        return `<div class="scoreLabel"><span class="ico blue" style="width:22px;height:22px;font-size:11px">•</span>${esc(shortName(m))}</div>
+        <div class="scoreBar"><div class="scoreFillA" style="width:${Math.min(100,ma)}%"></div></div><div>${ma.toFixed(0)}/100</div>
+        <div class="scoreBar"><div class="scoreFillB" style="width:${Math.min(100,mb)}%"></div></div><div>${mb.toFixed(0)}/100</div>`
+      }).join("")}
+    </div>
+    <div class="scoreFooter"><div class="scoreCircle">Overall Score <span class="circle">${sA.toFixed(0)}</span></div><div class="scoreCircle">Overall Score <span class="circle p">${sB.toFixed(0)}</span></div></div>`;
+  const better=sB>sA?b:a, diff=sB-sA;
+  document.getElementById("decisionPanel").innerHTML=`<div class="kpiHead"><span class="ico ${sB>sA?'green':'red'}">✓</span>Selected-metric decision</div>
+    <div style="font-size:34px;font-weight:900;margin:8px 0" class="${sB>sA?'good':'bad'}">${esc(better)} is better</div>
+    <div class="muted">Score: ${esc(a)} ${sA.toFixed(1)} → ${esc(b)} ${sB.toFixed(1)}</div>
+    <div class="kpiDelta ${diff>=0?'good':'bad'}">${diff>=0?'+':''}${diff.toFixed(1)} points</div>
+    <p class="muted">This decision ignores install-base volume unless you choose raw volume metrics in the preset.</p>`;
+}
+function shortName(m){return m.replace("Estimated earnings (USD)","Revenue").replace("Observed eCPM (USD)","eCPM").replace("Ads ","").replace(" (USD)","")}
+function renderTopLists(){
+  const sel=selectedMetrics(), pairs=unitPairs();
+  const imp=pairs.slice().sort((x,y)=>pairDeltaScore(y,sel)-pairDeltaScore(x,sel)).slice(0,5);
+  const dec=pairs.slice().sort((x,y)=>pairDeltaScore(x,sel)-pairDeltaScore(y,sel)).slice(0,5);
+  function table(arr,bad=false){return `<tr><th></th><th>Ad Unit / Format</th><th>Delta</th></tr>`+arr.map((p,i)=>{
+    const s=pairDeltaScore(p,sel); return `<tr><td><span class="rank ${bad?'bad':''}">${i+1}</span></td><td>${esc(p.b["Ad unit"])}<br><span class="muted">${esc(p.b.Format||"")}</span></td><td class="${s>=0?'good':'bad'}">${s>=0?'+':''}${s.toFixed(2)}%</td></tr>`
+  }).join("")}
+  document.getElementById("topImprovements").innerHTML=table(imp,false);
+  document.getElementById("topDeclines").innerHTML=table(dec,true);
+}
+function renderDetailTable(){}
+function renderFormatChart(){
+  const a=document.getElementById("versionA").value,b=document.getElementById("versionB").value;
+  const m=findMetric(metricAliases.earnings)||selectedMetrics()[0];
+  document.getElementById("formatMetricLabel").textContent=`(${shortName(m)})`;
+  ["legA","legA2"].forEach(id=>document.getElementById(id).textContent=a);
+  ["legB","legB2"].forEach(id=>document.getElementById(id).textContent=b);
+  const data=formats.map(f=>{
+    const ra=getRows(a).filter(r=>r.Format===f), rb=getRows(b).filter(r=>r.Format===f);
+    return {f,a:sumMetric(ra,m)||0,b:sumMetric(rb,m)||0}
+  }).filter(x=>x.a||x.b);
+  const W=700,H=260,p=42,max=Math.max(...data.map(x=>Math.max(x.a,x.b)),1),bw=Math.min(34,(W-p*2)/(data.length*2.7));
+  let s=`${axis(W,H,p)}`;
+  data.forEach((d,i)=>{
+    const x=p+i*((W-p*2)/Math.max(data.length,1))+18, ha=(d.a/max)*(H-p*2), hb=(d.b/max)*(H-p*2);
+    s+=`<rect x="${x}" y="${H-p-ha}" width="${bw}" height="${ha}" rx="3" fill="url(#ba)"/><rect x="${x+bw+6}" y="${H-p-hb}" width="${bw}" height="${hb}" rx="3" fill="url(#bb)"/>
+    <text x="${x+bw}" y="${H-16}" fill="#dce8f6" text-anchor="middle" font-size="12">${esc(d.f).slice(0,12)}</text>
+    <text x="${x+bw}" y="${H-p-Math.max(ha,hb)-8}" fill="#fff" text-anchor="middle" font-size="11">${fmt(Math.max(d.a,d.b),m)}</text>`
+  });
+  document.getElementById("formatChart").innerHTML=defs()+s;
+}
+function renderAuctionChart(){
+  const a=document.getElementById("versionA").value,b=document.getElementById("versionB").value;
+  const ms=[findMetric(metricAliases.match),findMetric(metricAliases.show),findMetric(metricAliases.win),findMetric(metricAliases.bidsPct)].filter(Boolean);
+  const W=620,H=260,p=42,bw=34;
+  const vals = [];
+  ms.forEach(m=>{
+    vals.push(sumMetric(getRows(a),m)||0);
+    vals.push(sumMetric(getRows(b),m)||0);
+  });
+  let maxVal = Math.max(...vals, 0);
+  if(maxVal <= 0) maxVal = 0.01;
+  maxVal *= 1.25;
+
+  let s = defs();
+  for(let i=0;i<=4;i++){
+    const y = H-p-i*(H-p*2)/4;
+    const tick = maxVal*i/4;
+    s += `<line x1="${p}" y1="${y}" x2="${W-p}" y2="${y}" stroke="rgba(150,177,205,.18)" stroke-dasharray="3 4"/>`;
+    s += `<text x="${p-8}" y="${y+4}" fill="#9eb1c7" text-anchor="end" font-size="10">${fmt(tick, ms[0] || "Match rate")}</text>`;
+  }
+  s += `<line x1="${p}" y1="${H-p}" x2="${W-p}" y2="${H-p}" stroke="rgba(220,235,255,.35)"/>`;
+  s += `<line x1="${p}" y1="${p}" x2="${p}" y2="${H-p}" stroke="rgba(220,235,255,.35)"/>`;
+
+  ms.forEach((m,i)=>{
+    const va=sumMetric(getRows(a),m)||0;
+    const vb=sumMetric(getRows(b),m)||0;
+    const x=p+i*((W-p*2)/Math.max(ms.length,1))+42;
+    const ha=va/maxVal*(H-p*2);
+    const hb=vb/maxVal*(H-p*2);
+    s += `<rect x="${x}" y="${H-p-ha}" width="${bw}" height="${ha}" rx="3" fill="url(#ba)"/>`;
+    s += `<rect x="${x+bw+8}" y="${H-p-hb}" width="${bw}" height="${hb}" rx="3" fill="url(#bb)"/>`;
+    s += `<text x="${x+bw}" y="${H-15}" fill="#dce8f6" text-anchor="middle" font-size="12">${esc(shortName(m)).slice(0,14)}</text>`;
+    s += `<text x="${x+bw}" y="${H-p-Math.max(ha,hb)-8}" fill="#fff" text-anchor="middle" font-size="11">${fmt(Math.max(va,vb),m)}</text>`;
+  });
+  document.getElementById("auctionChart").innerHTML=s;
+}
+function renderScatter(){}
+function renderHeatmap(){
+  const sel=selectedMetrics(),pairs=unitPairs().slice(0,20);
+  document.getElementById("heatmapTable").innerHTML=`<tr><th>Ad unit</th>${sel.map(m=>`<th>${esc(shortName(m))}</th>`).join("")}<th>Avg</th></tr>`+pairs.map(p=>{
+    const s=pairDeltaScore(p,sel);
+    return `<tr><td>${esc(p.b["Ad unit"])}</td>${sel.map(m=>{const d=adjDelta(num(p.a[m],m),num(p.b[m],m),m);return `<td class="${d>=0?'good':'bad'}">${d>=0?'+':''}${d.toFixed(1)}%</td>`}).join("")}<td class="${s>=0?'good':'bad'}">${s>=0?'+':''}${s.toFixed(1)}%</td></tr>`
+  }).join("");
+}
+function axis(W,H,p,pct=false){
+  let s=""; for(let i=0;i<=4;i++){const y=p+i*(H-p*2)/4; s+=`<line x1="${p}" y1="${y}" x2="${W-p}" y2="${y}" stroke="rgba(150,177,205,.18)" stroke-dasharray="3 4"/>`}
+  s+=`<line x1="${p}" y1="${H-p}" x2="${W-p}" y2="${H-p}" stroke="rgba(220,235,255,.35)"/><line x1="${p}" y1="${p}" x2="${p}" y2="${H-p}" stroke="rgba(220,235,255,.35)"/>`; return s;
+}
+function defs(){return `<defs><linearGradient id="ba" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#55c3ff"/><stop offset="1" stop-color="#2f8cff"/></linearGradient><linearGradient id="bb" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#d184ff"/><stop offset="1" stop-color="#9b5cff"/></linearGradient></defs>`}
+
+function getCompareUnitRows(){
+  const ver = document.getElementById("compareUnitVersion").value || document.getElementById("versionB").value;
+  const unitA = document.getElementById("compareUnitA").value;
+  const unitB = document.getElementById("compareUnitB").value;
+  const rowA = dashboardRows.find(r=>String(r["App version"]).trim()===ver && r["Ad unit"]===unitA);
+  const rowB = dashboardRows.find(r=>String(r["App version"]).trim()===ver && r["Ad unit"]===unitB);
+  return {ver, unitA, unitB, rowA, rowB};
+}
+function populateUnitCompareControls(){
+  const verSel = document.getElementById("compareUnitVersion");
+  const aSel = document.getElementById("compareUnitA");
+  const bSel = document.getElementById("compareUnitB");
+  if(!verSel || !aSel || !bSel) return;
+
+  const oldVer = verSel.value || document.getElementById("versionB").value;
+  fillSelect("compareUnitVersion", versions);
+  verSel.value = versions.includes(oldVer) ? oldVer : (document.getElementById("versionB").value || versions[versions.length-1] || "");
+
+  const currentVersion = verSel.value;
+  const availableUnits = [...new Set(dashboardRows
+    .filter(r=>String(r["App version"]).trim()===currentVersion)
+    .map(r=>String(r["Ad unit"]).trim())
+    .filter(Boolean)
+  )].sort();
+
+  const oldA = aSel.value;
+  const oldB = bSel.value;
+  aSel.innerHTML = "";
+  bSel.innerHTML = "";
+  availableUnits.forEach(u=>{aSel.add(new Option(u,u)); bSel.add(new Option(u,u));});
+  aSel.value = availableUnits.includes(oldA) ? oldA : (availableUnits[0] || "");
+  bSel.value = availableUnits.includes(oldB) ? oldB : (availableUnits[1] || availableUnits[0] || "");
+}
+function rowValueScore(row,m,visibleRows){
+  const vals=visibleRows.map(r=>num(r[m],m)).filter(x=>x!=null);
+  const v=num(row?.[m],m);
+  if(v==null||!vals.length)return 0;
+  if(lowerBetter(m)){
+    const pos=vals.filter(x=>x>0);
+    const min=Math.min(...(pos.length?pos:vals));
+    return min&&v>0?min/v*100:0;
+  }
+  const max=Math.max(...vals,.000001);
+  return v/max*100;
+}
+function compareUnitScore(row,ver,sel){
+  const visible = dashboardRows.filter(r=>String(r["App version"]).trim()===ver);
+  return sel.length ? sel.reduce((s,m)=>s+rowValueScore(row,m,visible),0)/sel.length : 0;
+}
+function renderUnitCompare(){
+  if(!rawRows.length){
+    const e=document.getElementById("unitCompareEmpty"), b=document.getElementById("unitCompareBody");
+    if(e) e.style.display="block"; if(b) b.style.display="none";
+    return;
+  }
+  document.getElementById("unitCompareEmpty").style.display="none";
+  document.getElementById("unitCompareBody").style.display="block";
+
+  const {ver, unitA, unitB, rowA, rowB} = getCompareUnitRows();
+  const sel = selectedMetrics();
+  if(!rowA || !rowB || !sel.length) return;
+
+  const scoreA = compareUnitScore(rowA,ver,sel);
+  const scoreB = compareUnitScore(rowB,ver,sel);
+  const winner = scoreB > scoreA ? unitB : unitA;
+  const loser = scoreB > scoreA ? unitA : unitB;
+  const diff = Math.abs(scoreB-scoreA);
+
+  document.getElementById("unitScoreBreakdown").innerHTML = `
+    <div class="unitScoreRows">
+      <div></div><div class="muted" style="text-align:center">${esc(unitA)}</div><div></div><div class="muted" style="text-align:center">${esc(unitB)}</div><div></div>
+      ${sel.map(m=>{
+        const visible = dashboardRows.filter(r=>String(r["App version"]).trim()===ver);
+        const a=rowValueScore(rowA,m,visible), b=rowValueScore(rowB,m,visible);
+        return `<div class="scoreLabel"><span class="ico blue" style="width:22px;height:22px;font-size:11px">•</span>${esc(shortName(m))}</div>
+        <div class="scoreBar"><div class="scoreFillA" style="width:${Math.min(100,a)}%"></div></div><div>${a.toFixed(0)}/100</div>
+        <div class="scoreBar"><div class="scoreFillB" style="width:${Math.min(100,b)}%"></div></div><div>${b.toFixed(0)}/100</div>`;
+      }).join("")}
+    </div>
+    <div class="scoreFooter">
+      <div class="scoreCircle">Unit A Score <span class="circle">${scoreA.toFixed(0)}</span></div>
+      <div class="scoreCircle">Unit B Score <span class="circle p">${scoreB.toFixed(0)}</span></div>
+    </div>
+  `;
+
+  document.getElementById("unitDecisionPanel").innerHTML = `
+    <div class="unitCompareName ${scoreB>scoreA?'good':'bad'}">${esc(winner)} wins</div>
+    <div class="muted">Version: <b>${esc(ver)}</b></div>
+    <div class="muted">Against: ${esc(loser)}</div>
+    <div class="kpiDelta ${scoreB>scoreA?'good':'bad'}">${diff.toFixed(1)} score points difference</div>
+    <p class="muted">Decision uses only the 5 selected metrics from Settings.</p>
+  `;
+
+  renderUnitMetricChart(rowA,rowB,unitA,unitB,ver,sel);
+  renderUnitCompareTable(rowA,rowB,unitA,unitB,sel);
+  renderUnitAllMetricsTable(rowA,rowB,unitA,unitB);
+}
+function renderUnitMetricChart(rowA,rowB,unitA,unitB,ver,sel){
+  const visible = dashboardRows.filter(r=>String(r["App version"]).trim()===ver);
+  const W=1000,H=340,p=54,bw=46;
+  let s=defs()+axis(W,H,p);
+  sel.forEach((m,i)=>{
+    const a=rowValueScore(rowA,m,visible), b=rowValueScore(rowB,m,visible);
+    const x=p+i*((W-p*2)/Math.max(sel.length,1))+55;
+    const ha=a/100*(H-p*2), hb=b/100*(H-p*2);
+    s+=`<rect x="${x}" y="${H-p-ha}" width="${bw}" height="${ha}" rx="4" fill="url(#ba)"/>
+    <rect x="${x+bw+10}" y="${H-p-hb}" width="${bw}" height="${hb}" rx="4" fill="url(#bb)"/>
+    <text x="${x+bw}" y="${H-17}" fill="#dce8f6" text-anchor="middle" font-size="12">${esc(shortName(m)).slice(0,16)}</text>
+    <text x="${x+bw}" y="${H-p-Math.max(ha,hb)-8}" fill="#fff" text-anchor="middle" font-size="12">${Math.max(a,b).toFixed(0)}</text>`;
+  });
+  s+=`<text x="500" y="24" fill="#dce8f6" text-anchor="middle" font-size="13">${esc(unitA)} vs ${esc(unitB)} · score-normalized selected metrics</text>`;
+  document.getElementById("unitMetricChart").innerHTML=s;
+}
+function renderUnitCompareTable(rowA,rowB,unitA,unitB,sel){
+  document.getElementById("unitCompareTable").innerHTML =
+    `<tr><th>Metric</th><th>${esc(unitA)}</th><th>${esc(unitB)}</th><th>Difference</th><th>Winner</th></tr>` +
+    sel.map(m=>{
+      const a=num(rowA[m],m), b=num(rowB[m],m);
+      const diff = a==null||b==null ? null : (b-a);
+      const bWins = lowerBetter(m) ? b<a : b>a;
+      const winner = a===b ? "Tie" : bWins ? unitB : unitA;
+      return `<tr>
+        <td>${esc(shortName(m))}</td>
+        <td>${fmt(a,m)}</td>
+        <td>${fmt(b,m)}</td>
+        <td class="${diff==null?'':(bWins?'good':'bad')}">${diff==null?'—':fmt(diff,m)}</td>
+        <td>${esc(winner)}</td>
+      </tr>`;
+    }).join("");
+}
+function renderUnitAllMetricsTable(rowA,rowB,unitA,unitB){
+  document.getElementById("unitAllMetricsTable").innerHTML =
+    `<tr><th>Metric</th><th>${esc(unitA)}</th><th>${esc(unitB)}</th><th>Winner</th></tr>` +
+    metrics.map(m=>{
+      const a=num(rowA[m],m), b=num(rowB[m],m);
+      if(a==null && b==null) return "";
+      const bWins = lowerBetter(m) ? b<a : b>a;
+      const winner = a===b ? "Tie" : bWins ? unitB : unitA;
+      return `<tr>
+        <td>${esc(m)}</td>
+        <td>${fmt(a,m)}</td>
+        <td>${fmt(b,m)}</td>
+        <td>${esc(winner)}</td>
+      </tr>`;
+    }).join("");
+}
+
+
+function getColumnCaseInsensitive(name){
+  if(!rawRows.length) return null;
+  const cols = Object.keys(rawRows[0]);
+  return cols.find(c=>c.toLowerCase().trim()===name.toLowerCase().trim()) || null;
+}
+function findRevenueMetric(){
+  return findMetric(metricAliases.earnings) ||
+    metrics.find(m=>/estimated earnings|revenue|earnings/i.test(m)) ||
+    null;
+}
+function renderAdSourceRevenue(){
+  const svg = document.getElementById("adSourceRevenueChart");
+  const table = document.getElementById("adSourceRevenueTable");
+  if(!svg) return;
+  const sourceCol = getColumnCaseInsensitive("Ad source");
+  const revMetric = findRevenueMetric();
+  const impMetric = findMetric(metricAliases.impressions) || metrics.find(m=>/impressions?/i.test(m));
+  if(!sourceCol || !revMetric){
+    svg.innerHTML = `<text x="700" y="330" text-anchor="middle" fill="#9eb1c7" font-size="24">Missing ${!sourceCol ? "Ad source" : "revenue"} column</text>`;
+    if(table) table.innerHTML = "";
+    return;
+  }
+
+  const a=document.getElementById("versionA").value;
+  const b=document.getElementById("versionB").value;
+  const f=document.getElementById("formatFilter").value;
+  const u=document.getElementById("unitFilter").value;
+  const rowsA=rawRows.filter(r=>String(r["App version"]).trim()===a && (!f || r.Format===f) && (!u || r["Ad unit"]===u));
+  const rowsB=rawRows.filter(r=>String(r["App version"]).trim()===b && (!f || r.Format===f) && (!u || r["Ad unit"]===u));
+
+  function grouped(rows){
+    const map = new Map();
+    rows.forEach(r=>{
+      const src = String(r[sourceCol] || "Unknown").trim() || "Unknown";
+      const rev = num(r[revMetric], revMetric) || 0;
+      const imp = impMetric ? (num(r[impMetric], impMetric) || 0) : 0;
+      if(!map.has(src)) map.set(src, {s:src, rev:0, imp:0});
+      const item = map.get(src);
+      item.rev += rev;
+      item.imp += imp;
+    });
+    return map;
+  }
+  function polar(cx, cy, r, ang){
+    const rad = (ang-90) * Math.PI / 180;
+    return {x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad)};
+  }
+  function arcPath(cx, cy, rOuter, rInner, startAng, endAng){
+    const p1 = polar(cx, cy, rOuter, endAng);
+    const p2 = polar(cx, cy, rOuter, startAng);
+    const p3 = polar(cx, cy, rInner, startAng);
+    const p4 = polar(cx, cy, rInner, endAng);
+    const large = endAng - startAng > 180 ? 1 : 0;
+    return `M ${p1.x} ${p1.y} A ${rOuter} ${rOuter} 0 ${large} 0 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${rInner} ${rInner} 0 ${large} 1 ${p4.x} ${p4.y} Z`;
+  }
+  function pct(val,total){
+    if(!total || total <= 0) return "0.0%";
+    return (val/total*100).toFixed(1) + "%";
+  }
+  function shortSource(s){
+    const x = String(s || "");
+    return x.length > 24 ? x.slice(0,24) + "…" : x;
+  }
+  function ecpm(rev, imp){
+    if(!imp || imp <= 0) return null;
+    return rev / imp * 1000;
+  }
+
+  const palette = ["#55c3ff","#9b5cff","#36d6c9","#ffc857","#ff7b72","#7ee787","#f0883e","#a5d6ff","#c678dd","#56b6c2"];
+
+  const ga = grouped(rowsA), gb = grouped(rowsB);
+  const allSources = [...new Set([...ga.keys(), ...gb.keys()])]
+    .map(s=>{
+      const A = ga.get(s) || {rev:0, imp:0};
+      const B = gb.get(s) || {rev:0, imp:0};
+      return {s, a:A.rev, aImp:A.imp, b:B.rev, bImp:B.imp, total:A.rev + B.rev};
+    })
+    .sort((x,y)=>y.total-x.total);
+
+  const top = allSources.slice(0,8);
+  if(allSources.length > 8){
+    const rest = allSources.slice(8).reduce((acc,x)=>({
+      s:"Other",
+      a:acc.a+x.a,
+      aImp:acc.aImp+x.aImp,
+      b:acc.b+x.b,
+      bImp:acc.bImp+x.bImp,
+      total:acc.total+x.total
+    }),{s:"Other",a:0,aImp:0,b:0,bImp:0,total:0});
+    if(rest.total > 0) top.push(rest);
+  }
+
+  const totalA = allSources.reduce((s,x)=>s+x.a,0);
+  const totalB = allSources.reduce((s,x)=>s+x.b,0);
+
+  let out = defs();
+  out += `<text x="700" y="34" fill="#eaf4ff" text-anchor="middle" font-size="24" font-weight="900">${esc(shortName(revMetric))} by Ad Source</text>`;
+  out += `<text x="700" y="60" fill="#9eb1c7" text-anchor="middle" font-size="15">${esc(a)} vs ${esc(b)} · scope: ${esc(f || "All formats")} / ${esc(u || "All ad units")}</text>`;
+
+  function drawDonut(cx, cy, total, key, versionLabel, accent){
+    let start = 0;
+    const rOuter = 140, rInner = 78;
+    const labelCandidates = [];
+    top.forEach((item, idx)=>{
+      const val = item[key] || 0;
+      if(total <= 0 || val <= 0) return;
+      const slice = val/total*360;
+      const end = start + slice;
+      out += `<path d="${arcPath(cx,cy,rOuter,rInner,start,end)}" fill="${palette[idx % palette.length]}" stroke="#071a2d" stroke-width="3"/>`;
+      labelCandidates.push({item, idx, val, start, end, slice});
+      start = end;
+    });
+
+    out += `<circle cx="${cx}" cy="${cy}" r="${rInner-3}" fill="#081a2e" stroke="rgba(85,195,255,.18)"/>`;
+    out += `<text x="${cx}" y="${cy-18}" fill="${accent}" text-anchor="middle" font-size="20" font-weight="900">${esc(versionLabel)}</text>`;
+    out += `<text x="${cx}" y="${cy+8}" fill="#ffffff" text-anchor="middle" font-size="28" font-weight="900">${fmt(total, revMetric)}</text>`;
+    out += `<text x="${cx}" y="${cy+30}" fill="#9eb1c7" text-anchor="middle" font-size="13">total revenue</text>`;
+
+    labelCandidates.sort((m,n)=>n.val-m.val);
+    labelCandidates.slice(0,3).forEach((d, i)=>{
+      const mid = (d.start + d.end) / 2;
+      const p1 = polar(cx, cy, rOuter + 2, mid);
+      const p2 = polar(cx, cy, rOuter + 28, mid);
+      const labelRight = p2.x >= cx;
+      const lx = labelRight ? p2.x + 48 : p2.x - 48;
+      const ly = p2.y + (i-1)*4;
+      out += `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="${palette[d.idx % palette.length]}" stroke-width="2"/>`;
+      out += `<line x1="${p2.x}" y1="${p2.y}" x2="${lx}" y2="${ly}" stroke="${palette[d.idx % palette.length]}" stroke-width="2"/>`;
+      out += `<text x="${lx + (labelRight ? 4 : -4)}" y="${ly-2}" fill="#eef6ff" text-anchor="${labelRight ? "start" : "end"}" font-size="12" font-weight="800">${esc(shortSource(d.item.s))}</text>`;
+      out += `<text x="${lx + (labelRight ? 4 : -4)}" y="${ly+12}" fill="${accent}" text-anchor="${labelRight ? "start" : "end"}" font-size="11">${pct(d.val,total)}</text>`;
+    });
+  }
+
+  drawDonut(300, 290, top.reduce((s,x)=>s+x.a,0), "a", a, "#75c8ff");
+  drawDonut(760, 290, top.reduce((s,x)=>s+x.b,0), "b", b, "#d7a3ff");
+
+  out += `<text x="300" y="470" fill="#75c8ff" text-anchor="middle" font-size="16" font-weight="900">${esc(a)} revenue mix</text>`;
+  out += `<text x="760" y="470" fill="#d7a3ff" text-anchor="middle" font-size="16" font-weight="900">${esc(b)} revenue mix</text>`;
+
+  out += `<text x="1080" y="96" fill="#eaf4ff" font-size="18" font-weight="900">Top ad sources</text>`;
+  out += `<text x="1108" y="118" fill="#9eb1c7" font-size="12">Network name + revenue share</text>`;
+  top.forEach((item, idx)=>{
+    const y = 148 + idx*56;
+    out += `<rect x="1080" y="${y-14}" width="18" height="18" rx="4" fill="${palette[idx % palette.length]}"/>`;
+    out += `<text x="1108" y="${y}" fill="#eef6ff" font-size="15" font-weight="800">${esc(shortSource(item.s))}</text>`;
+    out += `<text x="1108" y="${y+18}" fill="#75c8ff" font-size="13">${esc(a)}: ${fmt(item.a, revMetric)} · ${pct(item.a,totalA)}</text>`;
+    out += `<text x="1108" y="${y+34}" fill="#d7a3ff" font-size="13">${esc(b)}: ${fmt(item.b, revMetric)} · ${pct(item.b,totalB)}</text>`;
+  });
+
+  if(!top.length){
+    out += `<text x="700" y="330" text-anchor="middle" fill="#9eb1c7" font-size="22">No revenue by ad source data for current scope</text>`;
+  }
+
+  svg.innerHTML = out;
+
+  if(table){
+    table.innerHTML =
+      `<tr>
+        <th>Network</th>
+        <th>${esc(a)} Revenue</th>
+        <th>${esc(a)} Rev %</th>
+        <th>${esc(a)} Impr</th>
+        <th>${esc(a)} eCPM</th>
+        <th>${esc(b)} Revenue</th>
+        <th>${esc(b)} Rev %</th>
+        <th>${esc(b)} Impr</th>
+        <th>${esc(b)} eCPM</th>
+      </tr>` +
+      allSources.map(item=>`<tr>
+        <td>${esc(item.s)}</td>
+        <td>${fmt(item.a, revMetric)}</td>
+        <td>${pct(item.a, totalA)}</td>
+        <td>${impMetric ? fmt(item.aImp, impMetric) : "—"}</td>
+        <td>${fmt(ecpm(item.a, item.aImp), "Observed eCPM (USD)")}</td>
+        <td>${fmt(item.b, revMetric)}</td>
+        <td>${pct(item.b, totalB)}</td>
+        <td>${impMetric ? fmt(item.bImp, impMetric) : "—"}</td>
+        <td>${fmt(ecpm(item.b, item.bImp), "Observed eCPM (USD)")}</td>
+      </tr>`).join("");
+  }
+}
+function renderWinnerByMetric(){
+  const table = document.getElementById("winnerByMetricTable");
+  const summary = document.getElementById("winnerSummaryPanel");
+  const legend = document.getElementById("winnerLegend");
+  const snapshot = document.getElementById("decisionSnapshotPanel");
+  if(!table || !summary) return;
+
+  const a=document.getElementById("versionA").value;
+  const b=document.getElementById("versionB").value;
+  const rowsA=getRows(a), rowsB=getRows(b);
+  const usable = metrics.filter(m=>sumMetric(rowsA,m)!=null || sumMetric(rowsB,m)!=null);
+  const selected = selectedMetrics();
+
+  let aWins=0,bWins=0,ties=0;
+  const rowsData = usable.map(m=>{
+    const va=sumMetric(rowsA,m), vb=sumMetric(rowsB,m);
+    let winner="Tie", cls="muted", d=delta(va,vb,m), bBetter=null;
+    if(va!=null && vb!=null && va!==vb){
+      bBetter = lowerBetter(m) ? vb < va : vb > va;
+      winner = bBetter ? b : a;
+      cls = bBetter ? "good" : "bad";
+      if(bBetter) bWins++; else aWins++;
+    } else {
+      ties++;
+    }
+    return {m, va, vb, d, winner, cls, selected:selected.includes(m), bBetter};
+  });
+
+  const selectedRows = rowsData.filter(x=>x.selected);
+  const selAWins = selectedRows.filter(x=>x.winner===a).length;
+  const selBWins = selectedRows.filter(x=>x.winner===b).length;
+  const selectedWinner = selBWins > selAWins ? b : selAWins > selBWins ? a : "Tie";
+
+  table.innerHTML =
+    `<tr><th>Metric</th><th>${esc(a)}</th><th>${esc(b)}</th><th>Delta</th><th>Winner</th></tr>` +
+    rowsData.map(x=>`<tr>
+      <td>${esc(shortName(x.m))}${x.selected ? '<span class="selectedFlag">selected</span>' : ''}${lowerBetter(x.m) ? ' <span class="muted">↓</span>' : ''}</td>
+      <td>${fmt(x.va,x.m)}</td>
+      <td>${fmt(x.vb,x.m)}</td>
+      <td class="${dcls(x.d||0,x.m)}">${dtext(x.d)}</td>
+      <td class="${x.cls}">${esc(x.winner)}</td>
+    </tr>`).join("");
+
+  const scoreA = aggregateScore(a,selected);
+  const scoreB = aggregateScore(b,selected);
+  const scoreWinner = scoreB > scoreA ? b : scoreA > scoreB ? a : "Tie";
+
+  summary.innerHTML = `
+    <div class="metricMiniCard">
+      <div class="label">Overall metric wins</div>
+      <div class="value ${bWins>=aWins ? 'good' : 'bad'}">${bWins > aWins ? esc(b) : esc(a)}</div>
+      <div class="subv">${esc(a)} wins ${aWins} · ${esc(b)} wins ${bWins} · ties ${ties}</div>
+    </div>
+    <div class="metricMiniCard">
+      <div class="label">Selected metric winner</div>
+      <div class="value ${selectedWinner===b?'good':selectedWinner===a?'bad':'warn'}">${esc(selectedWinner)}</div>
+      <div class="subv">${esc(a)} ${selAWins} wins · ${esc(b)} ${selBWins} wins</div>
+    </div>
+    <div class="metricMiniCard">
+      <div class="label">Selected score leader</div>
+      <div class="value ${scoreWinner===b?'good':scoreWinner===a?'bad':'warn'}">${esc(scoreWinner)}</div>
+      <div class="subv">${esc(a)} ${scoreA.toFixed(1)} → ${esc(b)} ${scoreB.toFixed(1)}</div>
+    </div>
+    <div class="metricMiniCard">
+      <div class="label">Current scope</div>
+      <div class="value">${esc(document.getElementById('formatFilter').value || 'All')}</div>
+      <div class="subv">Ad unit: ${esc(document.getElementById('unitFilter').value || 'All')}</div>
+    </div>
+  `;
+
+  if(legend){
+    legend.innerHTML = selectedRows.map(x=>`<span class="metricChip">${esc(shortName(x.m))}: ${esc(x.winner)}</span>`).join("");
+  }
+
+  if(snapshot){
+    const bestImp = unitPairs().slice().sort((x,y)=>pairDeltaScore(y,selected)-pairDeltaScore(x,selected))[0];
+    const worst = unitPairs().slice().sort((x,y)=>pairDeltaScore(x,selected)-pairDeltaScore(y,selected))[0];
+    snapshot.innerHTML = `
+      <div class="snapshotGrid">
+        <div class="snapshotCard">
+          <div class="label">Selected metric decision</div>
+          <div class="big ${scoreWinner===b?'good':scoreWinner===a?'bad':'warn'}">${esc(scoreWinner)} leads</div>
+          <div class="sub">Score: ${esc(a)} ${scoreA.toFixed(1)} → ${esc(b)} ${scoreB.toFixed(1)}</div>
+        </div>
+        <div class="snapshotCard">
+          <div class="label">Metric wins</div>
+          <div class="sub">${esc(a)} wins <b>${aWins}</b> · ${esc(b)} wins <b>${bWins}</b> · ties <b>${ties}</b></div>
+          <div class="sub">Selected metrics: ${selected.map(shortName).join(", ") || "—"}</div>
+        </div>
+        <div class="snapshotCard">
+          <div class="label">Ad-unit movement</div>
+          <div class="sub">Best improvement: <b>${bestImp ? esc(bestImp.b["Ad unit"]) : "—"}</b>${bestImp ? ` (${pairDeltaScore(bestImp,selected).toFixed(1)}%)` : ""}</div>
+          <div class="sub">Worst decline: <b>${worst ? esc(worst.b["Ad unit"]) : "—"}</b>${worst ? ` (${pairDeltaScore(worst,selected).toFixed(1)}%)` : ""}</div>
+        </div>
+      </div>
+    `;
+  }
+}
+function renderAll(){renderKpis();renderScore();renderTopLists();renderFormatChart();renderAuctionChart();renderScatter();renderHeatmap();renderAdSourceRevenue();renderWinnerByMetric();renderUnitCompare()}
+
+function setUploadStatus(msg, good=false){
+  const el = document.getElementById("uploadStatus");
+  if(!el) return;
+  el.style.display = "block";
+  el.className = "uploadStatus" + (good ? " good" : "");
+  el.innerHTML = msg;
+}
+function safeRenderAll(){
+  try{
+    renderAll();
+    renderSettingsSummary();
+  }catch(err){
+    console.error(err);
+    setUploadStatus("Dashboard render error: " + esc(err.message || err), false);
+  }
+}
+function normalizeUploadedRows(rows){
+  if(!rows.length) return rows;
+  const cols = Object.keys(rows[0]);
+  const versionCol = cols.find(c=>c.toLowerCase().trim()==="app version") || cols.find(c=>/version/i.test(c));
+  const unitCol = cols.find(c=>c.toLowerCase().trim()==="ad unit") || cols.find(c=>/ad unit|placement|unit/i.test(c));
+  const formatCol = cols.find(c=>c.toLowerCase().trim()==="format") || cols.find(c=>/format/i.test(c));
+  const appCol = cols.find(c=>c.toLowerCase().trim()==="app") || cols.find(c=>/^app/i.test(c));
+
+  return rows.map(r=>{
+    const o = {...r};
+    if(versionCol && !o["App version"]) o["App version"] = o[versionCol];
+    if(unitCol && !o["Ad unit"]) o["Ad unit"] = o[unitCol];
+    if(formatCol && !o["Format"]) o["Format"] = o[formatCol];
+    if(appCol && !o["App"]) o["App"] = o[appCol];
+    return o;
+  });
+}
+
+async function handleFile(file){
+  try{
+    setUploadStatus("Reading file: " + esc(file.name) + " …", true);
+
+    const text = decode(await file.arrayBuffer());
+    const parsed = parseDelimited(text, detectDelimiter(text));
+    const rows = normalizeUploadedRows(parsed);
+
+    if(!rows.length){
+      setUploadStatus("CSV parsed, but no rows were found.", false);
+      return;
+    }
+
+    rawRows = rows.filter(r => String(r["App version"] || "").trim() && String(r["Ad unit"] || "").trim());
+
+    if(!rawRows.length){
+      const cols = Object.keys(rows[0] || {}).join(", ");
+      setUploadStatus("No usable rows found. Required columns: <b>App version</b> and <b>Ad unit</b>.<br>Detected columns: " + esc(cols), false);
+      return;
+    }
+
+    rawRows.forEach(r=>{
+      if(!r.Format || !String(r.Format).trim()) r.Format="Unknown";
+    });
+
+    dashboardRows = aggregateAdUnitRows(rawRows);
+
+    if(!dashboardRows.length){
+      setUploadStatus("Rows loaded, but ad-unit aggregation returned empty. Check App version / Format / Ad unit columns.", false);
+      return;
+    }
+
+    const cols = Object.keys(rawRows[0] || {});
+    metrics = cols.filter(c =>
+      !["App","App version","Format","Ad unit","Ad source","Date","Country"].includes(c) &&
+      rawRows.some(r => num(r[c], c) != null)
+    );
+
+    if(!metrics.length){
+      setUploadStatus("Rows loaded, but no numeric metrics were detected. Check that metric columns contain numbers or percentages.", false);
+      return;
+    }
+
+    versions = [...new Set(dashboardRows.map(r=>String(r["App version"]).trim()).filter(Boolean))].sort(versionSort);
+    formats = [...new Set(dashboardRows.map(r=>String(r.Format||"Unknown").trim()).filter(Boolean))].sort();
+    units = [...new Set(dashboardRows.map(r=>String(r["Ad unit"]).trim()).filter(Boolean))].sort();
+
+    fillSelect("versionA", versions);
+    fillSelect("versionB", versions);
+    if(versions.length > 1){
+      versionA.value = versions[versions.length-2];
+      versionB.value = versions[versions.length-1];
+    }else if(versions.length === 1){
+      versionA.value = versions[0];
+      versionB.value = versions[0];
+    }
+
+    fillSelect("formatFilter", ["", ...formats], ["All", ...formats]);
+    populateUnitFilter();
+    populateDecisionMetricSelectors();
+    populateUnitCompareControls();
+
+    document.getElementById("emptyState").style.display="none";
+    document.getElementById("settingsPanel").style.display="block";
+    document.getElementById("dashboard").style.display="block";
+    document.getElementById("unitCompareEmpty").style.display="none";
+    document.getElementById("unitCompareBody").style.display="block";
+
+    setUploadStatus(
+      "Loaded successfully: <b>" + rawRows.length + "</b> source rows, <b>" + dashboardRows.length + "</b> ad-unit rows, <b>" + metrics.length + "</b> metrics, <b>" + versions.length + "</b> versions.",
+      true
+    );
+
+    safeRenderAll();
+  }catch(err){
+    console.error(err);
+    setUploadStatus("Upload failed: " + esc(err.message || err), false);
+  }
+}
+function fillSelect(id,vals,labels){const el=document.getElementById(id);el.innerHTML=""; vals.forEach((v,i)=>el.add(new Option(labels?labels[i]:v,v)))}
+function populateUnitFilter(){
+  const formatValue = document.getElementById("formatFilter").value;
+  const prev = document.getElementById("unitFilter").value;
+  const availableUnits = [...new Set(dashboardRows
+    .filter(r => !formatValue || r.Format === formatValue)
+    .map(r => String(r["Ad unit"]).trim())
+    .filter(Boolean)
+  )].sort();
+  const el = document.getElementById("unitFilter");
+  el.innerHTML = "";
+  el.add(new Option("All", ""));
+  availableUnits.forEach(u => el.add(new Option(u, u)));
+  if(availableUnits.includes(prev)) el.value = prev;
+}
+function populateDecisionMetricSelectors(){
+  const defaults = [
+    findMetric(metricAliases.arpu),
+    findMetric(metricAliases.arpv),
+    findMetric(metricAliases.impsAu),
+    findMetric(metricAliases.impsAv),
+    findMetric(metricAliases.ecpm)
+  ].filter(Boolean);
+  ["decisionMetric1","decisionMetric2","decisionMetric3","decisionMetric4","decisionMetric5"].forEach((id, idx)=>{
+    const el = document.getElementById(id);
+    const old = el.value;
+    el.innerHTML = "";
+    metrics.forEach(m => el.add(new Option(shortName(m), m)));
+    el.value = old && metrics.includes(old) ? old : (defaults[idx] || metrics[idx] || "");
+  });
+}
+function renderSettingsSummary(){
+  const rows = rawRows.length;
+  const adUnitRows = dashboardRows.length;
+  const a = document.getElementById("versionA").value || "—";
+  const b = document.getElementById("versionB").value || "—";
+  const f = document.getElementById("formatFilter").value || "All";
+  const u = document.getElementById("unitFilter").value || "All";
+  const selected = selectedMetrics();
+  const settings = document.getElementById("settingsSummary");
+  const metricBox = document.getElementById("metricSummary");
+  if(settings){
+    settings.innerHTML = `
+      <div class="summaryRow"><span class="muted">Source rows loaded</span><b>${rows}</b></div>
+      <div class="summaryRow"><span class="muted">Ad-unit rows</span><b>${adUnitRows}</b></div>
+      <div class="summaryRow"><span class="muted">Version A</span><b>${esc(a)}</b></div>
+      <div class="summaryRow"><span class="muted">Version B</span><b>${esc(b)}</b></div>
+      <div class="summaryRow"><span class="muted">Format</span><b>${esc(f)}</b></div>
+      <div class="summaryRow"><span class="muted">Ad Unit</span><b>${esc(u)}</b></div>
+    `;
+  }
+  if(metricBox){
+    metricBox.innerHTML = selected.map(m=>`<span class="metricChip">${esc(shortName(m))}</span>`).join("");
+  }
+}
+function switchPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".pageTab").forEach(t=>t.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  const tab = [...document.querySelectorAll(".pageTab")].find(t=>t.dataset.page===id);
+  if(tab) tab.classList.add("active");
+  if(id==="dashboardPage") safeRenderAll();
+}
+["versionA","versionB","unitFilter","decisionMetric1","decisionMetric2","decisionMetric3","decisionMetric4","decisionMetric5"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{renderSettingsSummary(); populateUnitCompareControls(); safeRenderAll();}));
+["compareUnitVersion","compareUnitA","compareUnitB"].forEach(id=>document.getElementById(id).addEventListener("change",()=>{if(id==="compareUnitVersion") populateUnitCompareControls(); renderUnitCompare();}));
+document.getElementById("formatFilter").addEventListener("change",()=>{populateUnitFilter(); renderSettingsSummary(); safeRenderAll();});
+document.querySelectorAll(".pageTab").forEach(btn=>btn.addEventListener("click",()=>{switchPage(btn.dataset.page); safeRenderAll();}));
+document.getElementById("fileInput").addEventListener("change",e=>{if(e.target.files[0])handleFile(e.target.files[0])});
+</script>
+</body>
+</html>
